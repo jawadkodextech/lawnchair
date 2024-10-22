@@ -1,0 +1,149 @@
+{
+    "root_links": [
+        {
+            "name": "Safe Search",
+            "url": "http://browsesafe.kidsmode.co/search/?i=<uid>&q=<query>",
+            "icon": "R.drawable.safe_icon"
+        }
+    ],
+    "folders": [
+        {
+            "name": "Safe Shopping",
+            "icon": "http://logo.clearbit.com/amazon.com",
+            "links": [
+                {
+                    "name": "Amazon",
+                    "url": "https://www.amazon.com/?tag=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/amazon.com"
+                },
+                {
+                    "name": "eBay",
+                    "url": "https://www.ebay.com/?campid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/ebay.com"
+                },
+                {
+                    "name": "Walmart",
+                    "url": "https://www.walmart.com/?affp1=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/walmart.com"
+                },
+                {
+                    "name": "Target",
+                    "url": "https://www.target.com/?clkid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/target.com"
+                },
+                {
+                    "name": "Best Buy",
+                    "url": "https://www.bestbuy.com/?ref=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/bestbuy.com"
+                },
+                {
+                    "name": "Home Depot",
+                    "url": "https://www.homedepot.com/?cm_mmc=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/homedepot.com"
+                },
+                {
+                    "name": "Macy's",
+                    "url": "https://www.macys.com/?PartnerID=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/macys.com"
+                },
+                {
+                    "name": "Kohl's",
+                    "url": "https://www.kohls.com/?clickid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/kohls.com"
+                }
+            ]
+        },
+        {
+            "name": "Safe Traveling",
+            "icon": "http://logo.clearbit.com/booking.com",
+            "links": [
+                {
+                    "name": "Booking.com",
+                    "url": "https://www.booking.com/?aid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/booking.com"
+                },
+                {
+                    "name": "Expedia",
+                    "url": "https://www.expedia.com/?affcid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/expedia.com"
+                },
+                {
+                    "name": "Airbnb",
+                    "url": "https://www.airbnb.com/?af=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/airbnb.com"
+                },
+                {
+                    "name": "TripAdvisor",
+                    "url": "https://www.tripadvisor.com/?pid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/tripadvisor.com"
+                },
+                {
+                    "name": "Kayak",
+                    "url": "https://www.kayak.com/?psrc=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/kayak.com"
+                },
+                {
+                    "name": "Hotels.com",
+                    "url": "https://www.hotels.com/?rffrid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/hotels.com"
+                },
+                {
+                    "name": "Priceline",
+                    "url": "https://www.priceline.com/?refid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/priceline.com"
+                },
+                {
+                    "name": "Skyscanner",
+                    "url": "https://www.skyscanner.com/?associateid=youraffiliateid",
+                    "icon": "http://logo.clearbit.com/skyscanner.com"
+                }
+            ]
+        },
+        {
+            "name": "Safe Life",
+            "icon": "http://logo.clearbit.com/webmd.com",
+            "links": [
+                {
+                    "name": "WebMD",
+                    "url": "https://www.webmd.com",
+                    "icon": "http://logo.clearbit.com/webmd.com"
+                },
+                {
+                    "name": "Healthline",
+                    "url": "https://www.healthline.com",
+                    "icon": "http://logo.clearbit.com/healthline.com"
+                },
+                {
+                    "name": "MyFitnessPal",
+                    "url": "https://www.myfitnesspal.com",
+                    "icon": "http://logo.clearbit.com/myfitnesspal.com"
+                },
+                {
+                    "name": "Headspace",
+                    "url": "https://www.headspace.com",
+                    "icon": "http://logo.clearbit.com/headspace.com"
+                },
+                {
+                    "name": "Fitbit",
+                    "url": "https://www.fitbit.com",
+                    "icon": "http://logo.clearbit.com/fitbit.com"
+                },
+                {
+                    "name": "Calm",
+                    "url": "https://www.calm.com",
+                    "icon": "http://logo.clearbit.com/calm.com"
+                },
+                {
+                    "name": "Duolingo",
+                    "url": "https://www.duolingo.com",
+                    "icon": "http://logo.clearbit.com/duolingo.com"
+                },
+                {
+                    "name": "Coursera",
+                    "url": "https://www.coursera.org",
+                    "icon": "http://logo.clearbit.com/coursera.org"
+                }
+            ]
+        }
+    ]
+}

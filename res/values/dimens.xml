@@ -15,6 +15,14 @@
 -->
 
 <resources>
+    <dimen name="material_grid_margin">16dp</dimen>
+    <dimen name="material_grid_small_icon">24dp</dimen>
+
+    <dimen name="material_grid_touch_small">36dp</dimen>
+    <dimen name="material_grid_touch_medium">48dp</dimen>
+    <dimen name="material_grid_touch_large">56dp</dimen>
+    <dimen name="material_grid_touch_xlarge">72dp</dimen>
+
 
     <dimen name="click_shadow_elevation">4dp</dimen>
 
@@ -276,6 +284,7 @@
     <!-- Deep shortcuts -->
     <dimen name="deep_shortcuts_elevation">2dp</dimen>
     <dimen name="bg_popup_padding">2dp</dimen>
+    <dimen name="size_txt">13sp</dimen>
     <dimen name="bg_popup_item_width">216dp</dimen>
     <dimen name="bg_popup_item_height">52dp</dimen>
     <dimen name="bg_popup_item_vertical_padding">12dp</dimen>
@@ -363,6 +372,7 @@
     <dimen name="taskbar_size">0dp</dimen>
     <dimen name="taskbar_stashed_size">0dp</dimen>
     <dimen name="qsb_widget_height">0dp</dimen>
+    <dimen name="qsb_widget_height_new">0dp</dimen>
     <dimen name="qsb_shadow_height">0dp</dimen>
     <dimen name="min_hotseat_icon_space">18dp</dimen>
     <dimen name="max_hotseat_icon_space">50dp</dimen>

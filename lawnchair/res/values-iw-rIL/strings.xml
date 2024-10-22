@@ -88,7 +88,7 @@
     <string name="dock_description">Search bar, icon count</string>
     <string name="app_drawer_label">App drawer</string>
     <string name="app_drawer_description">Hidden apps, column count, icons</string>
-    <string name="drawer_search_label">Drawer search</string>
+    <string name="drawer_search_label">Safe Search</string>
     <string name="drawer_search_description">Web suggestions, global search</string>
     <string name="folders_label">תיקיות</string>
     <string name="folders_description">Row and column count</string>

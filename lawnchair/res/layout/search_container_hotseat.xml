@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <app.lawnchair.qsb.LawnQsbLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/qsb_widget_height"
+    android:layout_height="@dimen/qsb_widget_height_new"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:layout_gravity="center|top"
     android:contentDescription="@string/label_search"
     android:paddingVertical="@dimen/qsb_widget_vertical_padding">
-
+    <!--@ddpimen/qsb_widget_height-->
     <FrameLayout
         android:id="@+id/inner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom"
         android:foreground="?android:attr/selectableItemBackground">
 
         <LinearLayout
@@ -62,4 +64,13 @@
 
     </FrameLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShortcuts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_shortcut_folder" />
+    <!--    android:layout_height="@dimen/qsb_widget_height"-->
 </app.lawnchair.qsb.LawnQsbLayout>

@@ -447,4 +447,14 @@
     <string name="search_pref_screen_title_tablet">Search your tablet</string>
     <!-- Failed action error message: e.g. Failed: Pause -->
     <string name="remote_action_failed">Failed: <xliff:g id="what" example="Pause">%1$s</xliff:g></string>
+
+
+    <string name="search_with_yahoo">Search with Yahoo</string>
+    <string name="suggestion">Search for</string>
+    <string name="search_insert_suggestion">Insert suggestion</string>
+    <string name="search_hint">Search or type URL</string>
+    <string name="web_search_yahoo" translatable="false">Yahoo (web)</string>
+    <string name="choose_browse_safe">Choose <b>\'Start Safe\'</b> as your default launcher </string>
+<!--    to browse safely and securely on Android.-->
+
 </resources>

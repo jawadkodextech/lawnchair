@@ -12,8 +12,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.android.launcher3.LauncherRootView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.launcher3.LauncherRootView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:id="@+id/launcher"
     android:layout_width="match_parent"
@@ -31,8 +30,7 @@
         <com.android.launcher3.views.AccessibilityActionsView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/home_screen"
-            />
+            android:contentDescription="@string/home_screen" />
 
         <!-- The workspace contains 5 screens of cells -->
         <!-- DO NOT CHANGE THE ID -->
@@ -43,6 +41,7 @@
             android:layout_gravity="center"
             android:theme="@style/HomeScreenElementTheme"
             launcher:pageIndicator="@+id/page_indicator" />
+
 
         <!-- DO NOT CHANGE THE ID -->
         <include
@@ -63,9 +62,9 @@
             layout="@layout/drop_target_bar" />
 
         <app.lawnchair.views.LawnchairScrimView
+            android:id="@+id/scrim_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrim_view"
             android:background="@android:color/transparent" />
 
         <include

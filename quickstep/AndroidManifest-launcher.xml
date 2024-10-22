@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
 **
 ** Copyright 2019, The Android Open Source Project
@@ -19,13 +18,14 @@
 ** Modifications copyright 2021, Lawnchair
 */
 -->
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk android:targetSdkVersion="33" android:minSdkVersion="26"
-        tools:overrideLibrary="com.kieronquinn.app.smartspacer.sdk.client"/>
-    
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="33"
+        tools:overrideLibrary="com.kieronquinn.app.smartspacer.sdk.client" />
+
     <!--
     Manifest entries specific to Launcher3. This is merged with AndroidManifest-common.xml.
     Refer comments around specific entries on how to extend individual components.
@@ -34,15 +34,30 @@
     <application
         android:name="app.lawnchair.LawnchairApp"
         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
-        android:fullBackupOnly="true"
         android:fullBackupContent="@xml/backupscheme"
+        android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher_home"
         android:label="@string/derived_app_name"
-        android:theme="@style/AppTheme"
         android:largeHeap="@bool/config_largeHeap"
         android:restoreAnyVersion="true"
-        android:supportsRtl="true" >
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="app.lawnchair.FakeHomeActivity"
+            android:enabled="false"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!--
         Main launcher activity. When extending only change the name, and keep all the
@@ -50,23 +65,24 @@
         -->
         <activity
             android:name="app.lawnchair.LawnchairLauncher"
-            android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
-            android:stateNotNeeded="true"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="unspecified"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:enabled="true"
+            android:exported="true"
+            android:launchMode="singleTask"
             android:resizeableActivity="true"
             android:resumeWhilePausing="true"
+            android:screenOrientation="unspecified"
+            android:stateNotNeeded="true"
             android:taskAffinity=""
-            android:exported="true"
-            android:enabled="true">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SHOW_WORK_APPS" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.MONKEY"/>
+                <category android:name="android.intent.category.MONKEY" />
                 <category android:name="android.intent.category.LAUNCHER_APP" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -74,6 +90,29 @@
                 android:name="com.android.launcher3.grid.control"
                 android:value="${packageName}.grid_control" />
         </activity>
+
+        <activity
+            android:name="app.lawnchair.search.FullScreenActivity"
+            android:configChanges="keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:enabled="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:resumeWhilePausing="true"
+            android:screenOrientation="unspecified"
+            android:stateNotNeeded="true"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="app.lawnchair.search.FullScreenIconShortcutActivity"
+            android:configChanges="keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:enabled="true"
+            android:resizeableActivity="true"
+            android:resumeWhilePausing="true"
+            android:screenOrientation="unspecified"
+            android:stateNotNeeded="true"
+            android:taskAffinity=""
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 </manifest>

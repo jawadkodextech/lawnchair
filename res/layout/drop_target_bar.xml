@@ -17,8 +17,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dynamic_grid_drop_target_size"
     android:layout_gravity="center_horizontal|top"
-    android:focusable="false"
     android:alpha="0"
+    android:focusable="false"
     android:theme="@style/HomeScreenElementTheme"
     android:visibility="invisible">
 

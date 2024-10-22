@@ -16,16 +16,27 @@
 
 package app.lawnchair
 
+import android.app.Activity
 import android.app.ActivityOptions
+import android.app.role.RoleManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.Display
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Button
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import app.lawnchair.LawnchairApp.Companion.showQuickstepWarningIfNecessary
 import app.lawnchair.compat.LawnchairQuickstepCompat
@@ -78,10 +89,17 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class LawnchairLauncher : QuickstepLauncher() {
+    private lateinit var notificationPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val defaultOverlay by unsafeLazy { OverlayCallbackImpl(this) }
     private val prefs by unsafeLazy { PreferenceManager.getInstance(this) }
     private val preferenceManager2 by unsafeLazy { PreferenceManager2.getInstance(this) }
-    private val insetsController by unsafeLazy { WindowInsetsControllerCompat(launcher.window, rootView) }
+    private val insetsController by unsafeLazy {
+        WindowInsetsControllerCompat(
+            launcher.window,
+            rootView,
+        )
+    }
     private val themeProvider by unsafeLazy { ThemeProvider.INSTANCE.get(this) }
     private val noStatusBarStateListener = object : StateManager.StateListener<LauncherState> {
         override fun onStateTransitionStart(toState: LauncherState) {
@@ -89,6 +107,7 @@ class LawnchairLauncher : QuickstepLauncher() {
                 insetsController.show(WindowInsetsCompat.Type.statusBars())
             }
         }
+
         override fun onStateTransitionComplete(finalState: LauncherState) {
             if (finalState !is OverviewState) {
                 insetsController.hide(WindowInsetsCompat.Type.statusBars())
@@ -101,6 +120,7 @@ class LawnchairLauncher : QuickstepLauncher() {
                 mAppsView.activeRecyclerView.restoreScrollPosition()
             }
         }
+
         override fun onStateTransitionComplete(finalState: LauncherState) {}
     }
     private lateinit var colorScheme: ColorScheme
@@ -165,7 +185,10 @@ class LawnchairLauncher : QuickstepLauncher() {
         }
         val isWorkspaceDarkText = Themes.getAttrBoolean(this, R.attr.isWorkspaceDarkText)
         preferenceManager2.darkStatusBar.onEach(launchIn = lifecycleScope) { darkStatusBar ->
-            systemUiController.updateUiState(UI_STATE_BASE_WINDOW, isWorkspaceDarkText || darkStatusBar)
+            systemUiController.updateUiState(
+                UI_STATE_BASE_WINDOW,
+                isWorkspaceDarkText || darkStatusBar,
+            )
         }
         preferenceManager2.backPressGestureHandler.onEach(launchIn = lifecycleScope) { handler ->
             hasBackGesture = handler !is GestureHandlerConfig.NoOp
@@ -184,6 +207,54 @@ class LawnchairLauncher : QuickstepLauncher() {
         showQuickstepWarningIfNecessary()
 
         reloadIconsIfNeeded()
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { isGranted ->
+            if (isGranted.resultCode == RESULT_OK) {
+
+            } else {
+                if (checkNotificationPermission(this)) {
+                    showNotification(this)
+                }
+//                showAlert("Set as Default to continue")
+            }
+        }
+        notificationPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            if (isGranted) {
+                createChannel(this)
+                // Permission granted, show the notification
+//                showNotification(this)
+            } else {
+                // Permission denied
+//                Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+        if (checkNotificationPermission(this)) {
+            createChannel(this)
+        }
+        if (!checkNotificationPermission(this)) {
+            requestNotificationPermission(notificationPermissionLauncher)
+        }
+
+        counterToDisplayNo = prefs.counterToDisplayNo.get()
+        if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (checkNotificationPermission(this)) {
+                showNotification(this)
+            }
+        } else {
+            if (checkNotificationPermission(this)) {
+                showNotification(this)
+            }
+            if (dialog != null && dialog?.isShowing == true) {
+
+            } else {
+//                showAlert("")
+                showSetDefaultLauncher()
+            }
+        }
+
     }
 
     override fun collectStateHandlers(out: MutableList<StateManager.StateHandler<*>>) {
@@ -192,7 +263,10 @@ class LawnchairLauncher : QuickstepLauncher() {
     }
 
     override fun getSupportedShortcuts(): Stream<SystemShortcut.Factory<*>> =
-        Stream.concat(super.getSupportedShortcuts(), Stream.of(LawnchairShortcut.UNINSTALL, LawnchairShortcut.CUSTOMIZE))
+        Stream.concat(
+            super.getSupportedShortcuts(),
+            Stream.of(LawnchairShortcut.UNINSTALL, LawnchairShortcut.CUSTOMIZE),
+        )
 
     override fun updateTheme() {
         if (themeProvider.colorScheme != colorScheme) {
@@ -238,7 +312,8 @@ class LawnchairLauncher : QuickstepLauncher() {
     }
 
     override fun createAppWidgetHolder(): LauncherWidgetHolder {
-        val factory = LauncherWidgetHolder.HolderFactory.newFactory(this) as LawnchairWidgetHolder.LawnchairHolderFactory
+        val factory =
+            LauncherWidgetHolder.HolderFactory.newFactory(this) as LawnchairWidgetHolder.LawnchairHolderFactory
         return factory.newInstance(
             this,
         ) { appWidgetId: Int ->
@@ -315,21 +390,23 @@ class LawnchairLauncher : QuickstepLauncher() {
         super.onResume()
         restartIfPending()
 
-        dragLayer.viewTreeObserver.addOnDrawListener(object : ViewTreeObserver.OnDrawListener {
-            private var handled = false
+        dragLayer.viewTreeObserver.addOnDrawListener(
+            object : ViewTreeObserver.OnDrawListener {
+                private var handled = false
 
-            override fun onDraw() {
-                if (handled) {
-                    return
-                }
-                handled = true
+                override fun onDraw() {
+                    if (handled) {
+                        return
+                    }
+                    handled = true
 
-                dragLayer.post {
-                    dragLayer.viewTreeObserver.removeOnDrawListener(this)
+                    dragLayer.post {
+                        dragLayer.viewTreeObserver.removeOnDrawListener(this)
+                    }
+                    depthController
                 }
-                depthController
-            }
-        })
+            },
+        )
     }
 
     override fun onDestroy() {
@@ -362,10 +439,74 @@ class LawnchairLauncher : QuickstepLauncher() {
     private fun reloadIconsIfNeeded() {
         if (
             preferenceManager2.alwaysReloadIcons.firstBlocking() &&
-            (prefs.iconPackPackage.get().isNotEmpty() || prefs.themedIconPackPackage.get().isNotEmpty())
+            (prefs.iconPackPackage.get().isNotEmpty() || prefs.themedIconPackPackage.get()
+                .isNotEmpty())
         ) {
             LauncherAppState.getInstance(this).reloadIcons()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        counterToDisplayNo = prefs.counterToDisplayNo.get()
+//        if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+//
+//        } else {
+//            if (dialog != null && dialog?.isShowing == true) {
+//
+//            } else {
+//                showAlert("")
+//            }
+//        }
+
+    }
+
+    private fun showSetDefaultLauncher() {
+        if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            resetLauncherViaFakeActivity()
+        } else {
+            showLauncherSelector(resultLauncher)
+        }
+    }
+
+    val builder: android.app.AlertDialog.Builder
+        get() {
+            return android.app.AlertDialog.Builder(this)
+        }
+    var dialog: android.app.AlertDialog? = null
+    private var counterToDisplayNo: Int = 0
+    private fun showAlert(s: String = "") {
+        counterToDisplayNo += 1
+        prefs.counterToDisplayNo.set(counterToDisplayNo)// = BasePreferenceManager.IntPref()//counterToDisplayNo
+        val localBuilder = builder
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.setup_default_new, null)
+        val btnYes = dialogView.findViewById<Button>(R.id.btnDone)
+        val btnNo = dialogView.findViewById<Button>(R.id.btnNo)
+        if (counterToDisplayNo > 3) {
+            btnNo.isVisible = true
+        }
+        if (s.isNotEmpty()) {
+            btnYes.setText(s)
+        }
+        localBuilder.setView(dialogView)
+        dialog = localBuilder
+            .setCancelable(false)
+            .create()
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.rounded_dialog_background_trans)
+        btnYes.setOnClickListener {
+            dialog?.dismiss()
+            showSetDefaultLauncher()
+        }
+        btnNo.setOnClickListener {
+            if (checkNotificationPermission(this)) {
+                showNotification(this)
+            }
+//            runWorker()
+            dialog?.dismiss()
+        }
+        dialog?.show()
+
+
     }
 
     companion object {
@@ -381,8 +522,70 @@ class LawnchairLauncher : QuickstepLauncher() {
 val Context.launcher: LawnchairLauncher
     get() = BaseActivity.fromContext(this)
 
-val Context.launcherNullable: LawnchairLauncher? get() = try {
-    launcher
-} catch (_: IllegalArgumentException) {
-    null
+val Context.launcherNullable: LawnchairLauncher?
+    get() = try {
+        launcher
+    } catch (_: IllegalArgumentException) {
+        null
+    }
+
+
+fun Context.isDefaultLauncher(): Boolean {
+    val launcherPackageName = getDefaultLauncherPackage(this)
+    return this.packageName == launcherPackageName
+}
+
+fun getDefaultLauncherPackage(context: Context): String {
+    val intent = Intent()
+    intent.action = Intent.ACTION_MAIN
+    intent.addCategory(Intent.CATEGORY_HOME)
+    val packageManager = context.packageManager
+    val result = packageManager.resolveActivity(intent, 0)
+    return if (result?.activityInfo != null) {
+        result.activityInfo.packageName
+    } else "android"
+}
+
+
+@RequiresApi(Build.VERSION_CODES.Q)
+fun Activity.showLauncherSelector(
+    resultLauncher: ActivityResultLauncher<Intent>? = null,
+) {
+    val roleManager = getSystemService(Context.ROLE_SERVICE) as RoleManager
+    if (roleManager.isRoleAvailable(RoleManager.ROLE_HOME)) {
+        val intent = roleManager.createRequestRoleIntent(RoleManager.ROLE_HOME)
+        if (resultLauncher != null) {
+            resultLauncher?.launch(intent)
+        } else {
+            startActivityForResult(intent, 2211221)
+        }
+    } else
+        resetDefaultLauncher()
+}
+
+fun Context.resetDefaultLauncher() {
+    try {
+        val componentName = ComponentName(this, FakeHomeActivity::class.java)
+        packageManager.setComponentEnabledSetting(
+            componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP,
+        )
+        val selector = Intent(Intent.ACTION_MAIN)
+        selector.addCategory(Intent.CATEGORY_HOME)
+//        startActivity(selector)
+        packageManager.setComponentEnabledSetting(
+            componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP,
+        )
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+fun Context.resetLauncherViaFakeActivity() {
+    resetDefaultLauncher()
+//    if (getDefaultLauncherPackage(this).contains("."))
+//        startActivity(Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS))
 }

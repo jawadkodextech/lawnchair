@@ -88,7 +88,7 @@
     <string name="dock_description">खोज बार, आइकन गिनती</string>
     <string name="app_drawer_label">अनुप्रयोग का दराज</string>
     <string name="app_drawer_description">Hidden apps, column count, icons</string>
-    <string name="drawer_search_label">Drawer search</string>
+    <string name="drawer_search_label">Safe Search</string>
     <string name="drawer_search_description">Web suggestions, global search</string>
     <string name="folders_label">फ़ोल्डर</string>
     <string name="folders_description">Row and column count</string>

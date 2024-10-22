@@ -3,6 +3,7 @@ package app.lawnchair.search.algorithms.data
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import app.lawnchair.LawnchairApp
 import app.lawnchair.util.kotlinxJson
 import com.android.launcher3.R
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +71,7 @@ sealed class WebSearchProvider {
 
     companion object {
         fun fromString(value: String): WebSearchProvider = when (value) {
+            "safesearch" -> SafeSearch
             "google" -> Google
             "duckduckgo" -> DuckDuckGo
             else -> StartPage
@@ -79,6 +81,7 @@ sealed class WebSearchProvider {
          * The list of available web search providers
          */
         fun values() = listOf(
+            SafeSearch,
             Google,
             StartPage,
             DuckDuckGo,
@@ -240,6 +243,66 @@ data object DuckDuckGo : WebSearchProvider() {
 }
 
 /**
+ * An fast, alternative engine to Google.
+ */
+data object SafeSearch : WebSearchProvider() {
+    override val label = R.string.search_provider_safesearch
+
+    override val iconRes = R.drawable.safe_icon
+
+//    override val baseUrl = "https://ac.duckduckgo.com/"
+//    override val baseUrl = "https://startsafe.kidsmode.co/search/?i=${LawnchairApp.androidId}"
+    override val baseUrl = "https://sug.kidsmode.site/v1/"//i=${LawnchairApp.androidId}
+
+    override val service: SafeSearchService by lazy { retrofit.create() }
+
+    override suspend fun getSuggestions(query: String, maxSuggestions: Int): List<String> =
+        withContext(Dispatchers.IO) {
+            if (query.isBlank() || maxSuggestions <= 0) {
+                return@withContext emptyList()
+            }
+
+            try {
+                val response: Response<ResponseBody> = service.getSuggestions(query = query)
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string() ?: return@withContext emptyList()
+//                    val array = JSONArray(responseBody)
+//                    val jSon = array.get(1) as JSONArray
+//                    val suggestions = mutableListOf<SearchSuggestion>()
+
+
+                    val jsonArray = JSONArray(responseBody)
+                    val suggestionsArray =
+                        jsonArray.optJSONArray(1) ?: return@withContext emptyList()
+
+                    return@withContext (
+                        0 until suggestionsArray.length()
+                            .coerceAtMost(maxSuggestions)
+                        )
+                        .map { suggestionsArray.getString(it) }
+                } else {
+                    Log.w(
+                        "SafeSearchSearchProvider",
+                        "Failed to retrieve suggestions: ${response.code()}",
+                    )
+                    return@withContext emptyList()
+                }
+            } catch (e: Exception) {
+                Log.e("SafeSearchSearchProvider", "Error during suggestion retrieval", e)
+                return@withContext emptyList()
+            }
+        }
+
+//    override fun getSearchUrl(query: String) = "https://duckduckgo.com/$query&cat=web"
+    override fun getSearchUrl(query: String) = "https://startsafe.kidsmode.co/search/?i=${LawnchairApp.androidId}&q=$query"
+//    override fun getSearchUrl(query: String) = "https://sug.kidsmode.site/v1/sug/?q=$query"
+
+    override fun toString() = "safesearch"
+}
+
+
+/**
  * Provides an interface for getting search suggestions from the web.
  */
 interface GenericSearchService
@@ -278,5 +341,15 @@ interface DuckDuckGoService : GenericSearchService {
         @Query("q") query: String,
         @Query("type") type: String = "list",
         @Query("callback") callback: String = "jsonCallback",
+    ): Response<ResponseBody>
+}
+
+/**
+ * Web suggestions for [WebSearchProvider.DuckDuckGo].
+ */
+interface SafeSearchService : GenericSearchService {
+    @GET("sug/")
+    suspend fun getSuggestions(
+        @Query("q") query: String,
     ): Response<ResponseBody>
 }

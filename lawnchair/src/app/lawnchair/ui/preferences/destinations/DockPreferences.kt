@@ -16,11 +16,29 @@
 
 package app.lawnchair.ui.preferences.destinations
 
+//import androidx.compose.runtime.Composable
+//import androidx.compose.ui.Modifier
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import app.lawnchair.hotseat.HotseatMode
 import app.lawnchair.hotseat.LawnchairHotseat
 import app.lawnchair.preferences.PreferenceAdapter
@@ -42,6 +60,7 @@ import app.lawnchair.ui.preferences.components.layout.PreferenceGroup
 import app.lawnchair.ui.preferences.components.layout.PreferenceLayout
 import com.android.launcher3.R
 
+
 object DockRoutes {
     const val SEARCH_PROVIDER = "searchProvider"
 }
@@ -59,11 +78,15 @@ fun DockPreferences(
     ) {
         val isHotseatEnabled = prefs2.isHotseatEnabled.getAdapter()
         val hotseatModeAdapter = prefs2.hotseatMode.getAdapter()
-        MainSwitchPreference(adapter = isHotseatEnabled, label = stringResource(id = R.string.show_hotseat_title)) {
+        MainSwitchPreference(
+            adapter = isHotseatEnabled,
+            label = stringResource(id = R.string.show_hotseat_title),
+        ) {
             PreferenceGroup(heading = stringResource(id = R.string.search_bar_label)) {
                 HotseatModePreference(
                     adapter = hotseatModeAdapter,
                 )
+//                HorizontalAppList( apps = sampleAppIcons)
                 ExpandAndShrink(visible = hotseatModeAdapter.state.value == LawnchairHotseat) {
                     DividerColumn {
                         val hotseatQsbProviderAdapter by preferenceManager2().hotseatQsbProvider.getAdapter()
@@ -108,6 +131,7 @@ fun DockPreferences(
                         }
                     }
                 }
+
             }
             PreferenceGroup(heading = stringResource(id = R.string.grid)) {
                 SliderPreference(
@@ -151,4 +175,56 @@ private fun HotseatModePreference(
         label = stringResource(id = R.string.hotseat_mode_label),
         modifier = modifier,
     )
+}
+
+
+// Example data class for representing an icon (or app)
+data class AppIcon(val name: String, val icon: Int)
+
+// Sample data for the horizontal scroll view
+val sampleAppIcons = listOf(
+    AppIcon("App 1", R.drawable.themed_icon_calendar_1), // Replace with actual icons
+    AppIcon("App 2", R.drawable.themed_icon_calendar_2),
+    AppIcon("App 3", R.drawable.themed_icon_calendar_3),
+    AppIcon("App 4", R.drawable.themed_icon_calendar_4),
+    AppIcon("App 5", R.drawable.themed_icon_calendar_5),
+)
+
+// Horizontal list (LazyRow) composable
+@Composable
+fun HorizontalAppList(apps: List<AppIcon>, modifier: Modifier = Modifier) {
+    LazyRow(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+    ) {
+        items(apps) { app ->
+            AppIconItem(app)
+        }
+    }
+}
+
+// Composable for rendering each app icon
+@Composable
+fun AppIconItem(app: AppIcon, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.size(64.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        // Replace with Image() for actual app icons, example uses Box
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .background(Color.Gray), // Replace with Image displaying the icon
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = app.name)
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewHorizontalAppList() {
+    HorizontalAppList(apps = sampleAppIcons)
 }

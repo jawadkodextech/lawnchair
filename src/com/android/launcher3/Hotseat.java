@@ -35,6 +35,7 @@ import app.lawnchair.hotseat.DisabledHotseat;
 import app.lawnchair.hotseat.HotseatMode;
 import app.lawnchair.hotseat.LawnchairHotseat;
 import app.lawnchair.preferences2.PreferenceManager2;
+import app.lawnchair.qsb.LawnQsbLayout;
 
 /**
  * View class that represents the bottom row of the home screen.
@@ -49,7 +50,8 @@ public class Hotseat extends CellLayout implements Insettable {
     private Workspace<?> mWorkspace;
     private boolean mSendTouchToWorkspace;
 
-    private final View mQsb;
+//    private final View mQsb;
+    private final LawnQsbLayout mQsb;
 
     PreferenceManager2 preferenceManager2;
 
@@ -79,8 +81,8 @@ public class Hotseat extends CellLayout implements Insettable {
             PreferenceExtensionsKt.setBlocking(preferenceManager2.getHotseatMode(), hotseatMode);
         }
         int layoutId = hotseatMode.getLayoutResourceId();
-
-        mQsb = LayoutInflater.from(context).inflate(layoutId, this, false);
+//        checkFolderAndDisplay()
+        mQsb = (LawnQsbLayout) LayoutInflater.from(context).inflate(layoutId, this, false);
         addView(mQsb);
     }
 

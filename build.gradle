@@ -164,6 +164,7 @@ android {
         aidl true
         buildConfig true
         resValues true
+        viewBinding true
     }
 
     packagingOptions.resources.excludes += [
@@ -213,11 +214,11 @@ android {
 
         debug {
             applicationIdSuffix ".debug"
-            resValue("string", "derived_app_name", "Lawnchair (Debug)")
+            resValue("string", "derived_app_name", "Start Safe (Debug)")
         }
 
         release {
-            resValue("string", "derived_app_name", "Lawnchair")
+            resValue("string", "derived_app_name", "Start Safe")
             minifyEnabled true
             shrinkResources true
             proguardFiles proguardFilesFromAosp + "proguard.pro"
@@ -415,7 +416,11 @@ dependencies {
     implementation 'com.github.samanzamani:PersianDate:1.7.1'
 
     implementation 'com.airbnb.android:lottie:6.5.2'
-
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
+    implementation(libs.rxkotlin)
+    implementation(libs.gson)
+    implementation(libs.glide)
     // Compose drag and drop library
     implementation 'sh.calvin.reorderable:reorderable:2.3.3'
 
@@ -455,9 +460,26 @@ licensee {
     allow("Apache-2.0")
     allow("BSD-3-Clause")
     allow("GPL-2.0-or-later")
+    allow("MIT")
+    allow("MIT-0")
     allowDependency("com.github.topjohnwu.libsu", "core", "6.0.0")
     allowDependency("com.github.topjohnwu.libsu", "service", "6.0.0")
     allowUrl("https://github.com/patrykmichalik/opto/blob/master/LICENSE")
     allowUrl("https://github.com/RikkaApps/HiddenApiRefinePlugin/blob/main/LICENSE")
     allowUrl("https://opensource.org/licenses/mit-license.php")
+    allowUrl("https://api.github.com/licenses/apache-2.0")
+    allowUrl("https://api.github.com/licenses/bsd-3-clause")
+    allowUrl("https://github.com/patrykmichalik/opto/blob/master/LICENSE")
+    allowUrl("https://github.com/RikkaApps/HiddenApiRefinePlugin/blob/main/LICENSE")
+
+
 }
+
+//licenseReport {
+//    override {
+//        // Accept the 'MIT-0' license for org.reactivestreams
+//        module("org.reactivestreams:reactive-streams:1.0.4") {
+//            license "MIT-0"
+//        }
+//    }
+//}

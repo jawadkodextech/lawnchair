@@ -196,7 +196,11 @@ class LawnchairApp : Application() {
 
     companion object {
         private const val TAG = "LawnchairApp"
-
+        val androidId: String?
+            @SuppressLint("HardwareIds")
+            get() {
+                return Settings.Secure.getString(instance?.contentResolver, Settings.Secure.ANDROID_ID)
+            }
         @JvmStatic
         lateinit var instance: LawnchairApp
             private set
