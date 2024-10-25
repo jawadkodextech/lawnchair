@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Weergeven</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Om je telefoon te vergrendelen tijdens het uitvoeren van een gebaar en om Recente apps via een gebaar te openen, heeft Lawnchair toegankelijkheidsrechten nodig.\n\nLawnchair kijkt niet naar gebruikersacties, hoewel het recht om dit te doen vereist is voor alle toegankelijkheidsservices. Lawnchair verwijdert elke gebeurtenis die door het systeem wordt verzonden.\n\nOm je telefoon te kunnen vergrendelen of Recente apps te openen, maakt Lawnchair gebruik van de toegankelijkheidsservice performGlobalAction.</string>
+    <string name="accessibility_service_description">Om je telefoon te vergrendelen tijdens het uitvoeren van een gebaar en om Recente apps via een gebaar te openen, heeft StartSafe toegankelijkheidsrechten nodig.\n\nLawnchair kijkt niet naar gebruikersacties, hoewel het recht om dit te doen vereist is voor alle toegankelijkheidsservices. StartSafe verwijdert elke gebeurtenis die door het systeem wordt verzonden.\n\nOm je telefoon te kunnen vergrendelen of Recente apps te openen, maakt StartSafe gebruik van de toegankelijkheidsservice performGlobalAction.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Stel Lawnchair in als standaard launcher voor toegang tot snelkoppelingen en extra functies</string>
+    <string name="set_default_launcher_tip">Stel StartSafe in als standaard launcher voor toegang tot snelkoppelingen en extra functies</string>
     <string name="notification_dots">Meldingsstippen</string>
     <string name="show_notification_count">Aantal meldingen weergeven</string>
     <string name="notification_dots_color">Meldingsstip-kleur</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Zoekopdracht openen</string>
     <string name="pick_app_for_gesture">App kiezen</string>
     <string name="dt2s_admin_hint_title">Beheerdersrechten vereist</string>
-    <string name="dt2s_admin_hint">Om Dubbeltikken voor Slaapstand te gebruiken, moet Lawnchair worden ingesteld als een apparaatbeheerder-app. Tik op \"Instellingen openen\" en tik vervolgens op \"Activeer deze apparaatbeheerder-app.\"</string>
+    <string name="dt2s_admin_hint">Om Dubbeltikken voor Slaapstand te gebruiken, moet StartSafe worden ingesteld als een apparaatbeheerder-app. Tik op \"Instellingen openen\" en tik vervolgens op \"Activeer deze apparaatbeheerder-app.\"</string>
     <string name="dt2s_admin_warning">Dubbeltikken voor Slaapstand wordt uitgeschakeld.</string>
     <string name="d2ts_recents_a11y_hint_title">Toegankelijkheidsservice inschakelen</string>
-    <string name="dt2s_a11y_hint">Om \'Dubbel tikken om in de sluimerstand te zetten\' te gebruiken, moet de toegankelijkheidsservice Lawnchair ingeschakeld zijn. Tik op \"Instellingen openen\", selecteer \"Lawnchair\" en schakel \"Lawnchair gebruiken\" in. \n\nLawnchair gebruikt de \'performGlobalAction\'-methode van Toegankelijkheid om deze actie uit te voeren. Dit is een gevoelige machtiging waarmee andere apps kunnen worden bewaakt. Lawnchair is echter niet geconfigureerd voor die functionaliteit en ontvangt geen gebeurtenissen.</string>
+    <string name="dt2s_a11y_hint">Om \'Dubbel tikken om in de sluimerstand te zetten\' te gebruiken, moet de toegankelijkheidsservice StartSafe ingeschakeld zijn. Tik op \"Instellingen openen\", selecteer \"Lawnchair\" en schakel \"Lawnchair gebruiken\" in. \n\nLawnchair gebruikt de \'performGlobalAction\'-methode van Toegankelijkheid om deze actie uit te voeren. Dit is een gevoelige machtiging waarmee andere apps kunnen worden bewaakt. StartSafe is echter niet geconfigureerd voor die functionaliteit en ontvangt geen gebeurtenissen.</string>
     <string name="dt2s_recents_warning_open_settings">Instellingen openen</string>
-    <string name="recents_a11y_hint">Om Recent apps te gebruiken, moet de toegankelijkheidsservice van Lawnchair worden ingeschakeld. Tik op \"Instellingen openen\", selecteer \"Lawnchair\" en schakel \"Lawchair gebruiken\" in. \n\nLawnchair gebruikt de \'performGlobalAction\'-methode van Toegankelijkheid om deze actie uit te voeren. Dit is een gevoelige machtiging waarmee andere apps kunnen worden bewaakt. Lawnchair is echter niet geconfigureerd voor die functionaliteit en ontvangt geen gebeurtenissen.</string>
+    <string name="recents_a11y_hint">Om Recent apps te gebruiken, moet de toegankelijkheidsservice van StartSafe worden ingeschakeld. Tik op \"Instellingen openen\", selecteer \"Lawnchair\" en schakel \"Lawchair gebruiken\" in. \n\nLawnchair gebruikt de \'performGlobalAction\'-methode van Toegankelijkheid om deze actie uit te voeren. Dit is een gevoelige machtiging waarmee andere apps kunnen worden bewaakt. StartSafe is echter niet geconfigureerd voor die functionaliteit en ontvangt geen gebeurtenissen.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Opvulling aan onderkant</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">App zoeken</string>
-    <string name="search_provider_sponsored_description">%1$s en Lawnchair hebben een overeenkomst a.g. het delen van inkomsten.\n\nZoeken met %1$s helpt Lawnchair te ondersteunen.</string>
+    <string name="search_provider_sponsored_description">%1$s en StartSafe hebben een overeenkomst a.g. het delen van inkomsten.\n\nZoeken met %1$s helpt StartSafe te ondersteunen.</string>
     <string name="app_label">App</string>
     <string name="website_label">Website</string>
     <string name="qsb_search_provider_app_required">App vereist</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Maximum aantal mapkolommen</string>
     <string name="max_folder_rows">Maximum aantal maprijen</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Deze instellingen worden genegeerd, omdat Lawnchair niet is ingesteld als de aanbieder van Recente apps</string>
+    <string name="quickswitch_ignored_warning">Deze instellingen worden genegeerd, omdat StartSafe niet is ingesteld als de aanbieder van Recente apps</string>
     <string name="quickstep_incompatible">Incompatibele systeemintegratie</string>
     <string name="quickstep_incompatible_description">Je toestel is geconfigureerd voor systeemgebaren (bekend als Quickstep) geleverd door %1$s, maar deze versie van %1$s is niet compatibel met deze Android-versie. Om het toestel te blijven gebruiken, dien je %1$s updates te verwijderen of %1$s uit te schakelen als een provider van systeemgebaren.</string>
     <string name="translucent_background">Doorschijnende achtergrond</string>
@@ -534,8 +534,8 @@
     <string name="max_suggestion_result_count_title">Maximum aantal suggesties</string>
     <string name="max_web_suggestion_delay">Maximale vertraging bij websuggestie</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Om naar contacten te zoeken, moet Lawnchair toegang krijgen tot contacten en telefoon</string>
-    <string name="warn_files_permission_content">Om bestanden te doorzoeken, moet Lawnchair toegang krijgen tot opslag</string>
+    <string name="warn_contact_permission_content">Om naar contacten te zoeken, moet StartSafe toegang krijgen tot contacten en telefoon</string>
+    <string name="warn_files_permission_content">Om bestanden te doorzoeken, moet StartSafe toegang krijgen tot opslag</string>
     <string name="grant_requested_permissions">Machtigingen verlenen</string>
     <string name="allapps_web_suggestion_provider_label">Websuggestie-aanbieder</string>
     <string name="allapps_use_web_suggestion_icon_label">Pictogram van aanbieder van websuggesties in zoekbalk weergeven</string>

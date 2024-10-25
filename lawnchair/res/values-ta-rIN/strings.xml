@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">எதைக் காட்ட</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">குறுக்குவழிகள் மற்றும் கூடுதல் அம்சங்களை அணுக, Lawnchair ஐ உங்கள் இயல்புநிலை துவக்கியாக அமைக்கவும்</string>
+    <string name="set_default_launcher_tip">குறுக்குவழிகள் மற்றும் கூடுதல் அம்சங்களை அணுக, StartSafe ஐ உங்கள் இயல்புநிலை துவக்கியாக அமைக்கவும்</string>
     <string name="notification_dots">அறிவிப்புப் புள்ளிகள்</string>
     <string name="show_notification_count">அறிவிப்புகளின் எண்ணிக்கையைக் காண்பி</string>
     <string name="notification_dots_color">அறிவிப்பு புள்ளிகளின் வண்ணம்</string>
@@ -351,9 +351,9 @@
     <string name="dt2s_admin_hint">அணைக்க இரட்டைத்தட்டலைப் பயன்படுத்த Lawnchairஐச் சாதன நிர்வாகிச் செயலியாக அமை. அமைப்பைத் திற என்பதைத் தட்டி, “இந்தச் சாதன நிர்வாகி ஆப்ஸைச் செயல்படுத்து” என்பதைத் தட்டுக</string>
     <string name="dt2s_admin_warning">Double Tap to Sleep will be disabled.</string>
     <string name="d2ts_recents_a11y_hint_title">அணுகல்தன்மை சேவையை இயக்கு</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">அமைப்புகளைத் திற</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">அடி திணிப்பு</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">செயலி தேடல்</string>
-    <string name="search_provider_sponsored_description">%1$s மற்றும் Lawnchair வருவாய் பகிர்வு ஒப்பந்தத்தைக் கொண்டுள்ளன.\n\n%1$s உடன் தேடுவது Lawnchair ஐ ஆதரிக்க உதவுகிறது.</string>
+    <string name="search_provider_sponsored_description">%1$s மற்றும் StartSafe வருவாய் பகிர்வு ஒப்பந்தத்தைக் கொண்டுள்ளன.\n\n%1$s உடன் தேடுவது StartSafe ஐ ஆதரிக்க உதவுகிறது.</string>
     <string name="app_label">செயலி</string>
     <string name="website_label">இணையதளம்</string>
     <string name="qsb_search_provider_app_required">செயலி தேவை</string>
@@ -534,8 +534,8 @@
     <string name="max_suggestion_result_count_title">Maximum number of suggestions</string>
     <string name="max_web_suggestion_delay">அதிகபட்ச இணைய பரிந்துரை தாமதம்</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">தொடர்புகளைத் தேட, தொடர்புகள் மற்றும் தொலைபேசி அனுமதிகளை Lawnchair க்கு வழங்கவும்</string>
-    <string name="warn_files_permission_content">உங்கள் கோப்புகளைத் தேட, Lawnchair க்கு சேமிப்பக அனுமதிகளை வழங்கவும்</string>
+    <string name="warn_contact_permission_content">தொடர்புகளைத் தேட, தொடர்புகள் மற்றும் தொலைபேசி அனுமதிகளை StartSafe க்கு வழங்கவும்</string>
+    <string name="warn_files_permission_content">உங்கள் கோப்புகளைத் தேட, StartSafe க்கு சேமிப்பக அனுமதிகளை வழங்கவும்</string>
     <string name="grant_requested_permissions">அனுமதிகளை வழங்கவும்</string>
     <string name="allapps_web_suggestion_provider_label">வலை பரிந்துரைகள் வழங்குநர்</string>
     <string name="allapps_use_web_suggestion_icon_label">தேடல் பட்டியில் வலை பரிந்துரை வழங்குநர் ஐகானைக் காட்டு</string>

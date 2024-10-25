@@ -23,20 +23,29 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.Display
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.IconCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import app.lawnchair.LawnchairApp.Companion.showQuickstepWarningIfNecessary
 import app.lawnchair.compat.LawnchairQuickstepCompat
@@ -51,6 +60,7 @@ import app.lawnchair.root.RootHelperManager
 import app.lawnchair.root.RootNotAvailableException
 import app.lawnchair.theme.ThemeProvider
 import app.lawnchair.ui.popup.LawnchairShortcut
+import app.lawnchair.ui.preferences.PreferenceActivity
 import app.lawnchair.util.getThemedIconPacksInstalled
 import app.lawnchair.util.unsafeLazy
 import com.android.launcher3.AbstractFloatingView
@@ -78,17 +88,93 @@ import com.android.launcher3.widget.LauncherWidgetHolder
 import com.android.launcher3.widget.RoundedCornerEnforcement
 import com.android.systemui.plugins.shared.LauncherOverlayManager
 import com.android.systemui.shared.system.QuickStepContract
+import com.appsflyer.AFInAppEventParameterName
+import com.appsflyer.AppsFlyerLib
+import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.kieronquinn.app.smartspacer.sdk.client.SmartspacerClient
 import com.patrykmichalik.opto.core.firstBlocking
 import com.patrykmichalik.opto.core.onEach
 import dev.kdrag0n.monet.theme.ColorScheme
+import java.io.IOException
 import java.util.stream.Stream
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
-class LawnchairLauncher : QuickstepLauncher() {
+
+
+
+class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
+
+
+    fun createShortcut(
+        activity: Activity,
+        url: String,
+        unsafeTitle: String?,
+        unsafeFavicon: Bitmap?,
+    ) {
+        val shortcutIntent = Intent(Intent.ACTION_VIEW)
+        shortcutIntent.setData(Uri.parse(url))
+
+        val title =
+            if (TextUtils.isEmpty(unsafeTitle)) activity.getString(R.string.untitled) else unsafeTitle!!
+        val webPageDrawable = ContextCompat.getDrawable(activity, R.drawable.ic_webpage)
+        app.lawnchair.Preconditions.checkNonNull(webPageDrawable)
+        val webPageBitmap: Bitmap? = webPageDrawable?.toBitmap(
+            webPageDrawable.intrinsicWidth,
+            webPageDrawable.intrinsicHeight,
+            null,
+        )
+
+        val favicon = unsafeFavicon ?: webPageBitmap
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            val addIntent = Intent()
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent)
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title)
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, favicon)
+            addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT")
+            activity.sendBroadcast(addIntent)
+//            ActivityExtensions.snackbar(activity, R.string.message_added_to_homescreen)
+        } else {
+            val shortcutManager = activity.getSystemService(
+                ShortcutManager::class.java,
+            )
+            if (shortcutManager.isRequestPinShortcutSupported) {
+                val pinShortcutInfo =
+                    ShortcutInfo.Builder(activity, "browser-shortcut-" + url.hashCode())
+                        .setIntent(shortcutIntent)
+                        .setIcon(Icon.createWithBitmap(favicon))
+                        .setShortLabel(title)
+                        .build()
+//    val mIntentSender = IntentSender()
+//                shortcutManager.requestPinShortcut(pinShortcutInfo, mIntentSender)
+
+                val shortcut = ShortcutInfoCompat.Builder(activity, "browser-shortcut-" + url.hashCode())
+                    .setIntent(shortcutIntent)
+                    .setIcon(favicon?.let { IconCompat.createWithBitmap(it) })
+                    .setShortLabel(title)
+//                    .setShortLabel("Website")
+//                    .setLongLabel("Open the website")
+//                    .setIntent(shortcutIntent)
+//                    .setIcon(IconCompat.createWithResource(context, R.drawable.icon_website))
+//                    .setIntent(Intent(Intent.ACTION_VIEW,
+//                        Uri.parse("https://www.mysite.example.com/")))
+                    .build()
+
+                ShortcutManagerCompat.pushDynamicShortcut(activity, shortcut)
+
+
+//                ActivityExtensions.snackbar(activity, R.string.message_added_to_homescreen)
+            } else {
+//                ActivityExtensions.snackbar(activity, R.string.shortcut_message_failed_to_add)
+            }
+        }
+    }
+
+
     private lateinit var notificationPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val defaultOverlay by unsafeLazy { OverlayCallbackImpl(this) }
@@ -211,12 +297,31 @@ class LawnchairLauncher : QuickstepLauncher() {
             ActivityResultContracts.StartActivityForResult(),
         ) { isGranted ->
             if (isGranted.resultCode == RESULT_OK) {
-
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@LawnchairLauncher,
+                    "safestartdefault_on", eventValues, this,
+                )
+                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                props.put("Set Default", true)
+                LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
+                LawnchairApp.instance?.mp?.flush()
             } else {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@LawnchairLauncher,
+                    "safestartdefault_off", eventValues, this,
+                )
+//                LawnchairApp.instance?.mp?.flush()
+                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                props.put("Set Default", false)
+                LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
+                LawnchairApp.instance?.mp?.flush()
                 if (checkNotificationPermission(this)) {
                     showNotification(this)
                 }
-//                showAlert("Set as Default to continue")
             }
         }
         notificationPermissionLauncher = registerForActivityResult(
@@ -238,7 +343,7 @@ class LawnchairLauncher : QuickstepLauncher() {
             requestNotificationPermission(notificationPermissionLauncher)
         }
 
-        counterToDisplayNo = prefs.counterToDisplayNo.get()
+//        counterToDisplayNo = prefs.counterToDisplayNo.get()
         if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             if (checkNotificationPermission(this)) {
                 showNotification(this)
@@ -247,14 +352,24 @@ class LawnchairLauncher : QuickstepLauncher() {
             if (checkNotificationPermission(this)) {
                 showNotification(this)
             }
-            if (dialog != null && dialog?.isShowing == true) {
-
-            } else {
-//                showAlert("")
-                showSetDefaultLauncher()
-            }
         }
 
+
+
+    }
+
+    private fun loadJSONFromAsset(context: Context, fileName: String): String? {
+        return try {
+            val inputStream = context.assets.open(fileName)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            String(buffer, Charsets.UTF_8)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            null
+        }
     }
 
     override fun collectStateHandlers(out: MutableList<StateManager.StateHandler<*>>) {
@@ -448,17 +563,10 @@ class LawnchairLauncher : QuickstepLauncher() {
 
     override fun onStart() {
         super.onStart()
-        counterToDisplayNo = prefs.counterToDisplayNo.get()
-//        if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-//
-//        } else {
-//            if (dialog != null && dialog?.isShowing == true) {
-//
-//            } else {
-//                showAlert("")
-//            }
-//        }
-
+//        counterToDisplayNo = prefs.counterToDisplayNo.get()
+        if(PreferenceActivity.isUserOnThis == false) {
+            showSetDefaultLauncher()
+        }
     }
 
     private fun showSetDefaultLauncher() {
@@ -473,41 +581,7 @@ class LawnchairLauncher : QuickstepLauncher() {
         get() {
             return android.app.AlertDialog.Builder(this)
         }
-    var dialog: android.app.AlertDialog? = null
-    private var counterToDisplayNo: Int = 0
-    private fun showAlert(s: String = "") {
-        counterToDisplayNo += 1
-        prefs.counterToDisplayNo.set(counterToDisplayNo)// = BasePreferenceManager.IntPref()//counterToDisplayNo
-        val localBuilder = builder
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.setup_default_new, null)
-        val btnYes = dialogView.findViewById<Button>(R.id.btnDone)
-        val btnNo = dialogView.findViewById<Button>(R.id.btnNo)
-        if (counterToDisplayNo > 3) {
-            btnNo.isVisible = true
-        }
-        if (s.isNotEmpty()) {
-            btnYes.setText(s)
-        }
-        localBuilder.setView(dialogView)
-        dialog = localBuilder
-            .setCancelable(false)
-            .create()
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.rounded_dialog_background_trans)
-        btnYes.setOnClickListener {
-            dialog?.dismiss()
-            showSetDefaultLauncher()
-        }
-        btnNo.setOnClickListener {
-            if (checkNotificationPermission(this)) {
-                showNotification(this)
-            }
-//            runWorker()
-            dialog?.dismiss()
-        }
-        dialog?.show()
 
-
-    }
 
     companion object {
         private const val FLAG_RECREATE = 1 shl 0
@@ -516,6 +590,14 @@ class LawnchairLauncher : QuickstepLauncher() {
         var sRestartFlags = 0
 
         val instance get() = LauncherAppState.getInstanceNoCreate()?.launcher as? LawnchairLauncher
+    }
+
+    override fun onSuccess() {
+        Log.d(TAG,"onSuccess()")
+    }
+
+    override fun onError(p0: Int, p1: String) {
+        Log.d(TAG,"onError() $p0 , $p1")
     }
 }
 

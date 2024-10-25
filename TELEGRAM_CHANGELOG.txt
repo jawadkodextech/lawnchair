@@ -4,17 +4,17 @@ This release contains numerous improvements:
 * UI improvements
   * UI text refresh: all text is now Sentence case to match Material You guidelines
   * Proper tablet support: the launcher and settings UI now adjust accordingly to the larger width
-  * Color scheme improvements: Lawnchair now matches the Android 14 and Pixel Launcher colors
+  * Color scheme improvements:StartSafenow matches the Android 14 and Pixel Launcher colors
   * Added support for predictive back when navigating in Settings
   * Added support for Android 14's per-app language feature
   * Added new fonts in font picker
-* Search improvements 
+* Search improvements
   * Improved permission handling for contacts and files search settings
   * Improved performance of search results
   * Added the ability to switch search algorithms
   * Added new web search providers: Google & DuckDuckGo
   * Added new dock search bar providers: Yandex
-  * Added additional dock search bar customizations 
+  * Added additional dock search bar customizations
   * Added an option to use dock search provider actions for app drawer
 * Recents screen improvements:
   * Added the ability to reorganize the quick actions in Overview

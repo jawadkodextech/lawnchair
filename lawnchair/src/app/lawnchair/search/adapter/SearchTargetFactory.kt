@@ -247,7 +247,7 @@ class SearchTargetFactory(
         val extras = bundleOf(
             SearchResultView.EXTRA_HIDE_SUBTITLE to true,
         )
-        return createSearchLinksTarget(id, action, START_PAGE, extras)
+        return createSearchLinksTarget(id, action, SAFE_SEARCH, extras)//START_PAGE
     }
 
     fun createContactsTarget(info: ContactInfo): SearchTargetCompat {
@@ -406,6 +406,7 @@ object SettingsTarget {
 
 // keys used in `pkg` param
 const val START_PAGE = "startpage"
+const val SAFE_SEARCH = "safesearch"
 const val MARKET_STORE = "marketstore"
 const val WEB_SUGGESTION = "suggestion"
 const val HEADER = "header"

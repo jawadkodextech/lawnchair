@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Ne gösterilsin</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -286,7 +286,7 @@
     <string name="event_provider_missing_notification_dots"><xliff:g example="My Provider" id="providerName">%1$s</xliff:g> kullanmak için, bildirim noktalarını aç.</string>
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Ana ekranda göster</string>
-    <string name="smartspace_widget_toggle_description">Bir Bakışta widget\'i ana ekrana manuel olarak Lawnchair widget\'i kullanılarak eklenebilir</string>
+    <string name="smartspace_widget_toggle_description">Bir Bakışta widget\'i ana ekrana manuel olarak StartSafe widget\'i kullanılarak eklenebilir</string>
     <!-- List of available providers -->
     <string name="smartspace_mode_label">Bir Bakışta sağlayıcı</string>
     <string name="smartspace_mode_google">Google</string>
@@ -351,9 +351,9 @@
     <string name="dt2s_admin_hint">Ekranı Kapatmak İçin Çift Dokunun\'u kullanmak için Lawnchair\'i bir cihaz yöneticisi uygulaması olarak ayarlayın. Ayarları Aç\'a tıklayın, ardından \"Bu cihaz yöneticisi uygulamasını aktif et\" seçeneğine tıklayın</string>
     <string name="dt2s_admin_warning">Ekranı Kapatmak İçin Çift Dokunun kapatılacaktır.</string>
     <string name="d2ts_recents_a11y_hint_title">Erişilebilirlik hizmetini açın</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Ayarları aç</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting

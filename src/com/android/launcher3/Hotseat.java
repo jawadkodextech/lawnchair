@@ -190,7 +190,7 @@ public class Hotseat extends CellLayout implements Insettable {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-
+//
         int qsbMeasuredWidth = mQsb.getMeasuredWidth();
         int left;
         DeviceProfile dp = mActivity.getDeviceProfile();
@@ -206,6 +206,26 @@ public class Hotseat extends CellLayout implements Insettable {
         int bottom = b - t - dp.getQsbOffsetY();
         int top = bottom - dp.hotseatQsbHeight;
         mQsb.layout(left, top, right, bottom);
+
+
+//        int qsbMeasuredWidth = mQsb.getMeasuredWidth();
+//        int left;
+//        DeviceProfile dp = mActivity.getDeviceProfile();
+//        if (dp.isQsbInline) {
+//            int qsbSpace = dp.hotseatBorderSpace;
+//            left = Utilities.isRtl(getResources()) ? r - getPaddingRight() + qsbSpace
+//                : l + getPaddingLeft() - qsbMeasuredWidth - qsbSpace;
+//        } else {
+//            left = (r - l - qsbMeasuredWidth) / 2;
+//        }
+//        int right = left + qsbMeasuredWidth;
+//
+//        // Adjusting to place the mQsb at the top rather than the bottom
+//        int top = dp.getQsbOffsetY(); // Assuming this provides some offset for the top
+//        int bottom = top + dp.hotseatQsbHeight;
+//
+//        mQsb.layout(left, top, right, bottom);
+//        
     }
 
     /**

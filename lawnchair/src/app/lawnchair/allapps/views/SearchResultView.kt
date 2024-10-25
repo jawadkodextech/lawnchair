@@ -8,6 +8,7 @@ import app.lawnchair.search.adapter.CONTACT
 import app.lawnchair.search.adapter.FILES
 import app.lawnchair.search.adapter.MARKET_STORE
 import app.lawnchair.search.adapter.START_PAGE
+import app.lawnchair.search.adapter.SAFE_SEARCH
 import app.lawnchair.search.adapter.SearchTargetCompat
 import app.lawnchair.search.adapter.WEB_SUGGESTION
 import app.lawnchair.search.model.SearchResultActionCallBack
@@ -42,7 +43,7 @@ sealed interface SearchResultView {
 
     fun shouldHandleClick(targetCompat: SearchTargetCompat): Boolean {
         val packageName = targetCompat.packageName
-        return (packageName in listOf(START_PAGE, MARKET_STORE, WEB_SUGGESTION, CONTACT, FILES)) &&
+        return (packageName in listOf(SAFE_SEARCH,START_PAGE, MARKET_STORE, WEB_SUGGESTION, CONTACT, FILES)) &&
             targetCompat.layoutType != LayoutType.SMALL_ICON_HORIZONTAL_TEXT &&
             targetCompat.resultType != SearchTargetCompat.RESULT_TYPE_SHORTCUT
     }

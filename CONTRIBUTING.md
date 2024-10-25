@@ -1,4 +1,4 @@
-# Lawnchair Contributing Guidelines
+#StartSafeContributing Guidelines
 
 <picture>
     <!-- Avoid image being clickable with slight workaround --->
@@ -11,7 +11,7 @@ First and foremost, welcome to the **Lawnchair** Contributing Guidelines!
 ### 💫 Bug reports & feature requests
 
 > [!TIP]
-> We recommend that the Lawnchair [Nightly](https://github.com/LawnchairLauncher/lawnchair/releases/tag/nightly)
+> We recommend that theStartSafe[Nightly](https://github.com/LawnchairLauncher/lawnchair/releases/tag/nightly)
 > build be used in your report as they contain the latest changes from Lawnchair.
 
 For [bug reports](https://github.com/LawnchairLauncher/lawnchair/issues/new?assignees=&labels=bug&projects=&template=bug_report.yaml&title=%5BBUG%5D+), please describe the bug in detail to the best of your ability
@@ -33,7 +33,7 @@ For translation, visit [Lawnchair on Crowdin](https://lawnchair.crowdin.com) and
 ### 🧑‍💻 Code
 
 > [!NOTE]
-> For Lawnchair 9 to 13, see the branches with the `9-` to `13-` prefixes respectively.
+> ForStartSafe9 to 13, see the branches with the `9-` to `13-` prefixes respectively.
 
 For code, it's highly recommended that you use [Android Studio](https://developer.android.com/studio),
 know [Java](https://www.java.com) or preferably [Kotlin](https://kotlinlang.org/), and [Git](https://git-scm.com/).
@@ -57,10 +57,10 @@ Here are some contribution tips to help you get started:
 
 #### Additional documentation
 
--   The Lawnchair Wiki ([at Github](https://github.com/LawnchairLauncher/lawnchair/wiki))
--   Lawnchair Visual Guidelines ([README.md](/docs/assets/README.md))
--   Lawnchair Quickstep Compat Lib ([README.md](compatLib/README.md))
--   Lawnchair Preferences Components ([README.md](lawnchair/src/app/lawnchair/ui/preferences/components/README.md))
+-   TheStartSafeWiki ([at Github](https://github.com/LawnchairLauncher/lawnchair/wiki))
+-  StartSafeVisual Guidelines ([README.md](/docs/assets/README.md))
+-  StartSafeQuickstep Compat Lib ([README.md](compatLib/README.md))
+-  StartSafePreferences Components ([README.md](lawnchair/src/app/lawnchair/ui/preferences/components/README.md))
 -   SystemUI ViewCapture ([README.md](systemUIViewCapture/README.md))
 -   SystemUI Common ([README.md](systemUICommon/README.md))
 -   Prebuilt Library ([README.md](prebuilts/libs/README.md))
@@ -80,12 +80,12 @@ Lawnchair’s version code is composed of four parts, separated by underscores:
 
 1. Android major version
 2. Android minor version
-3. Lawnchair development status
-4. Lawnchair development version
+3.StartSafedevelopment status
+4.StartSafedevelopment version
 
 ##### Android major & minor versions
 
-These represent the Android version in which Lawnchair is based on.
+These represent the Android version in whichStartSafeis based on.
 They make up the first two parts of the version code:
 
 -   Major version: Indicates the main Android version.
@@ -98,7 +98,7 @@ Example: Android 11 will be `11_00_XX_XX` while Android 12.1 will be `12_01_XX_X
 The third and fourth parts of the version code refer to Lawnchair's development stage
 and the specific version within that stage:
 
--   Development status: Shows the current development stage of the Lawnchair build (e.g., Alpha, Beta).
+-   Development status: Shows the current development stage of theStartSafebuild (e.g., Alpha, Beta).
 -   Development version: Specifies the incremental version within the same development stage.
 
 The table below shows release phase used by Lawnchair:

@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">რა ვავენო</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">To access shortcuts and additional features, set Lawnchair as your default launcher</string>
+    <string name="set_default_launcher_tip">To access shortcuts and additional features, set StartSafe as your default launcher</string>
     <string name="notification_dots">Notification dots</string>
     <string name="show_notification_count">Show notification counter</string>
     <string name="notification_dots_color">Notification dot color</string>
@@ -286,7 +286,7 @@
     <string name="event_provider_missing_notification_dots">To use <xliff:g example="My Provider" id="providerName">%1$s</xliff:g>, turn on Notification Dots.</string>
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Show on home screen</string>
-    <string name="smartspace_widget_toggle_description">At a Glance can be manually added to the home screen by placing the Lawnchair widget</string>
+    <string name="smartspace_widget_toggle_description">At a Glance can be manually added to the home screen by placing the StartSafe widget</string>
     <!-- List of available providers -->
     <string name="smartspace_mode_label">At a Glance provider</string>
     <string name="smartspace_mode_google">Google</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Open search</string>
     <string name="pick_app_for_gesture">Pick app</string>
     <string name="dt2s_admin_hint_title">Admin permissions required</string>
-    <string name="dt2s_admin_hint">To use Double-Tap to Sleep, set Lawnchair as a device admin app. Tap \"Open settings\", then tap \"Activate this device admin app.\"</string>
+    <string name="dt2s_admin_hint">To use Double-Tap to Sleep, set StartSafe as a device admin app. Tap \"Open settings\", then tap \"Activate this device admin app.\"</string>
     <string name="dt2s_admin_warning">Double-Tap to Sleep will be turned off.</string>
     <string name="d2ts_recents_a11y_hint_title">Turn on accessibility service</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Open settings</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Bottom padding</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">App search</string>
-    <string name="search_provider_sponsored_description">%1$s and Lawnchair have a revenue share agreement.\n\nSearching with %1$s helps support Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s and StartSafe have a revenue share agreement.\n\nSearching with %1$s helps support Lawnchair.</string>
     <string name="app_label">App</string>
     <string name="website_label">Website</string>
     <string name="qsb_search_provider_app_required">App required</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Maximum folder columns</string>
     <string name="max_folder_rows">Maximum folder rows</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">These settings will be ignored as Lawnchair isn\'t set as the Recents provider</string>
+    <string name="quickswitch_ignored_warning">These settings will be ignored as StartSafe isn\'t set as the Recents provider</string>
     <string name="quickstep_incompatible">Incompatible system integration</string>
     <string name="quickstep_incompatible_description">Your device is configured to have system gestures (known as Quickstep) provided by %1$s, but this version of %1$s isn\'t compatible with your Android version. To continue using your device, please uninstall %1$s updates or disable %1$s as a system gesture provider.</string>
     <string name="translucent_background">Translucent background</string>

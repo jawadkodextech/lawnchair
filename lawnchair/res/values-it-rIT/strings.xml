@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Cosa mostrare</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Per bloccare il telefono quando si esegue un gesto e per aprire Recenti tramite gesto, Lawnchair richiede l\'accesso all\'accessibilità.\n\nLawnchair non monitora alcuna azione dell\'utente, sebbene il privilegio per farlo sia richiesto per tutti i servizi di accessibilità. Lawnchair ignora qualsiasi evento inviato dal sistema.\n\nPer bloccare il telefono o per aprire Recenti, Lawnchair utilizza il servizio di accessibilità performGlobalAction.</string>
+    <string name="accessibility_service_description">Per bloccare il telefono quando si esegue un gesto e per aprire Recenti tramite gesto, StartSafe richiede l\'accesso all\'accessibilità.\n\nLawnchair non monitora alcuna azione dell\'utente, sebbene il privilegio per farlo sia richiesto per tutti i servizi di accessibilità. StartSafe ignora qualsiasi evento inviato dal sistema.\n\nPer bloccare il telefono o per aprire Recenti, StartSafe utilizza il servizio di accessibilità performGlobalAction.</string>
     <string name="x_by_y">%1$d × %2$d</string>
     <string name="x_and_y">%1$s e %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Per accedere alle scorciatoie e ad altre funzioni aggiuntive, imposta Lawnchair come launcher predefinito</string>
+    <string name="set_default_launcher_tip">Per accedere alle scorciatoie e ad altre funzioni aggiuntive, imposta StartSafe come launcher predefinito</string>
     <string name="notification_dots">Punti di notifica</string>
     <string name="show_notification_count">Mostra Contatore di notifica</string>
     <string name="notification_dots_color">Colore dei Punti di notifica</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Apri la ricerca</string>
     <string name="pick_app_for_gesture">Seleziona l\'app</string>
     <string name="dt2s_admin_hint_title">Permessi di amministratore necessari</string>
-    <string name="dt2s_admin_hint">Per sospendere lo schermo con un doppio tocco, imposta Lawnchair come amministratore del dispositivo. Tocca \"Apri impostazioni\", poi tocca \"Attiva questa app come amministratore del dispositivo\".</string>
+    <string name="dt2s_admin_hint">Per sospendere lo schermo con un doppio tocco, imposta StartSafe come amministratore del dispositivo. Tocca \"Apri impostazioni\", poi tocca \"Attiva questa app come amministratore del dispositivo\".</string>
     <string name="dt2s_admin_warning">La sospensione con un doppio tocco sarà disabilitata.</string>
     <string name="d2ts_recents_a11y_hint_title">Abilita il servizio di accessibilità</string>
-    <string name="dt2s_a11y_hint">Per sospendere lo schermo con un doppio tocco, abilita il servizio di accessibilità di Lawnchair. Tocca \"Apri impostazioni\", seleziona \"Lawnchair\" e abilita \"Usa Lawnchair\".\n\nLawnchair utilizza il metodo di accessibilità `performGlobalAction` per effettuare questa operazione. Si tratta di un permesso sensibile che permette di monitorare altre app, tuttavia Lawnchair non è configurato per quella funzionalità e non riceve alcun evento.</string>
+    <string name="dt2s_a11y_hint">Per sospendere lo schermo con un doppio tocco, abilita il servizio di accessibilità di Lawnchair. Tocca \"Apri impostazioni\", seleziona \"Lawnchair\" e abilita \"Usa Lawnchair\".\n\nLawnchair utilizza il metodo di accessibilità `performGlobalAction` per effettuare questa operazione. Si tratta di un permesso sensibile che permette di monitorare altre app, tuttavia StartSafe non è configurato per quella funzionalità e non riceve alcun evento.</string>
     <string name="dt2s_recents_warning_open_settings">Apri impostazioni</string>
-    <string name="recents_a11y_hint">Per utilizzare Apri App Recenti, abilita il servizio di accessibilità di Lawnchair. Tocca \"Apri impostazioni\", seleziona \"Lawnchair\" e abilita \"Usa Lawnchair\".\n\nLawnchair utilizza il metodo di accessibilità `performGlobalAction` per effettuare questa operazione. Si tratta di un permesso sensibile che permette di monitorare altre app, tuttavia Lawnchair non è configurato per quella funzionalità e non riceve alcun evento.</string>
+    <string name="recents_a11y_hint">Per utilizzare Apri App Recenti, abilita il servizio di accessibilità di Lawnchair. Tocca \"Apri impostazioni\", seleziona \"Lawnchair\" e abilita \"Usa Lawnchair\".\n\nLawnchair utilizza il metodo di accessibilità `performGlobalAction` per effettuare questa operazione. Si tratta di un permesso sensibile che permette di monitorare altre app, tuttavia StartSafe non è configurato per quella funzionalità e non riceve alcun evento.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Margine inferiore</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Ricerca delle app</string>
-    <string name="search_provider_sponsored_description">%1$s e Lawnchair hanno un accordo di condivisione delle entrate.\n\nLa ricerca tramite %1$s aiuta a supportare Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s e StartSafe hanno un accordo di condivisione delle entrate.\n\nLa ricerca tramite %1$s aiuta a supportare Lawnchair.</string>
     <string name="app_label">App</string>
     <string name="website_label">Sito web</string>
     <string name="qsb_search_provider_app_required">App necessaria</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Numero massimo di colonne nelle cartelle</string>
     <string name="max_folder_rows">Numero massimo di righe nelle cartelle</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Queste impostazioni saranno ignorate perché Lawnchair non è impostato come fornitore delle App Recenti</string>
+    <string name="quickswitch_ignored_warning">Queste impostazioni saranno ignorate perché StartSafe non è impostato come fornitore delle App Recenti</string>
     <string name="quickstep_incompatible">Integrazione di sistema incompatibile</string>
     <string name="quickstep_incompatible_description">Il tuo dispositivo è configurato per avere i gesti di sistema (noti come Quickstep) forniti da %1$s, ma questa versione di %1$s non è compatibile con la tua versione di Android. Per continuare ad usare il tuo dispositivo, disinstalla gli aggiornamenti di %1$s o disabilita %1$s come fornitore dei gesti di sistema.</string>
     <string name="translucent_background">Sfondo traslucido</string>
@@ -534,8 +534,8 @@
     <string name="max_suggestion_result_count_title">Numero massimo di suggerimenti</string>
     <string name="max_web_suggestion_delay">Ritardo massimo dei suggerimenti dal web</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Per cercare tra i contatti, concedi a Lawnchair i permessi Contatti e Telefono</string>
-    <string name="warn_files_permission_content">Per cercare tra i tuoi file, concedi a Lawnchair il permesso Archiviazione</string>
+    <string name="warn_contact_permission_content">Per cercare tra i contatti, concedi a StartSafe i permessi Contatti e Telefono</string>
+    <string name="warn_files_permission_content">Per cercare tra i tuoi file, concedi a StartSafe il permesso Archiviazione</string>
     <string name="grant_requested_permissions">Concedi i permessi</string>
     <string name="allapps_web_suggestion_provider_label">Fornitore di suggerimenti web</string>
     <string name="allapps_use_web_suggestion_icon_label">Mostra l\'icona del fornitore di suggerimenti web nella barra di ricerca</string>

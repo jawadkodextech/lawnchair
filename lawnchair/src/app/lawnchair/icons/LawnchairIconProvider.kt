@@ -407,7 +407,7 @@ class LawnchairIconProvider @JvmOverloads constructor(
     }
 
     companion object {
-        const val TAG = "LawnchairIconProvider"
+        const val TAG = "StartSafeIconProvider"
 
         val DISABLED_MAP = emptyMap<ComponentName, ThemedIconDrawable.ThemeData>()
     }

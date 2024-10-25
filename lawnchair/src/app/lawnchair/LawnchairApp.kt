@@ -43,6 +43,9 @@ import app.lawnchair.ui.preferences.destinations.openAppInfo
 import app.lawnchair.util.restartLauncher
 import app.lawnchair.util.unsafeLazy
 import app.lawnchair.views.ComposeBottomSheet
+import com.android.installreferrer.api.InstallReferrerClient
+import com.android.installreferrer.api.InstallReferrerStateListener
+import com.android.installreferrer.api.ReferrerDetails
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.InvariantDeviceProfile
 import com.android.launcher3.Launcher
@@ -50,20 +53,92 @@ import com.android.launcher3.R
 import com.android.launcher3.Utilities
 import com.android.quickstep.RecentsActivity
 import com.android.systemui.shared.system.QuickStepContract
+import com.appsflyer.AppsFlyerConversionListener
+import com.appsflyer.AppsFlyerLib
+import com.appsflyer.attribution.AppsFlyerRequestListener
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import java.io.File
+import org.json.JSONObject
 
-class LawnchairApp : Application() {
-    private val compatible = Build.VERSION.SDK_INT in BuildConfig.QUICKSTEP_MIN_SDK..BuildConfig.QUICKSTEP_MAX_SDK
+
+class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerRequestListener {
+    private val compatible =
+        Build.VERSION.SDK_INT in BuildConfig.QUICKSTEP_MIN_SDK..BuildConfig.QUICKSTEP_MAX_SDK
     private val isRecentsComponent: Boolean by unsafeLazy { checkRecentsComponent() }
     private val recentsEnabled: Boolean get() = compatible && isRecentsComponent
     private val isAtleastT = Utilities.ATLEAST_T
     internal var accessibilityService: LawnchairAccessibilityService? = null
-    val isVibrateOnIconAnimation: Boolean by unsafeLazy { getSystemUiBoolean("config_vibrateOnIconAnimation", false) }
+    var mp: MixpanelAPI? = null
+        private set
+    val isVibrateOnIconAnimation: Boolean by unsafeLazy {
+        getSystemUiBoolean(
+            "config_vibrateOnIconAnimation",
+            false,
+        )
+    }
+    var jSOnEvent = JSONObject()
+//    appname
+//    apppackage
+    private lateinit var referrerClient: InstallReferrerClient
 
     override fun onCreate() {
         super.onCreate()
         instance = this
         QuickStepContract.sRecentsDisabled = !recentsEnabled
+        jSOnEvent.put("appname",getString(R.string.derived_app_name))
+        jSOnEvent.put("apppackage",packageName)
+        Log.d(TAG,"Jevent ${jSOnEvent}")
+//bf79d626201c31224e3756be218724db mixpanel
+        val item = AppsFlyerLib.getInstance()
+//        item.setDebugLog(true)
+        item.setMinTimeBetweenSessions(2)
+        item.init("GdSRvSGyHKCcVQ32JZqofR", this, this)
+        item.start(this, "GdSRvSGyHKCcVQ32JZqofR", this)
+        AppsFlyerLib.getInstance().setCustomerUserId(androidId)
+
+        mp = MixpanelAPI.getInstance(this, "bf79d626201c31224e3756be218724db", true);
+
+        mp?.identify(androidId, true);
+
+        referrerClient = InstallReferrerClient.newBuilder(this).build()
+        referrerClient.startConnection(object : InstallReferrerStateListener {
+
+            override fun onInstallReferrerSetupFinished(responseCode: Int) {
+                when (responseCode) {
+                    InstallReferrerClient.InstallReferrerResponse.OK -> {
+                        // Connection established.
+                        val response: ReferrerDetails = referrerClient.installReferrer
+                        val referrerUrl: String = response.installReferrer
+                        val referrerClickTime: Long = response.referrerClickTimestampSeconds
+                        val appInstallTime: Long = response.installBeginTimestampSeconds
+                        val instantExperienceLaunched: Boolean = response.googlePlayInstantParam
+                        val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                        props.put("referrerUrl", referrerUrl)
+                        props.put("referrerClickTime", referrerClickTime)
+                        props.put("appInstallTime", appInstallTime)
+                        props.put("instantExperienceLaunched", instantExperienceLaunched)
+                        Log.d(TAG,"Refre $props")
+                        LawnchairApp.instance?.mp?.track("appInstall", props)
+                        referrerClient.endConnection()
+                    }
+                    InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
+                        // API not available on the current Play Store app.
+                        Log.d(TAG,"Refre Not Supported")
+                    }
+                    InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
+                        // Connection couldn't be established.
+                        Log.d(TAG,"Refre Not SERVICE_UNAVAILABLE")
+                    }
+                }
+            }
+
+            override fun onInstallReferrerServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        })
+
+
     }
 
     fun onLauncherAppStateCreated() {
@@ -176,7 +251,10 @@ class LawnchairApp : Application() {
         val isRecentsComponent = recentsComponent.packageName == packageName &&
             recentsComponent.className == RecentsActivity::class.java.name
         if (!isRecentsComponent) {
-            Log.d(TAG, "config_recentsComponentName ($recentsComponent) is not Lawnchair, disabling recents")
+            Log.d(
+                TAG,
+                "config_recentsComponentName ($recentsComponent) is not StartSafe, disabling recents",
+            )
             return false
         }
 
@@ -195,12 +273,16 @@ class LawnchairApp : Application() {
     }
 
     companion object {
-        private const val TAG = "LawnchairApp"
+        const val TAG = "StartSafeApp"
         val androidId: String?
             @SuppressLint("HardwareIds")
             get() {
-                return Settings.Secure.getString(instance?.contentResolver, Settings.Secure.ANDROID_ID)
+                return Settings.Secure.getString(
+                    instance?.contentResolver,
+                    Settings.Secure.ANDROID_ID,
+                )
             }
+
         @JvmStatic
         lateinit var instance: LawnchairApp
             private set
@@ -246,9 +328,43 @@ class LawnchairApp : Application() {
         }
 
         fun getUriForFile(context: Context, file: File): Uri {
-            return FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+            return FileProvider.getUriForFile(
+                context,
+                "${BuildConfig.APPLICATION_ID}.fileprovider",
+                file,
+            )
         }
     }
+
+    override fun onTerminate() {
+
+        super.onTerminate()
+    }
+
+    override fun onConversionDataSuccess(p0: MutableMap<String, Any>?) {
+        Log.d(TAG, "onConversionDataSuccess $p0")
+    }
+
+    override fun onConversionDataFail(p0: String?) {
+        Log.d(TAG, "onConversionDataFail $p0")
+    }
+
+    override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {
+        Log.d(TAG, "onAppOpenAttribution $p0")
+    }
+
+    override fun onAttributionFailure(p0: String?) {
+        Log.d(TAG, "onAttributionFailure $p0")
+    }
+
+    override fun onSuccess() {
+        Log.d(TAG, "onSuccess ")
+    }
+
+    override fun onError(var1: Int, var2: String) {
+        Log.d(TAG, "onError $var1 , $var2")
+    }
+
 }
 
 val Context.lawnchairApp get() = applicationContext as LawnchairApp

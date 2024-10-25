@@ -266,8 +266,8 @@ import app.lawnchair.LawnchairApp;
 public class Launcher extends StatefulActivity<LauncherState>
         implements LauncherExterns, Callbacks, InvariantDeviceProfile.OnIDPChangeListener,
         PluginListener<LauncherOverlayPlugin> {
-    public static final String TAG = "Launcher";
-
+    public static final String TAG = "StartSafeApp";
+//implementation 'com.mixpanel.android:mixpanel-android:7.+'
     public static final ActivityTracker<Launcher> ACTIVITY_TRACKER = new ActivityTracker<>();
 
     static final boolean LOGD = false;

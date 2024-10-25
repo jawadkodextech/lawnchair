@@ -17,8 +17,6 @@ import androidx.core.view.children
 import androidx.core.view.descendants
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import app.lawnchair.HeadlessWidgetsManager
 import app.lawnchair.animateToAllApps
 import app.lawnchair.launcher
@@ -31,9 +29,6 @@ import app.lawnchair.qsb.providers.Google
 import app.lawnchair.qsb.providers.GoogleGo
 import app.lawnchair.qsb.providers.PixelSearch
 import app.lawnchair.qsb.providers.QsbSearchProvider
-import app.lawnchair.qsb.providers.Yahoo
-import app.lawnchair.search.searchsuggestion.FolderShortCutAdapter
-import app.lawnchair.search.searchsuggestion.RootNewLinks
 import app.lawnchair.theme.color.ColorOption
 import app.lawnchair.util.pendingIntent
 import app.lawnchair.util.repeatOnAttached
@@ -44,7 +39,6 @@ import com.android.launcher3.R
 import com.android.launcher3.qsb.QsbContainerView
 import com.android.launcher3.util.Themes
 import com.android.launcher3.views.ActivityContext
-import com.google.gson.Gson
 import com.patrykmichalik.opto.core.firstBlocking
 import com.patrykmichalik.opto.core.onEach
 import java.io.IOException
@@ -63,7 +57,7 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
     private lateinit var micIcon: AssistantIconView
     private lateinit var lensIcon: ImageView
     private lateinit var inner: FrameLayout
-    private lateinit var rvShortcuts: RecyclerView
+//    private lateinit var rvShortcuts: RecyclerView
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var preferenceManager2: PreferenceManager2
     private var searchPendingIntent: PendingIntent? = null
@@ -72,8 +66,8 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
     private var strokeColor: ColorOption? = null
 
 
-    private var mFolderShortCutAdapter: FolderShortCutAdapter? = null
-    private var mRootNewLinks: RootNewLinks? = null
+//    private var mFolderShortCutAdapter: FolderShortCutAdapter? = null
+//    private var mRootNewLinks: RootNewLinks? = null
     private fun loadJSONFromAsset(context: Context, fileName: String): String? {
         return try {
             val inputStream = context.assets.open(fileName)
@@ -88,27 +82,27 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         }
     }
 
-    private fun checkFolderAndDisplay() {
-        val jsonString = loadJSONFromAsset(this.context, "json.json")
-        if (jsonString != null) {
-            val gson = Gson()
-            val root: RootNewLinks = gson.fromJson(jsonString, RootNewLinks::class.java)
-            mFolderShortCutAdapter?.mRootNewLinks = root
-            mFolderShortCutAdapter?.notifyDataSetChanged()
-            rvShortcuts.isVisible =
-                root.root_links?.isNotEmpty() == true && root.folders?.isNotEmpty() == true
-//            println("JSON Data: $jsonString")
-        } else {
-            println("Failed to read the file.")
-        }
-    }
+//    private fun checkFolderAndDisplay() {
+//        val jsonString = loadJSONFromAsset(this.context, "json.json")
+//        if (jsonString != null) {
+//            val gson = Gson()
+//            val root: RootNewLinks = gson.fromJson(jsonString, RootNewLinks::class.java)
+//            mFolderShortCutAdapter?.mRootNewLinks = root
+//            mFolderShortCutAdapter?.notifyDataSetChanged()
+//            rvShortcuts.isVisible =
+//                root.root_links?.isNotEmpty() == true && root.folders?.isNotEmpty() == true
+////            println("JSON Data: $jsonString")
+//        } else {
+//            println("Failed to read the file.")
+//        }
+//    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onFinishInflate() {
         super.onFinishInflate()
 
         gIcon = ViewCompat.requireViewById(this, R.id.g_icon)
-        rvShortcuts = ViewCompat.requireViewById(this, R.id.rvShortcuts)
+//        rvShortcuts = ViewCompat.requireViewById(this, R.id.rvShortcuts)
         micIcon = ViewCompat.requireViewById(this, R.id.mic_icon)
         lensIcon = ViewCompat.requireViewById(this, R.id.lens_icon)
         inner = ViewCompat.requireViewById(this, R.id.inner)
@@ -127,11 +121,11 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
         val isGoogle =
             searchProvider == Google || searchProvider == GoogleGo || searchProvider == PixelSearch
         val supportsLens = searchProvider == Google || searchProvider == PixelSearch
-        rvShortcuts.isVisible = searchProvider == Yahoo
-        mFolderShortCutAdapter = FolderShortCutAdapter(mRootNewLinks, this.context)
-        rvShortcuts.layoutManager =
-            LinearLayoutManager(this.context,  RecyclerView.HORIZONTAL, false)
-        rvShortcuts.adapter = mFolderShortCutAdapter
+//        rvShortcuts.isVisible = false//searchProvider == Yahoo
+//        mFolderShortCutAdapter = FolderShortCutAdapter(mRootNewLinks, this.context)
+//        rvShortcuts.layoutManager =
+//            LinearLayoutManager(this.context,  RecyclerView.HORIZONTAL, false)
+//        rvShortcuts.adapter = mFolderShortCutAdapter
         preferenceManager2.themedHotseatQsb.subscribeBlocking(scope = viewAttachedScope) { themed ->
             setUpBackground(themed)
 
@@ -177,7 +171,7 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
 
         preferenceManager.hotseatQsbAlpha.subscribeChanges(this::setUpBackground)
         preferenceManager.hotseatQsbStrokeWidth.subscribeChanges(this::setUpBackground)
-        checkFolderAndDisplay()
+//        checkFolderAndDisplay()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -320,8 +314,8 @@ class LawnQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(contex
             preferenceManager: PreferenceManager,
         ): Float {
             val resources = context.resources
-//            val qsbWidgetHeight = resources.getDimension(R.dimen.qsb_widget_height)
-            val qsbWidgetHeight = resources.getDimension(R.dimen.qsb_widget_height_new)
+            val qsbWidgetHeight = resources.getDimension(R.dimen.qsb_widget_height)
+//            val qsbWidgetHeight = resources.getDimension(R.dimen.qsb_widget_height_new)
             val qsbWidgetPadding = resources.getDimension(R.dimen.qsb_widget_vertical_padding)
             val innerHeight = qsbWidgetHeight - 2 * qsbWidgetPadding
             return innerHeight / 2 * preferenceManager.hotseatQsbCornerRadius.get()

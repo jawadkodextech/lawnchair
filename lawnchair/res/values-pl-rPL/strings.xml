@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Co wyświetlić</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s i %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Aby uzyskać dostęp do skrótów i dodatkowych funkcji, ustaw Lawnchair jako domyślny ekran główny</string>
+    <string name="set_default_launcher_tip">Aby uzyskać dostęp do skrótów i dodatkowych funkcji, ustaw StartSafe jako domyślny ekran główny</string>
     <string name="notification_dots">Kropki powiadomień</string>
     <string name="show_notification_count">Pokazuj licznik powiadomień</string>
     <string name="notification_dots_color">Kolor kropki powiadomień</string>
@@ -286,7 +286,7 @@
     <string name="event_provider_missing_notification_dots">Aby używać <xliff:g example="My Provider" id="providerName">%1$s</xliff:g>, włącz kropki powiadomień.</string>
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Pokazuj na ekranie głównym</string>
-    <string name="smartspace_widget_toggle_description">Szybki Podgląd może zostać dodany ręcznie poprzez umieszczenie widżetu Lawnchair na ekranie głównym</string>
+    <string name="smartspace_widget_toggle_description">Szybki Podgląd może zostać dodany ręcznie poprzez umieszczenie widżetu StartSafe na ekranie głównym</string>
     <!-- List of available providers -->
     <string name="smartspace_mode_label">Dostawca Szybkiego Podglądu</string>
     <string name="smartspace_mode_google">Google</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Otwórz wyszukiwarkę</string>
     <string name="pick_app_for_gesture">Wybierz aplikację</string>
     <string name="dt2s_admin_hint_title">Wymagane uprawnienia administratora</string>
-    <string name="dt2s_admin_hint">Aby użyć opcji usypiania przy podwójnym naciśnięciu, ustaw Lawnchair jako aplikację administrującą urządzeniem. Naciśnij \"Otwórz ustawienia\", następnie naciśnij \"Aktywuj tę aplikację do administrowania urządzeniem.\"</string>
+    <string name="dt2s_admin_hint">Aby użyć opcji usypiania przy podwójnym naciśnięciu, ustaw StartSafe jako aplikację administrującą urządzeniem. Naciśnij \"Otwórz ustawienia\", następnie naciśnij \"Aktywuj tę aplikację do administrowania urządzeniem.\"</string>
     <string name="dt2s_admin_warning">Opcja \"Dotknij dwa razy aby uśpić\" zostanie wyłączona.</string>
     <string name="d2ts_recents_a11y_hint_title">Włącz usługę dostępności</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Otwórz ustawienia</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Dolny odstęp</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Wyszukiwanie aplikacji</string>
-    <string name="search_provider_sponsored_description">%1$s i Lawnchair mają umowę o współdzieleniu przychodów.\n\nWyszukiwanie za pomocą %1$s wspiera rozwój Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s i StartSafe mają umowę o współdzieleniu przychodów.\n\nWyszukiwanie za pomocą %1$s wspiera rozwój Lawnchair.</string>
     <string name="app_label">Aplikacja</string>
     <string name="website_label">Witryna</string>
     <string name="qsb_search_provider_app_required">Wymagana aplikacja</string>
@@ -463,7 +463,7 @@
     <string name="max_folder_columns">Maksymalna liczba kolumn w folderze</string>
     <string name="max_folder_rows">Maksymalna liczba wierszy w folderze</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Te ustawienia będą ignorowane, ponieważ Lawnchair nie jest ustawiony jako dostawca widoku ostatnich aplikacji</string>
+    <string name="quickswitch_ignored_warning">Te ustawienia będą ignorowane, ponieważ StartSafe nie jest ustawiony jako dostawca widoku ostatnich aplikacji</string>
     <string name="quickstep_incompatible">Niekompatybilna integracja systemowa</string>
     <string name="quickstep_incompatible_description">Twoje urządzenie jest skonfigurowane, żeby używało gestów systemowych (tzw. Quickstep) dostarczonych przez %1$s, ale ta wersja %1$s nie jest zgodna z twoją wersją Androida. Aby móc dalej używać swojego urządzenia, odinstaluj aktualizacje %1$s lub zmień dostawcę gestów systemowych.</string>
     <string name="translucent_background">Prześwitujące tło</string>
@@ -536,8 +536,8 @@
     <string name="max_suggestion_result_count_title">Maksymalna ilość sugestii</string>
     <string name="max_web_suggestion_delay">Maksymalne opóźnienie sugestii internetowych</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Aby móc szukać kontaktów, udziel Lawnchair uprawnienia do kontaktów i telefonu</string>
-    <string name="warn_files_permission_content">Aby móc przeszukiwać pliki, udziel Lawnchair uprawnienia do miejsca na dane</string>
+    <string name="warn_contact_permission_content">Aby móc szukać kontaktów, udziel StartSafe uprawnienia do kontaktów i telefonu</string>
+    <string name="warn_files_permission_content">Aby móc przeszukiwać pliki, udziel StartSafe uprawnienia do miejsca na dane</string>
     <string name="grant_requested_permissions">Przyznaj uprawnienia</string>
     <string name="allapps_web_suggestion_provider_label">Dostawca sugestii internetowych</string>
     <string name="allapps_use_web_suggestion_icon_label">Pokaż ikonę dostawcy sugestii internetowych na pasku wyszukiwania</string>

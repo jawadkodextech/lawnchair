@@ -1,4 +1,4 @@
-# The rules from AOSP are located in proguard.flags file, we can just maintain Lawnchair related rules here.
+# The rules from AOSP are located in proguard.flags file, we can just maintain StartSafe related rules here.
 
 # Optimization options.
 -allowaccessmodification
@@ -38,7 +38,7 @@
   public static final ** CREATOR;
 }
 
-# Lawnchair specific rules.
+# StartSafe specific rules.
 -keep class app.lawnchair.LawnchairProto$* { *; }
 -keep class app.lawnchair.LawnchairApp { *; }
 -keep class app.lawnchair.LawnchairLauncher { *; }

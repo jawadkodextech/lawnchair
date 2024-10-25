@@ -9,6 +9,8 @@ coil = "2.7.0"
 compose-bom = "2024.09.03"
 compose-accompanist = "0.36.0"
 coroutines = "1.9.0"
+installreferrer = "2.2"
+afAndroidSdk = "6.15.0"
 constraint-layout = "2.1.4"
 coordinator-layout = "1.2.0"
 datastore = "1.1.1"
@@ -136,6 +138,8 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiautomator" }
 support-runner = { module = "com.android.support.test:runner", version.ref = "support-runner" }
 support-rules = { module = "com.android.support.test:rules", version.ref = "support-rules" }
+installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "installreferrer" }
+af-android-sdk = { module = "com.appsflyer:af-android-sdk", version.ref = "afAndroidSdk" }
 support-uiautomator = { module = "com.android.support.test.uiautomator:uiautomator-v18", version.ref = "support-uiautomator" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }

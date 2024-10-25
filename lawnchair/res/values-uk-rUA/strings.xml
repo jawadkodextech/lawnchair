@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Що показати</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Щоб заблокувати телефон виконанням жесту, а також щоб відкрити Недавні за допомогою жесту, Lawnchair потребує дозволу служби доступності.\n\nLawnchair не спостерігає за діями користувача, хоча привілей на це потрібен для всіх служб доступності. Lawnchair відкидає будь-яку подію, надіслану системою.\n\nЩоб заблокувати телефон або відкрити Недавні, Lawnchair використовує службу доступності `performGlobalAction`.</string>
+    <string name="accessibility_service_description">Щоб заблокувати телефон виконанням жесту, а також щоб відкрити Недавні за допомогою жесту, StartSafe потребує дозволу служби доступності.\n\nLawnchair не спостерігає за діями користувача, хоча привілей на це потрібен для всіх служб доступності. StartSafe відкидає будь-яку подію, надіслану системою.\n\nЩоб заблокувати телефон або відкрити Недавні, StartSafe використовує службу доступності `performGlobalAction`.</string>
     <string name="x_by_y">%1$d на %2$d</string>
     <string name="x_and_y">%1$s і %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Щоб отримати доступ до ярликів і додаткових функцій, встановіть Lawnchair як лаунчер за замовчуванням</string>
+    <string name="set_default_launcher_tip">Щоб отримати доступ до ярликів і додаткових функцій, встановіть StartSafe як лаунчер за замовчуванням</string>
     <string name="notification_dots">Позначки сповіщень</string>
     <string name="show_notification_count">Показувати лічильник сповіщень</string>
     <string name="notification_dots_color">Колір позначки сповіщень</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Відкрити пошук</string>
     <string name="pick_app_for_gesture">Обрати додаток</string>
     <string name="dt2s_admin_hint_title">Потрібен дозвіл Адміністратора</string>
-    <string name="dt2s_admin_hint">Щоб використовувати «Подвійний Дотик для Переходу в Режим Сну», надайте Lawnchair дозвіл адміністратора. Натисніть «Відкрити Налаштування», потім натисніть «Активувати цю програму адміністрування пристрою.»</string>
+    <string name="dt2s_admin_hint">Щоб використовувати «Подвійний Дотик для Переходу в Режим Сну», надайте StartSafe дозвіл адміністратора. Натисніть «Відкрити Налаштування», потім натисніть «Активувати цю програму адміністрування пристрою.»</string>
     <string name="dt2s_admin_warning">«Подвійне Натискання в Сплячий Режим» буде відключено.</string>
     <string name="d2ts_recents_a11y_hint_title">Увімкнути службу Спеціальних Можливостей</string>
-    <string name="dt2s_a11y_hint">Щоб використовувати \"Подвійний Дотик для Переходу в Режим Сну\", увімкніть службу доступності Lawnchair. Натисніть \"Відкрити налаштування\", виберіть \"Lawnchair\" і увімкніть \"Використовувати Lawnchair\".\n\nLawnchair використовує метод доступності `performGlobalAction` для виконання цієї дії. Це чутливий дозвіл, який дозволяє контролювати інші програми. Втім, Lawnchair не налаштований на цю можливість і не отримує жодних подій.</string>
+    <string name="dt2s_a11y_hint">Щоб використовувати \"Подвійний Дотик для Переходу в Режим Сну\", увімкніть службу доступності Lawnchair. Натисніть \"Відкрити налаштування\", виберіть \"Lawnchair\" і увімкніть \"Використовувати Lawnchair\".\n\nLawnchair використовує метод доступності `performGlobalAction` для виконання цієї дії. Це чутливий дозвіл, який дозволяє контролювати інші програми. Втім, StartSafe не налаштований на цю можливість і не отримує жодних подій.</string>
     <string name="dt2s_recents_warning_open_settings">Відкрити Налаштування</string>
-    <string name="recents_a11y_hint">Щоб використовувати \"Відкрити Недавні\", увімкніть службу доступності Lawnchair. Натисніть \"Відкрити налаштування\", виберіть \"Lawnchair\" і увімкніть \"Використовувати Lawnchair\".\n\nLawnchair використовує метод доступності `performGlobalAction` для виконання цієї дії. Це чутливий дозвіл, який дозволяє контролювати інші програми. Втім, Lawnchair не налаштований на цю можливість і не отримує жодних подій.</string>
+    <string name="recents_a11y_hint">Щоб використовувати \"Відкрити Недавні\", увімкніть службу доступності Lawnchair. Натисніть \"Відкрити налаштування\", виберіть \"Lawnchair\" і увімкніть \"Використовувати Lawnchair\".\n\nLawnchair використовує метод доступності `performGlobalAction` для виконання цієї дії. Це чутливий дозвіл, який дозволяє контролювати інші програми. Втім, StartSafe не налаштований на цю можливість і не отримує жодних подій.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Нижній відступ</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Пошук додатків</string>
-    <string name="search_provider_sponsored_description">%1$s та Lawnchair уклали партнерську угоду.\n\nПошук через %1$s допомагає підтримувати Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s та StartSafe уклали партнерську угоду.\n\nПошук через %1$s допомагає підтримувати Lawnchair.</string>
     <string name="app_label">Застосунок</string>
     <string name="website_label">Вебсайт</string>
     <string name="qsb_search_provider_app_required">Необхідний додаток</string>
@@ -463,7 +463,7 @@
     <string name="max_folder_columns">Максимальна кількість стовпців у теці</string>
     <string name="max_folder_rows">Максимальна кількість рядків у теці</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Ці параметри буде проігноровано, оскільки Lawnchair не встановлено як постачальника Недавніх</string>
+    <string name="quickswitch_ignored_warning">Ці параметри буде проігноровано, оскільки StartSafe не встановлено як постачальника Недавніх</string>
     <string name="quickstep_incompatible">Несумісна системна інтеграція</string>
     <string name="quickstep_incompatible_description">Ваш пристрій налаштовано на використання системних жестів (відомих як Quickstep) від %1$s, але ця версія %1$s несумісна з вашою версією Android. Щоб продовжити користуватися пристроєм, видаліть оновлення %1$s або вимкніть %1$s як постачальника системних жестів.</string>
     <string name="translucent_background">Напівпрозорий фон</string>
@@ -536,8 +536,8 @@
     <string name="max_suggestion_result_count_title">Максимальна кількість пропозицій</string>
     <string name="max_web_suggestion_delay">Максимальна затримка вебпропозицій</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Щоб шукати контакти, надайте Lawnchair доступ до списку контактів та дзвінків</string>
-    <string name="warn_files_permission_content">Щоб шукати файли, надайте Lawnchair доступ до сховища</string>
+    <string name="warn_contact_permission_content">Щоб шукати контакти, надайте StartSafe доступ до списку контактів та дзвінків</string>
+    <string name="warn_files_permission_content">Щоб шукати файли, надайте StartSafe доступ до сховища</string>
     <string name="grant_requested_permissions">Надати дозвіл</string>
     <string name="allapps_web_suggestion_provider_label">Постачальник вебпропозицій</string>
     <string name="allapps_use_web_suggestion_icon_label">Показувати значок постачальника вебпропозицій на панелі пошуку</string>

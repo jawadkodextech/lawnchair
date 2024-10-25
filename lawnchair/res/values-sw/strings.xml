@@ -345,10 +345,10 @@
     <string name="item_removed">Kipengee kimeondolewa.</string>
     <string name="all_apps_no_search_results">Hakuna programu zilizopatikana zinazolingana \"<xliff:g example="Android" id="query">%1$s</xliff:g>\".</string>
     <string name="dt2s_admin_hint_title">Ruhusa za Msimamizi Zinahitajika</string>
-    <string name="dt2s_admin_hint">Ili kutumia Gusa Mara Mbili ili Kulala, weka Lawnchair kama programu ya msimamizi wa kifaa. Gusa Fungua Mipangilio, kisha uguse \"Washa programu ya msimamizi wa kifaa hiki.\"</string>
+    <string name="dt2s_admin_hint">Ili kutumia Gusa Mara Mbili ili Kulala, wekaStartSafekama programu ya msimamizi wa kifaa. Gusa Fungua Mipangilio, kisha uguse \"Washa programu ya msimamizi wa kifaa hiki.\"</string>
     <string name="dt2s_admin_warning">Gusa Mara mbili ili Ulale itazimwa.</string>
     <string name="dt2s_a11y_hint_title">Washa Huduma ya Ufikiaji</string>
-    <string name="dt2s_a11y_hint">Ili kutumia Gusa Mara Mbili ili Ulale, washa huduma ya ufikiaji wa Lawnchair. Gusa Fungua Mipangilio, kisha uchague Lawnchair na uwashe Tumia Lawnchair.</string>
+    <string name="dt2s_a11y_hint">Ili kutumia Gusa Mara Mbili ili Ulale, washa huduma ya ufikiaji wa Lawnchair. Gusa Fungua Mipangilio, kisha uchagueStartSafena uwashe Tumia Lawnchair.</string>
     <string name="dt2s_warning_open_settings">Fungua mfumo</string>
     <string name="loading">Inapakia…</string>
     <string name="system">Mfumo</string>

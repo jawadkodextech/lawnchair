@@ -469,7 +469,7 @@ public class InvariantDeviceProfile {
                 // Supported overrides: numRows, numColumns, iconSize
                 applyPartnerDeviceProfileOverrides(context, metrics);
 
-                // Lawnchair ignores partner overrides and allows the user to customize the grid themselves
+                //StartSafeignores partner overrides and allows the user to customize the grid themselves
                 overrideOptions.applyUi(this);
 
                 final List<DeviceProfile> localSupportedProfiles = new ArrayList<>();

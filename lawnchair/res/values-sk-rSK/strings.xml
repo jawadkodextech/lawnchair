@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Čo ukázať</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Na uzamknutie telefónu pri vykonávaní gesta vyžaduje aplikácia Lawnchair prístup k funkciám prístupnosti.\n\nLawnchair nesleduje žiadnu činnosť používateľa, hoci oprávnenie na to sa vyžaduje pre všetky služby prístupnosti. Služba Lawnchair zahodí akúkoľvek udalosť odoslanú systémom.\n\nNa uzamknutie telefónu používa služba sprístupnenia performGlobalAction.</string>
+    <string name="accessibility_service_description">Na uzamknutie telefónu pri vykonávaní gesta vyžaduje aplikácia StartSafe prístup k funkciám prístupnosti.\n\nLawnchair nesleduje žiadnu činnosť používateľa, hoci oprávnenie na to sa vyžaduje pre všetky služby prístupnosti. Služba StartSafe zahodí akúkoľvek udalosť odoslanú systémom.\n\nNa uzamknutie telefónu používa služba sprístupnenia performGlobalAction.</string>
     <string name="x_by_y">%1$d × %2$d</string>
     <string name="x_and_y">%1$s a %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Pre prístup k skratkám a ďalších funkcii nastavte Lawnchair ako predvolebný spúšťač</string>
+    <string name="set_default_launcher_tip">Pre prístup k skratkám a ďalších funkcii nastavte StartSafe ako predvolebný spúšťač</string>
     <string name="notification_dots">Bodky upozornení</string>
     <string name="show_notification_count">Zobraziť počet oznámení</string>
     <string name="notification_dots_color">Farby bodky upozornenia</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Otvoriť vyhľadávanie</string>
     <string name="pick_app_for_gesture">Vybrať aplikáciu</string>
     <string name="dt2s_admin_hint_title">Nutné povolenia správcu</string>
-    <string name="dt2s_admin_hint">Pre používanie dvojitého kliknutia pre uspanie, nastavte Lawnchair ako správcu aplikácie. Kliknite na Nastavenia a potom na \"Aktivujte túto aplikáciu ako správca.\"</string>
+    <string name="dt2s_admin_hint">Pre používanie dvojitého kliknutia pre uspanie, nastavte StartSafe ako správcu aplikácie. Kliknite na Nastavenia a potom na \"Aktivujte túto aplikáciu ako správca.\"</string>
     <string name="dt2s_admin_warning">Dvojité kliknutie pre uspanie bude vypnuté.</string>
     <string name="d2ts_recents_a11y_hint_title">Zapnúť službu prístupnosti</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Otvoriť nastavenia</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Spodná medzera</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Vyhľadávanie aplikácií</string>
-    <string name="search_provider_sponsored_description">%1$s A Lawnchair má zmluvu o zdieľanie prijmú.\n\nVyhladavanie pomocou %1$s pomáha podporiť Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s A StartSafe má zmluvu o zdieľanie prijmú.\n\nVyhladavanie pomocou %1$s pomáha podporiť Lawnchair.</string>
     <string name="app_label">Aplikácia</string>
     <string name="website_label">Webová stránka</string>
     <string name="qsb_search_provider_app_required">Vyžaduje sa aplikácia</string>
@@ -463,7 +463,7 @@
     <string name="max_folder_columns">Max. počet stĺpcov v priečinku</string>
     <string name="max_folder_rows">Max. počet stĺpcov v priečinku</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Tieto nastavenia budú ignorované, pretože Lawnchair není nastavený ako poskytovateľ nedávnych aplikácie</string>
+    <string name="quickswitch_ignored_warning">Tieto nastavenia budú ignorované, pretože StartSafe není nastavený ako poskytovateľ nedávnych aplikácie</string>
     <string name="quickstep_incompatible">Nekompatibilná integrácia systému</string>
     <string name="quickstep_incompatible_description">Vaše zariadenie je nakonfigurované na systémové gestá (známe ako Quickstep), ktoré poskytuje %1$s, ale táto verzia %1$s nie je kompatibilná s vašou verziou systému Android. Ak chcete pokračovať v používaní svojho zariadenia, odinštalujte aktualizácie %1$s alebo vypnite %1$s ako poskytovateľa systémových gest.</string>
     <string name="translucent_background">Priesvitné pozadie</string>
@@ -537,7 +537,7 @@
     <string name="max_web_suggestion_delay">Maximálne oneskorenie webovej ponuky</string>
     <!-- Permission warnings -->
     <string name="warn_contact_permission_content">Ak chcete vyhľadávať kontakty, povoľte prístup ku kontaktom a telefónnemu číslu pre aplikáciu Lawnchair</string>
-    <string name="warn_files_permission_content">Ak chcete vyhľadávať v súboroch, udeľte Lawnchair oprávnenia na ukladanie</string>
+    <string name="warn_files_permission_content">Ak chcete vyhľadávať v súboroch, udeľte StartSafe oprávnenia na ukladanie</string>
     <string name="grant_requested_permissions">Povoľte prístup</string>
     <string name="allapps_web_suggestion_provider_label">Poskytovateľ webových návrhov</string>
     <string name="allapps_use_web_suggestion_icon_label">Zobraziť ikony poskytovateľa webových návrhov na paneli vyhľadávania</string>

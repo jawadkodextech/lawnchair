@@ -41,6 +41,9 @@ import app.lawnchair.showNotification
 import com.android.launcher3.Launcher.TAG
 import com.android.launcher3.R
 import com.android.launcher3.databinding.ActivityFullScreenBinding
+import com.appsflyer.AFInAppEventParameterName
+import com.appsflyer.AppsFlyerLib
+import com.appsflyer.attribution.AppsFlyerRequestListener
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
@@ -50,9 +53,12 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class FullScreenActivity : ComponentActivity() {
+class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
     private lateinit var binding: ActivityFullScreenBinding
-
+    private val IS_FROM_PUSH: Boolean
+        get() {
+            return intent?.extras?.getBoolean("IS_FROM_PUSH", false) ?: false
+        }
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val rlYahooSearch by lazy { findViewById<ConstraintLayout>(R.id.rlYahooSearch)!! }
     private val btnCrossGoBack by lazy { findViewById<ImageView>(R.id.btnCrossGoBack)!! }
@@ -100,10 +106,7 @@ class FullScreenActivity : ComponentActivity() {
 
         etYahooSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                // Handle action when "Done" is pressed
-                // Your code here
-                //https://startsafe.kidsmode.co/search/?i=04793824052e5793&q=hulu
-                ////                        "https://search.yahoo.com/search?q=$txtSearch",
+
                 if (txtSearch.isNotEmpty()) {
                     openURLInBrowser(
                         this,
@@ -123,8 +126,28 @@ class FullScreenActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult(),
         ) { isGranted ->
             if (isGranted.resultCode == RESULT_OK) {
-
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@FullScreenActivity,
+                    "safestartdefault_on", eventValues, this,
+                )
+                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                props.put("Set Default", true)
+                LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
+                LawnchairApp.instance?.mp?.flush()
             } else {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@FullScreenActivity,
+                    "safestartdefault_off", eventValues, this,
+                )
+//                LawnchairApp.instance?.mp?.flush()
+                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                props.put("Set Default", false)
+                LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
+                LawnchairApp.instance?.mp?.flush()
                 if (checkNotificationPermission(this)) {
                     showNotification(this)
                 }
@@ -193,7 +216,7 @@ class FullScreenActivity : ComponentActivity() {
             //"https://search.yahoo.com/search?q=${itemWebPage.url}"
             openURLInBrowser(
                 this,
-                "https://startsafe.kidsmode.co/search/?i=${LawnchairApp.androidId}&q=${itemWebPage.url}",
+                "https://startsafe.kidsmode.co/search/?i=${LawnchairApp.androidId}&q=${itemWebPage.title}",
                 rlYahooSearch.clipBounds,
                 null,
             )
@@ -230,6 +253,13 @@ class FullScreenActivity : ComponentActivity() {
         btnCrossGoBack.setOnClickListener {
             finish()
         }
+        if (IS_FROM_PUSH) {
+            val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+            props.put("FromPush", true)
+            LawnchairApp.instance?.mp?.track("ClickSearchBar", props)
+            LawnchairApp.instance?.mp?.flush()
+            showSetDefaultLauncher()
+        }
     }
 
     private fun showKeyboard(editText: EditText) {
@@ -244,8 +274,8 @@ class FullScreenActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
         showKeyboard(etYahooSearch)
-        showSetDefaultLauncher()
     }
+
     private fun showSetDefaultLauncher() {
         if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             resetLauncherViaFakeActivity()
@@ -253,9 +283,23 @@ class FullScreenActivity : ComponentActivity() {
             showLauncherSelector(resultLauncher)
         }
     }
+
+    override fun onSuccess() {
+        Log.d(LawnchairApp.TAG,"onSuccess()")
+    }
+
+    override fun onError(p0: Int, p1: String) {
+        Log.d(LawnchairApp.TAG,"onError() $p0 , $p1")
+    }
 }
 
 fun openURLInBrowser(context: Context, url: String?, sourceBounds: Rect?, options: Bundle?) {
+    val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+    props.put("properties_query_search", url)
+    props.put("searchsource", "custom_search_screen")
+    LawnchairApp.instance?.mp?.track("Search", props)
+    LawnchairApp.instance?.mp?.flush()
+
     try {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         if (context !is AppCompatActivity) {

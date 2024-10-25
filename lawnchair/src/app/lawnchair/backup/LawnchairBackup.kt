@@ -123,8 +123,8 @@ class LawnchairBackup(
         )
 
         fun generateBackupFileName(): String {
-            val fileName = "Lawnchair_Backup ${SimpleDateFormat.getDateTimeInstance().format(Date())}"
-            return "$fileName.lawnchairbackup"
+            val fileName = "StartSafe_Backup ${SimpleDateFormat.getDateTimeInstance().format(Date())}"
+            return "$fileName.startsafebackup"
         }
 
         fun getFiles(context: Context, forRestore: Boolean): Map<String, File> {

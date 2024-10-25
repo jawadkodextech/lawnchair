@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Vad ska visas</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">För att kunna låsa din telefon när en gest görs och för att kunna öppna Senaste med en gest kräver Lawnchair tillgänglighetsåtkomst.\n\nLawnchair övervakar inte några användaraktiviteter, men behörigheten att kunna göra detta krävs för alla tillgänglighetstjänster. Lawnchair förkastar alla händelser som skickas av systemet.\n\nFör att kunna låsa din telefon och för att kunna öppna Senaste använder Lawnchair tillgänglighetstjänsten performGlobalAction.</string>
+    <string name="accessibility_service_description">För att kunna låsa din telefon när en gest görs och för att kunna öppna Senaste med en gest kräver StartSafe tillgänglighetsåtkomst.\n\nLawnchair övervakar inte några användaraktiviteter, men behörigheten att kunna göra detta krävs för alla tillgänglighetstjänster. StartSafe förkastar alla händelser som skickas av systemet.\n\nFör att kunna låsa din telefon och för att kunna öppna Senaste använder StartSafe tillgänglighetstjänsten performGlobalAction.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">För att komma åt genvägar och ytterligare funktioner, ange Lawnchair som din förvalda startskärmsapp</string>
+    <string name="set_default_launcher_tip">För att komma åt genvägar och ytterligare funktioner, ange StartSafe som din förvalda startskärmsapp</string>
     <string name="notification_dots">Aviseringsprickar</string>
     <string name="show_notification_count">Visa aviseringsräknare</string>
     <string name="notification_dots_color">Aviseringsprickens färg</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Öppna sökning</string>
     <string name="pick_app_for_gesture">Välj app</string>
     <string name="dt2s_admin_hint_title">Adminbehörigheter krävs</string>
-    <string name="dt2s_admin_hint">För att använda Dubbeltryck för att vila, ange Lawnchair som en enhetsadminapp. Tryck på \"Öppna inställningar\", tryck sedan på \"Aktivera denna enhetsadminapp\".</string>
+    <string name="dt2s_admin_hint">För att använda Dubbeltryck för att vila, ange StartSafe som en enhetsadminapp. Tryck på \"Öppna inställningar\", tryck sedan på \"Aktivera denna enhetsadminapp\".</string>
     <string name="dt2s_admin_warning">Dubbeltryck för att vila kommer att inaktiveras.</string>
     <string name="d2ts_recents_a11y_hint_title">Aktivera tillgänglighetstjänst</string>
-    <string name="dt2s_a11y_hint">För att använda Dubbeltryck för att vila, aktivera Lawnchairs tillgänglighetstjänst. Tryck på \"Öppna inställningar\", välj \"Lawnchair\" och aktivera \"Använd Lawnchair\".\n\nLawnchair använder Tillgänglighets `performGlobalAction`-metod för att utföra denna åtgärd. Detta är en känslig behörighet som tillåter övervakning av andra appar. Lawnchair är dock inte konfigurerad för den funktionen och tar inte emot några händelser.</string>
+    <string name="dt2s_a11y_hint">För att använda Dubbeltryck för att vila, aktivera Lawnchairs tillgänglighetstjänst. Tryck på \"Öppna inställningar\", välj \"Lawnchair\" och aktivera \"Använd Lawnchair\".\n\nLawnchair använder Tillgänglighets `performGlobalAction`-metod för att utföra denna åtgärd. Detta är en känslig behörighet som tillåter övervakning av andra appar. StartSafe är dock inte konfigurerad för den funktionen och tar inte emot några händelser.</string>
     <string name="dt2s_recents_warning_open_settings">Öppna inställningar</string>
-    <string name="recents_a11y_hint">För att använda Öppna Senaste, aktivera Lawnchairs tillgänglighetstjänst. Tryck på \"Öppna inställningar\", välj \"Lawnchair\" och aktivera \"Använd Lawnchair\".\n\nLawnchair använder Tillgänglighets `performGlobalAction`-metod för att utföra denna åtgärd. Detta är en känslig behörighet som tillåter övervakning av andra appar. Lawnchair är dock inte konfigurerad för den funktionen och tar inte emot några händelser.</string>
+    <string name="recents_a11y_hint">För att använda Öppna Senaste, aktivera Lawnchairs tillgänglighetstjänst. Tryck på \"Öppna inställningar\", välj \"Lawnchair\" och aktivera \"Använd Lawnchair\".\n\nLawnchair använder Tillgänglighets `performGlobalAction`-metod för att utföra denna åtgärd. Detta är en känslig behörighet som tillåter övervakning av andra appar. StartSafe är dock inte konfigurerad för den funktionen och tar inte emot några händelser.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Avstånd nederkant</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Appsökning</string>
-    <string name="search_provider_sponsored_description">%1$s och Lawnchair har ett avtal om intäktsdelning.\n\nSökning med %1$s hjälper till att stödja Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s och StartSafe har ett avtal om intäktsdelning.\n\nSökning med %1$s hjälper till att stödja Lawnchair.</string>
     <string name="app_label">App</string>
     <string name="website_label">Webbplats</string>
     <string name="qsb_search_provider_app_required">App krävs</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Maximalt antal mappkolumner</string>
     <string name="max_folder_rows">Maximalt antal mapprader</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Dessa inställningar kommer att ignoreras eftersom Lawnchair inte är inställd som Senaste-leverantör</string>
+    <string name="quickswitch_ignored_warning">Dessa inställningar kommer att ignoreras eftersom StartSafe inte är inställd som Senaste-leverantör</string>
     <string name="quickstep_incompatible">Inkompatibel systemintegration</string>
     <string name="quickstep_incompatible_description">Din enhet är konfigurerad för att ha systemgester (kända som Quickstep) tillhandahållna av %1$s, men denna version av %1$s är inte kompatibel med din Android-version. För att fortsätta att använda din enhet, vänligen avinstallera uppdateringar till %1$s eller inaktivera %1$s som systemgestsleverantör.</string>
     <string name="translucent_background">Genomlysande bakgrund</string>

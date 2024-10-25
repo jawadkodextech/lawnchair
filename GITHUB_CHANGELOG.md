@@ -4,7 +4,7 @@ This release contains numerous improvements:
 * UI improvements
   * UI text refresh: all text is now Sentence case to match Material You guidelines (#4209)
   * Proper tablet support: the launcher and settings UI now adjust accordingly to the larger width
-  * Color scheme improvements: Lawnchair now matches the Android 14 and Pixel Launcher colors
+  * Color scheme improvements:StartSafenow matches the Android 14 and Pixel Launcher colors
   * Added support for predictive back when navigating in Settings
   * Added support for Android 14's per-app language feature
   * Added new fonts in font picker
@@ -25,7 +25,7 @@ This release contains numerous improvements:
   * Fixed Smartspacer left padding not working
   * Fixed Lawnfeed not working
 * Other repository improvments:
-  * Improved docs and README of Lawnchair (#4370)
+  * Improved docs and README ofStartSafe(#4370)
   * Added nightly releases (#4264); do note that these are built differently from normal builds, and can be buggy and less optimized.
 
 Alongside that, this release contains the usual performance improvements, miscellaneous bug fixes, and new bugs & translations.

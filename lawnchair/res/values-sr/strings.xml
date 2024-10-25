@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Информације за приказ</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture,StartSaferequires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services.StartSafediscards any event sent by the system.\n\nIn order to lock your phone, or to open Recents,StartSafeuses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Да бисте приступали пречицама и другим функцијама, подесите Lawnchair као подразумевани покретач</string>
+    <string name="set_default_launcher_tip">Да бисте приступали пречицама и другим функцијама, подеситеStartSafeкао подразумевани покретач</string>
     <string name="notification_dots">Тачке за обавештења</string>
     <string name="show_notification_count">Приказуј број обавештења</string>
     <string name="notification_dots_color">Боја тачке за обавештења</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Отвори претрагу</string>
     <string name="pick_app_for_gesture">Изаберите апликацију</string>
     <string name="dt2s_admin_hint_title">Потребне су администраторске дозволе</string>
-    <string name="dt2s_admin_hint">Да бисте користили функцију „Додирните двапут за стање спавања”, подесите Lawnchair као администратор уређаја. У подешавањима додирните „Активирај ову апликацију за администратора уређаја”.</string>
+    <string name="dt2s_admin_hint">Да бисте користили функцију „Додирните двапут за стање спавања”, подеситеStartSafeкао администратор уређаја. У подешавањима додирните „Активирај ову апликацију за администратора уређаја”.</string>
     <string name="dt2s_admin_warning">Функција „Додирните двапут за стање спавања” ће бити искључена</string>
     <string name="d2ts_recents_a11y_hint_title">Укључи услугу приступачности</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on theStartSafeaccessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However,StartSafeis not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Отвори подешавања</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on theStartSafeaccessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However,StartSafeis not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Доњи размак</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Претрага апликација</string>
-    <string name="search_provider_sponsored_description">%1$s и Lawnchair имају уговор о подели прихода.\n\nПретраживањем помоћу услуге %1$s подржавате Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s иStartSafeимају уговор о подели прихода.\n\nПретраживањем помоћу услуге %1$s подржавате Lawnchair.</string>
     <string name="app_label">Апликација</string>
     <string name="website_label">Сајт</string>
     <string name="qsb_search_provider_app_required">Потребна је апликација</string>
@@ -462,7 +462,7 @@
     <string name="max_folder_columns">Максималан број колона у фолдеру</string>
     <string name="max_folder_rows">Максималан број редова у фолдеру</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Ова подешавања ће бити игнорисана јер Lawnchair није подешен као добављач недавних апликација</string>
+    <string name="quickswitch_ignored_warning">Ова подешавања ће бити игнорисана јерStartSafeније подешен као добављач недавних апликација</string>
     <string name="quickstep_incompatible">Некомпатибилна системска интеграција</string>
     <string name="quickstep_incompatible_description">Уређај је подешен да користи системске покрете (познате као Quickstep), које пружа %1$s, али ова верзија %1$s-а није компатибилна са вашом верзијом Android-а. Да бисте наставили да користите уређај, деинсталирајте ажурирања %1$s-а или онемогућите %1$s као добављача системских покрета.</string>
     <string name="translucent_background">Полупрозирна позадина</string>

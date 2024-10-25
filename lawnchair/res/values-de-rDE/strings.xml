@@ -38,7 +38,7 @@
     <string name="action_copy">Kopieren</string>
     <string name="action_paste">Einfügen</string>
     <string name="loading">Laden…</string>
-    <string name="managed_by_lawnchair">Von Lawnchair verwaltet</string>
+    <string name="managed_by_lawnchair">VonStartSafeverwaltet</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Voreinstellungen</string>
     <string name="settings_button_text">Home-Einstellungen</string>
@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Was angezeigt werden soll</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Um Ihr Telefon bei der Ausführung einer Geste zu sperren und um zuletzt geöffnete Apps per Geste zu öffnen, benötigt Lawnchair Bedienungshilfen-Zugriff.\n\nLawnchair beobachtet keine Benutzeraktionen, obwohl die Berechtigung dies ermöglicht. Lawnchair verwirft alle vom System gesendeten Ereignisse.\n\nUm Ihr Telefon zu sperren oder zuletzt geöffnete Apps zu öffnen, nutzt Lawnchair den performGlobalAction Accessibility Dienst.</string>
+    <string name="accessibility_service_description">Um Ihr Telefon bei der Ausführung einer Geste zu sperren und um zuletzt geöffnete Apps per Geste zu öffnen, benötigtStartSafeBedienungshilfen-Zugriff.\n\nLawnchair beobachtet keine Benutzeraktionen, obwohl die Berechtigung dies ermöglicht.StartSafeverwirft alle vom System gesendeten Ereignisse.\n\nUm Ihr Telefon zu sperren oder zuletzt geöffnete Apps zu öffnen, nutztStartSafeden performGlobalAction Accessibility Dienst.</string>
     <string name="x_by_y">%1$d × %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Um auf Verknüpfungen und zusätzliche Funktionen zuzugreifen, richte Lawnchair als Standard-Start-App ein</string>
+    <string name="set_default_launcher_tip">Um auf Verknüpfungen und zusätzliche Funktionen zuzugreifen, richteStartSafeals Standard-Start-App ein</string>
     <string name="notification_dots">Benachrichtigungspunkte</string>
     <string name="show_notification_count">Benachrichtigungszähler anzeigen</string>
     <string name="notification_dots_color">Farbe des Benachrichtigungspunktes</string>
@@ -286,7 +286,7 @@
     <string name="event_provider_missing_notification_dots">Um <xliff:g example="My Provider" id="providerName">%1$s</xliff:g> zu verwenden, aktiviere Benachrichtigungspunkte.</string>
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Auf Startbildschirm anzeigen</string>
-    <string name="smartspace_widget_toggle_description">At a Glance kann manuell zum Startbildschirm hinzugefügt werden, indem man das Widget Lawnchair platziert</string>
+    <string name="smartspace_widget_toggle_description">At a Glance kann manuell zum Startbildschirm hinzugefügt werden, indem man das WidgetStartSafeplatziert</string>
     <!-- List of available providers -->
     <string name="smartspace_mode_label">At a Glance Anbieter</string>
     <string name="smartspace_mode_google">Google</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Suche öffnen</string>
     <string name="pick_app_for_gesture">App auswählen</string>
     <string name="dt2s_admin_hint_title">Administrator-Berechtigungen erforderlich</string>
-    <string name="dt2s_admin_hint">Um Doppeltippen zum Display Ausschalten zu verwenden, aktiviere Lawnchair als App zur Geräteverwaltung. Tippe auf \"Einstellungen öffnen\" und tippe auf „Diese App zur Geräteverwaltung aktivieren“.</string>
+    <string name="dt2s_admin_hint">Um Doppeltippen zum Display Ausschalten zu verwenden, aktiviereStartSafeals App zur Geräteverwaltung. Tippe auf \"Einstellungen öffnen\" und tippe auf „Diese App zur Geräteverwaltung aktivieren“.</string>
     <string name="dt2s_admin_warning">Doppeltes Tippen zum Schlafen wird deaktiviert.</string>
     <string name="d2ts_recents_a11y_hint_title">Bedienungshilfen aktivieren</string>
-    <string name="dt2s_a11y_hint">Um Doppeltippen zum Display ausschalten zu verwenden, aktiviere die Bedienungshilfen. Tippe auf \"Einstellungen öffnen\", wähle \"Lawnchair\" aus und aktiviere \"Lawnchair verwenden\"\"\n\nLawnchair verwendet die Bedienungshilfe \'performGlobalAction\', um diese Aktion auszuführen. Dies ist eine sensible Berechtigung, die es ermöglicht, andere Apps zu überwachen. Lawnchair ist jedoch nicht für derartige Funktionen konfiguriert und liest keine Vorgänge aus.</string>
+    <string name="dt2s_a11y_hint">Um Doppeltippen zum Display ausschalten zu verwenden, aktiviere die Bedienungshilfen. Tippe auf \"Einstellungen öffnen\", wähle \"Lawnchair\" aus und aktiviere \"Lawnchair verwenden\"\"\n\nLawnchair verwendet die Bedienungshilfe \'performGlobalAction\', um diese Aktion auszuführen. Dies ist eine sensible Berechtigung, die es ermöglicht, andere Apps zu überwachen.StartSafeist jedoch nicht für derartige Funktionen konfiguriert und liest keine Vorgänge aus.</string>
     <string name="dt2s_recents_warning_open_settings">Einstellungen öffnen</string>
-    <string name="recents_a11y_hint">Um zuletzt geöffnete Apps zu öffnen, aktivieren Sie den Lawnchair Bedienungshilfen Dienst. Tippen Sie auf „Einstellungen“ öffnen, wählen Sie „Lawnchair“ und aktivieren Sie „Lawnchair verwenden“.\n\nLawnchair verwendet die „performGlobalAction“ Funktion des Bedienungshilfe Dienstes um diese Aktion durchzuführen. Dies ist eine sensible Berechtigung, die die Überwachung anderer Apps erlaubt. Lawnchair ist jedoch nicht für diese Funktionalität konfiguriert und erhält keine Ereignisse.</string>
+    <string name="recents_a11y_hint">Um zuletzt geöffnete Apps zu öffnen, aktivieren Sie denStartSafeBedienungshilfen Dienst. Tippen Sie auf „Einstellungen“ öffnen, wählen Sie „Lawnchair“ und aktivieren Sie „Lawnchair verwenden“.\n\nLawnchair verwendet die „performGlobalAction“ Funktion des Bedienungshilfe Dienstes um diese Aktion durchzuführen. Dies ist eine sensible Berechtigung, die die Überwachung anderer Apps erlaubt.StartSafeist jedoch nicht für diese Funktionalität konfiguriert und erhält keine Ereignisse.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Unterer Abstand</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">App-Suche</string>
-    <string name="search_provider_sponsored_description">%1$s und Lawnchair haben eine Umsatzbeteiligungsvereinbarung.\n\nSuchen mit %1$s unterstützt Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s undStartSafehaben eine Umsatzbeteiligungsvereinbarung.\n\nSuchen mit %1$s unterstützt Lawnchair.</string>
     <string name="app_label">App</string>
     <string name="website_label">Webseite</string>
     <string name="qsb_search_provider_app_required">App erforderlich</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Maximalzahl Ordnerspalten</string>
     <string name="max_folder_rows">Maximalzahl Ordnerzeilen</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Diese Einstellungen werden ignoriert, da Lawnchair nicht als \"Recents-Provider\" eingestellt ist</string>
+    <string name="quickswitch_ignored_warning">Diese Einstellungen werden ignoriert, daStartSafenicht als \"Recents-Provider\" eingestellt ist</string>
     <string name="quickstep_incompatible">Inkompatible Systemintegration</string>
     <string name="quickstep_incompatible_description">Dein Gerät ist so konfiguriert, dass Systemgesten (bekannt als Quickstep) von %1$s bereitgestellt werden, diese Version von %1$s ist jedoch nicht mit deiner Android-Version kompatibel. Um dein Gerät weiterzuverwenden, deinstalliere bitte %1$s-Updates oder deaktiviere %1$s als Systemgesten-Provider.</string>
     <string name="translucent_background">Transluzenter Hintergrund</string>
@@ -534,8 +534,8 @@
     <string name="max_suggestion_result_count_title">Maximalzahl Vorschläge</string>
     <string name="max_web_suggestion_delay">Maximale Verzögerung für Webvorschläge</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Um nach Kontakten zu suchen, erteile Lawnchair Berechtigungen für Kontakte und Telefon</string>
-    <string name="warn_files_permission_content">Um Deine Dateien zu durchsuchen, erteile Lawnchair Speicher-Berechtigungen</string>
+    <string name="warn_contact_permission_content">Um nach Kontakten zu suchen, erteile StartSafe Berechtigungen für Kontakte und Telefon</string>
+    <string name="warn_files_permission_content">Um Deine Dateien zu durchsuchen, erteile StartSafe Speicher-Berechtigungen</string>
     <string name="grant_requested_permissions">Berechtigungen erteilen</string>
     <string name="allapps_web_suggestion_provider_label">Web-Vorschlag-Anbieter</string>
     <string name="allapps_use_web_suggestion_icon_label">Anbieter-Symbol der Web-Vorschläge in Suchleiste anzeigen</string>

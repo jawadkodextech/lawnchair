@@ -71,7 +71,7 @@
         <item quantity="other">%1$d Aplikasi</item>
     </plurals>
     <string name="dt2s_admin_hint_title">Izin Admin Dibutuhkan</string>
-    <string name="dt2s_admin_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, atur Lawnchair sebagai aplikasi admin perangkat. Ketuk \"Buka Pengaturan,\" lalu ketuk \"Aktifkan aplikasi admin perangkat ini.\"</string>
+    <string name="dt2s_admin_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, aturStartSafesebagai aplikasi admin perangkat. Ketuk \"Buka Pengaturan,\" lalu ketuk \"Aktifkan aplikasi admin perangkat ini.\"</string>
     <string name="dt2s_admin_warning">Ketuk Dua Kali untuk Tidur akan dimatikan.</string>
     <string name="dt2s_a11y_hint_title">Aktifkan Layanan Aksesibilitas</string>
     <string name="dt2s_a11y_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, aktifkan layanan aksesibilitas Lawnchair. Ketuk \"Buka Pengaturan,\" lalu pilih \"Lawnchair\" dan aktifkan \"Gunakan Lawnchair\".</string>

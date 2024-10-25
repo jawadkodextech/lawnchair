@@ -134,7 +134,7 @@ final def quickstepMaxSdk = "34"
 android {
     namespace "com.android.launcher3"
     defaultConfig {
-        // Lawnchair Launcher 14.0 Beta 3
+        // StartSafe Launcher 14.0 Beta 3
         // See CONTRIBUTING.md#versioning-scheme
         versionCode 14_00_02_03
         versionName "${versionDisplayName}"
@@ -152,7 +152,7 @@ android {
     applicationVariants.configureEach { variant ->
         variant.outputs.configureEach {
             def channel = variant.productFlavors.last().name
-            outputFileName = "Lawnchair.${variant.versionName}.$channel.${variant.buildType.name}.apk"
+            outputFileName = "StartSafe.${variant.versionName}.$channel.${variant.buildType.name}.apk"
         }
     }
 
@@ -214,11 +214,11 @@ android {
 
         debug {
             applicationIdSuffix ".debug"
-            resValue("string", "derived_app_name", "Start Safe (Debug)")
+            resValue("string", "derived_app_name", "StartSafe (Debug)")
         }
 
         release {
-            resValue("string", "derived_app_name", "Start Safe")
+            resValue("string", "derived_app_name", "StartSafe")
             minifyEnabled true
             shrinkResources true
             proguardFiles proguardFilesFromAosp + "proguard.pro"
@@ -248,12 +248,14 @@ android {
         }
 
         github {
-            applicationId 'app.lawnchair'
+//            applicationId 'app.lawnchair'
+            applicationId 'app.startsafe'
             dimension "channel"
         }
 
         play {
-            applicationId "app.lawnchair.play"
+//            applicationId "app.lawnchair.play"
+            applicationId "app.startsafe.play"
             dimension "channel"
             isDefault true
         }
@@ -421,9 +423,12 @@ dependencies {
     implementation(libs.rxkotlin)
     implementation(libs.gson)
     implementation(libs.glide)
+    implementation(libs.af.android.sdk)
+    implementation(libs.installreferrer)
     // Compose drag and drop library
     implementation 'sh.calvin.reorderable:reorderable:2.3.3'
-
+    implementation("com.android.installreferrer:installreferrer:2.2")
+    implementation 'com.mixpanel.android:mixpanel-android:7.+'
     // Smartspacer
     implementation('com.kieronquinn.smartspacer:sdk-client:1.0.11') {
         exclude group: "com.github.skydoves", module: "balloon"
@@ -469,10 +474,12 @@ licensee {
     allowUrl("https://opensource.org/licenses/mit-license.php")
     allowUrl("https://api.github.com/licenses/apache-2.0")
     allowUrl("https://api.github.com/licenses/bsd-3-clause")
+    allowUrl("https://developer.android.com/studio/terms.html")
+    allowUrl("https://www.appsflyer.com/privacy-policy/")
     allowUrl("https://github.com/patrykmichalik/opto/blob/master/LICENSE")
     allowUrl("https://github.com/RikkaApps/HiddenApiRefinePlugin/blob/main/LICENSE")
 
-
+//    implementation 'com.mixpanel.android:mixpanel-android:7.+'
 }
 
 //licenseReport {

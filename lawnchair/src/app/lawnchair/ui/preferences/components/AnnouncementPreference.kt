@@ -46,7 +46,6 @@ import app.lawnchair.ui.preferences.data.liveinfo.liveInformationManager
 import app.lawnchair.ui.preferences.data.liveinfo.model.Announcement
 import app.lawnchair.ui.util.addIf
 import com.android.launcher3.R
-import kotlinx.coroutines.launch
 
 @Composable
 fun AnnouncementPreference() {
@@ -60,15 +59,15 @@ fun AnnouncementPreference() {
 
     val announcements = remember { liveInformation.announcements.filter { it.id !in dismissedAnnouncementIds } }
 
-    if (enabled && showAnnouncements) {
-        AnnouncementPreference(
-            announcements = announcements,
-            onDismiss = { announcement ->
-                val dismissed = dismissedAnnouncementIds.toMutableSet().apply { add(announcement.id) }
-                coroutineScope.launch { liveInformationManager.dismissedAnnouncementIds.set(dismissed) }
-            },
-        )
-    }
+//    if (enabled && showAnnouncements) {
+//        AnnouncementPreference(
+//            announcements = announcements,
+//            onDismiss = { announcement ->
+//                val dismissed = dismissedAnnouncementIds.toMutableSet().apply { add(announcement.id) }
+//                coroutineScope.launch { liveInformationManager.dismissedAnnouncementIds.set(dismissed) }
+//            },
+//        )
+//    }
 }
 
 @Composable

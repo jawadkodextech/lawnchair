@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Para acessar atalhos e recursos adicionais, configure o Lawnchair como sua launcher padrão</string>
+    <string name="set_default_launcher_tip">Para acessar atalhos e recursos adicionais, configure o StartSafe como sua launcher padrão</string>
     <string name="notification_dots">Pontos de notificação</string>
     <string name="show_notification_count">Mostrar contador de notificação</string>
     <string name="notification_dots_color">Cor do ponto de notificação</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Abrir busca</string>
     <string name="pick_app_for_gesture">Escolher aplicativo</string>
     <string name="dt2s_admin_hint_title">Permissões de administrador necessárias</string>
-    <string name="dt2s_admin_hint">Para usar o duplo clique para dormir, defina o Lawnchair como um aplicativo de administrador do dispositivo. Toque em \"Abrir configurações\" e depois em \"Ativar o aplicativo de administrador do dispositivo.\"</string>
+    <string name="dt2s_admin_hint">Para usar o duplo clique para dormir, defina o StartSafe como um aplicativo de administrador do dispositivo. Toque em \"Abrir configurações\" e depois em \"Ativar o aplicativo de administrador do dispositivo.\"</string>
     <string name="dt2s_admin_warning">Double Tap to Sleep will be disabled.</string>
     <string name="d2ts_recents_a11y_hint_title">Ativar serviço de acessibilidade</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Abrir as configurações</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Preenchimento inferior</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Pesquisa de aplicativos</string>
-    <string name="search_provider_sponsored_description">%1$s e Lawnchair têm um acordo de participação na receita.\n\nPesquisar usando %1$s ajuda a apoiar o Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s e StartSafe têm um acordo de participação na receita.\n\nPesquisar usando %1$s ajuda a apoiar o Lawnchair.</string>
     <string name="app_label">Aplicativo</string>
     <string name="website_label">Site da Internet</string>
     <string name="qsb_search_provider_app_required">Aplicativo necessário</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Máximo de colunas nas pastas</string>
     <string name="max_folder_rows">Máximo de linhas nas pastas</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Estas configurações serão ignoradas, já que o Lawnchair não está definido como o provedor de recentes</string>
+    <string name="quickswitch_ignored_warning">Estas configurações serão ignoradas, já que o StartSafe não está definido como o provedor de recentes</string>
     <string name="quickstep_incompatible">Integração de sistema incompatível</string>
     <string name="quickstep_incompatible_description">Seu dispositivo está configurado para ter gestos do sistema (conhecido como Quickstep) fornecidos por %1$s, mas esta versão do %1$s não é compatível com sua versão do Android. Para continuar usando o seu dispositivo, desinstale as atualizações %1$s ou desative %1$s como provedor de gestos do sistema.</string>
     <string name="translucent_background">Fundo translúcido</string>

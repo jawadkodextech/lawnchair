@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Informacije za prikaz</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Da biste pristupali prečicama i drugim funkcijama, podesite Lawnchair kao podrazumevani pokretač</string>
+    <string name="set_default_launcher_tip">Da biste pristupali prečicama i drugim funkcijama, podesite StartSafe kao podrazumevani pokretač</string>
     <string name="notification_dots">Tačke za obaveštenja</string>
     <string name="show_notification_count">Prikazuj broj obaveštenja</string>
     <string name="notification_dots_color">Boja tačke za obaveštenja</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Otvori pretragu</string>
     <string name="pick_app_for_gesture">Izaberite aplikaciju</string>
     <string name="dt2s_admin_hint_title">Potrebne su administratorske dozvole</string>
-    <string name="dt2s_admin_hint">Da biste koristili funkciju „Dodirnite dvaput za stanje spavanja”, podesite Lawnchair kao administrator uređaja. U podešavanjima dodirnite „Aktiviraj ovu aplikaciju za administratora uređaja”.</string>
+    <string name="dt2s_admin_hint">Da biste koristili funkciju „Dodirnite dvaput za stanje spavanja”, podesite StartSafe kao administrator uređaja. U podešavanjima dodirnite „Aktiviraj ovu aplikaciju za administratora uređaja”.</string>
     <string name="dt2s_admin_warning">Funkcija „Dodirnite dvaput za stanje spavanja” će biti isključena</string>
     <string name="d2ts_recents_a11y_hint_title">Uključi uslugu pristupačnosti</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Otvori podešavanja</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Donji razmak</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Pretraga aplikacija</string>
-    <string name="search_provider_sponsored_description">%1$s i Lawnchair imaju ugovor o podeli prihoda.\n\nPretraživanjem pomoću usluge %1$s podržavate Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s i StartSafe imaju ugovor o podeli prihoda.\n\nPretraživanjem pomoću usluge %1$s podržavate Lawnchair.</string>
     <string name="app_label">Aplikacija</string>
     <string name="website_label">Sajt</string>
     <string name="qsb_search_provider_app_required">Potrebna je aplikacija</string>
@@ -462,7 +462,7 @@
     <string name="max_folder_columns">Maksimalan broj kolona u folderu</string>
     <string name="max_folder_rows">Maksimalan broj redova u folderu</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Ova podešavanja će biti ignorisana jer Lawnchair nije podešen kao dobavljač nedavnih aplikacija</string>
+    <string name="quickswitch_ignored_warning">Ova podešavanja će biti ignorisana jer StartSafe nije podešen kao dobavljač nedavnih aplikacija</string>
     <string name="quickstep_incompatible">Nekompatibilna sistemska integracija</string>
     <string name="quickstep_incompatible_description">Uređaj je podešen da koristi sistemske pokrete (poznate kao Quickstep), koje pruža %1$s, ali ova verzija %1$sa nije kompatibilna sa vašom verzijom Androida. Da biste nastavili da koristite uređaj, deinstalirajte ažuriranja %1$sa ili onemogućite %1$s kao dobavljača sistemskih pokreta.</string>
     <string name="translucent_background">Poluprozirna pozadina</string>

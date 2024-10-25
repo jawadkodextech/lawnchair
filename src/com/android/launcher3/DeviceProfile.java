@@ -534,8 +534,8 @@ public class DeviceProfile {
         HotseatMode hotseatMode = PreferenceExtensionsKt.firstBlocking(preferenceManager2.getHotseatMode());
         boolean isQsbEnable = hotseatMode.getLayoutResourceId() != R.layout.empty_view;
 
-//        hotseatQsbHeight = isQsbEnable ? res.getDimensionPixelSize(R.dimen.qsb_widget_height) : 0;
-        hotseatQsbHeight = isQsbEnable ? res.getDimensionPixelSize(R.dimen.qsb_widget_height_new) : 0;
+        hotseatQsbHeight = isQsbEnable ? res.getDimensionPixelSize(R.dimen.qsb_widget_height) : 0;
+//        hotseatQsbHeight = isQsbEnable ? res.getDimensionPixelSize(R.dimen.qsb_widget_height_new) : 0;
         hotseatQsbShadowHeight = res.getDimensionPixelSize(R.dimen.qsb_shadow_height);
         hotseatQsbVisualHeight = isQsbEnable ? hotseatQsbHeight - 2 * hotseatQsbShadowHeight : 0;
 

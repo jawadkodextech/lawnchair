@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Yang ditampilkan</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, Lawnchair requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. Lawnchair discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, Lawnchair uses the performGlobalAction Accessibility service.</string>
+    <string name="accessibility_service_description">To lock your phone when performing a gesture, and to open Recents via gesture, StartSafe requires accessibility access.\n\nLawnchair doesn\'t watch any user action, though the privilege to do so is required for all accessibility services. StartSafe discards any event sent by the system.\n\nIn order to lock your phone, or to open Recents, StartSafe uses the performGlobalAction Accessibility service.</string>
     <string name="x_by_y">%1$d × %2$d</string>
     <string name="x_and_y">%1$s &amp; %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Untuk mengakses pintasan dan kelebihan tambahan, atur Lawnchair sebagai peluncur bawaan Anda</string>
+    <string name="set_default_launcher_tip">Untuk mengakses pintasan dan kelebihan tambahan, atur StartSafe sebagai peluncur bawaan Anda</string>
     <string name="notification_dots">Titik notifikasi</string>
     <string name="show_notification_count">Tampilkan jumlah notifikasi</string>
     <string name="notification_dots_color">Warna titik notifikasi</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Buka pencarian</string>
     <string name="pick_app_for_gesture">Pilih apli</string>
     <string name="dt2s_admin_hint_title">Izin admin diperlukan</string>
-    <string name="dt2s_admin_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, atur Lawnchair sebagai apli admin perangkat. Ketuk \"Buka pengaturan\", lalu ketuk \"Aktifkan apli admin perangkat ini.\"</string>
+    <string name="dt2s_admin_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, atur StartSafe sebagai apli admin perangkat. Ketuk \"Buka pengaturan\", lalu ketuk \"Aktifkan apli admin perangkat ini.\"</string>
     <string name="dt2s_admin_warning">Tap Dua Kali untuk Tidur akan dimatikan.</string>
     <string name="d2ts_recents_a11y_hint_title">Aktifkan layanan aksesibilitas</string>
-    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <string name="dt2s_recents_warning_open_settings">Buka pengaturan</string>
-    <string name="recents_a11y_hint">To use Open Recents, turn on the Lawnchair accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, Lawnchair is not configured for that functionality and receives no events.</string>
+    <string name="recents_a11y_hint">To use Open Recents, turn on the StartSafe accessibility service. Tap \"Open settings\", select \"Lawnchair\" and turn on \"Use Lawnchair.\"\n\nLawnchair uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, StartSafe is not configured for that functionality and receives no events.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Padding bawah</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Pencarian apli</string>
-    <string name="search_provider_sponsored_description">%1$s dan Lawnchair memiliki persetujuan pembagian hasil.\n\nMencari dengan %1$s membantu mendukung Lawnchair.</string>
+    <string name="search_provider_sponsored_description">%1$s dan StartSafe memiliki persetujuan pembagian hasil.\n\nMencari dengan %1$s membantu mendukung Lawnchair.</string>
     <string name="app_label">Aplikasi</string>
     <string name="website_label">Website</string>
     <string name="qsb_search_provider_app_required">Aplikasi diperlukan</string>
@@ -460,7 +460,7 @@
     <string name="max_folder_columns">Kolom folder maksimum</string>
     <string name="max_folder_rows">Baris folder maksimum</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Pengaturan ini akan diabaikan karena Lawnchair tidak diatur sebagai penyedia Terbaru</string>
+    <string name="quickswitch_ignored_warning">Pengaturan ini akan diabaikan karena StartSafe tidak diatur sebagai penyedia Terbaru</string>
     <string name="quickstep_incompatible">Integrasi sistem tidak kompatibel</string>
     <string name="quickstep_incompatible_description">Perangkat Anda dikonfigurasi untuk menggunakan gestur sistem (dikenal sebagai Quickstep) disediakan oleh %1$s, tetapi versi %1$s tidak kompatibel dengan versi Android Anda. Untuk melanjutkan menggunakan perangkat Anda, harap lepas pembarian %1$s atau nonaktifkan %1$s sebagai penyedia gestur sistem.</string>
     <string name="translucent_background">Latar belakang transparan</string>

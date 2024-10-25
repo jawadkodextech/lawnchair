@@ -38,7 +38,7 @@
     <string name="action_copy">Másolás</string>
     <string name="action_paste">Beillesztés</string>
     <string name="loading">Betöltés…</string>
-    <string name="managed_by_lawnchair">A Lawnchair által kezelve</string>
+    <string name="managed_by_lawnchair">A StartSafe által kezelve</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Beállítások</string>
     <string name="settings_button_text">Kezdőoldal-beállítások</string>
@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Mi jelenjen meg</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">A telefon zárolásához kézmozdulat végrehajtása közben, illetve az Előzmények gesztussal történő megnyitásához a Lawnchair kisegítő hozzáférést igényel.\n\nA Lawnchair nem figyel semmilyen felhasználói műveletet, bár az ehhez szükséges jogosultság minden kisegítő lehetőséghez szükséges. A Lawnchair nem rögzít rendszer által küldött eseményeket.\n\nA telefon zárolásához vagy az Előzmények megnyitásához a Lawnchair a performGlobalAction akadálymentesítési szolgáltatást használja.</string>
+    <string name="accessibility_service_description">A telefon zárolásához kézmozdulat végrehajtása közben, illetve az Előzmények gesztussal történő megnyitásához a StartSafe kisegítő hozzáférést igényel.\n\nA StartSafe nem figyel semmilyen felhasználói műveletet, bár az ehhez szükséges jogosultság minden kisegítő lehetőséghez szükséges. A StartSafe nem rögzít rendszer által küldött eseményeket.\n\nA telefon zárolásához vagy az Előzmények megnyitásához a StartSafe a performGlobalAction akadálymentesítési szolgáltatást használja.</string>
     <string name="x_by_y">%1$d × %2$d</string>
     <string name="x_and_y">%1$s és %2$s</string>
     <!--
@@ -98,7 +98,7 @@
     <string name="quickstep_description">„Összes törlése” gomb, sarok sugara</string>
     <string name="about_label">Névjegy</string>
     <string name="app_info_drop_target_label">Alkalmazásinformáció</string>
-    <string name="debug_restart_launcher">A Lawnchair újraindítása</string>
+    <string name="debug_restart_launcher">A StartSafe újraindítása</string>
     <string name="experimental_features_label">Kísérleti funkciók</string>
     <!-- Experimental features -->
     <string name="font_picker_label">A Betűkészlet testreszabása</string>
@@ -286,7 +286,7 @@
     <string name="event_provider_missing_notification_dots">Kapcsolja be az Értesítési pöttyöket a <xliff:g example="My Provider" id="providerName">%1$s</xliff:g> használatához</string>
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Megjelenítés a Kezdőképernyőn</string>
-    <string name="smartspace_widget_toggle_description">A \'Bepillantás\' manuálisan hozzáadható a Kezdőképernyőhöz a Lawnchair kisalkalmazás elhelyezésével</string>
+    <string name="smartspace_widget_toggle_description">A \'Bepillantás\' manuálisan hozzáadható a Kezdőképernyőhöz a StartSafe kisalkalmazás elhelyezésével</string>
     <!-- List of available providers -->
     <string name="smartspace_mode_label">A \'Bepillantás\' szolgáltatója</string>
     <string name="smartspace_mode_google">Google</string>
@@ -351,9 +351,9 @@
     <string name="dt2s_admin_hint">A \'Képernyőkikapcsolás Duplakoppal\' funkcióhoz állítsa be készülékvezérlőként a Lawnchair-t. Nyissa meg a Beállításokat és érintse meg az \"Aktiválja a készülék-adminisztrátori alkalmazást\" lehetőséget</string>
     <string name="dt2s_admin_warning">A \'Képernyőkikapcsolás Duplakoppal\' kikapcsolásra kerül.</string>
     <string name="d2ts_recents_a11y_hint_title">A \'Kisegítő lehetőségek\' bekapcsolása</string>
-    <string name="dt2s_a11y_hint">A \'Képernyőkikapcsolás Duplakoppal\' használatához kapcsolja be a Lawnchair \'Kisegítő lehetőségei\'-t. Koppintson a „Beállítások megnyitása”, válassza a „Lawnchair” lehetőséget, és kapcsolja be a „Lawnchair használata” lehetőséget.\n\nA Lawnchair az akadálymentesítés „performGlobalAction” metódusát használja a művelet végrehajtásához. Ez egy bizalmas engedély, amely lehetővé teszi más alkalmazások figyelését. A Lawnchair azonban nincs konfigurálva ehhez a funkcióhoz, és nem fogad eseményeket.</string>
+    <string name="dt2s_a11y_hint">A \'Képernyőkikapcsolás Duplakoppal\' használatához kapcsolja be a StartSafe \'Kisegítő lehetőségei\'-t. Koppintson a „Beállítások megnyitása”, válassza a „Lawnchair” lehetőséget, és kapcsolja be a „Lawnchair használata” lehetőséget.\n\nA StartSafe az akadálymentesítés „performGlobalAction” metódusát használja a művelet végrehajtásához. Ez egy bizalmas engedély, amely lehetővé teszi más alkalmazások figyelését. A StartSafe azonban nincs konfigurálva ehhez a funkcióhoz, és nem fogad eseményeket.</string>
     <string name="dt2s_recents_warning_open_settings">A Beállítások megnyitása</string>
-    <string name="recents_a11y_hint">\'Az Előzmények megnyitása\' használatához kapcsolja be a Lawnchair \'Kisegítő lehetőségei\'-t. Koppintson a „Beállítások megnyitása”, válassza a „Lawnchair” lehetőséget, és kapcsolja be a „Lawnchair használata” lehetőséget.\n\nA Lawnchair az akadálymentesítés „performGlobalAction” metódusát használja a művelet végrehajtásához. Ez egy bizalmas engedély, amely lehetővé teszi más alkalmazások figyelését. A Lawnchair azonban nincs konfigurálva ehhez a funkcióhoz, és nem fogad eseményeket.</string>
+    <string name="recents_a11y_hint">\'Az Előzmények megnyitása\' használatához kapcsolja be a StartSafe \'Kisegítő lehetőségei\'-t. Koppintson a „Beállítások megnyitása”, válassza a „Lawnchair” lehetőséget, és kapcsolja be a „Lawnchair használata” lehetőséget.\n\nA StartSafe az akadálymentesítés „performGlobalAction” metódusát használja a művelet végrehajtásához. Ez egy bizalmas engedély, amely lehetővé teszi más alkalmazások figyelését. A StartSafe azonban nincs konfigurálva ehhez a funkcióhoz, és nem fogad eseményeket.</string>
     <!--
 
     Bug reporting
@@ -429,7 +429,7 @@
     <string name="hotseat_bottom_space_label">Alsó kitöltés</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Alkalmazáskereső</string>
-    <string name="search_provider_sponsored_description">%1$s és a Lawnchair bevételmegosztási megállapodást kötött.\n\nHa %1$s végzi a keresést, azzal segít a Lawnchair-nek is.</string>
+    <string name="search_provider_sponsored_description">%1$s és a StartSafe bevételmegosztási megállapodást kötött.\n\nHa %1$s végzi a keresést, azzal segít a Lawnchair-nek is.</string>
     <string name="app_label">Alkalmazás</string>
     <string name="website_label">Weboldal</string>
     <string name="qsb_search_provider_app_required">Ehhez kell egy alkalmazás</string>
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">A mappaoszlopok maximuma</string>
     <string name="max_folder_rows">A mappasorok maximuma</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Ezeket a beállításokat a rendszer figyelmen kívül hagyja, mivel a Lawnchair nincs beállítva az Előzmények szolgáltatójaként</string>
+    <string name="quickswitch_ignored_warning">Ezeket a beállításokat a rendszer figyelmen kívül hagyja, mivel a StartSafe nincs beállítva az Előzmények szolgáltatójaként</string>
     <string name="quickstep_incompatible">Nem kompatibilis rendszer-integráció</string>
     <string name="quickstep_incompatible_description">Készüléke úgy van konfigurálva, hogy a(z) %1$s által biztosított rendszermozdulatokat (az úgynevezett Quickstep-et) tartalmazza, de a %1$s-verzió nem kompatibilis az Android-verzióval. A készülék további használatához, kérjük távolítsa el az utolsó %1$s-frissítést vagy állítsa be úgy készülékét hogy nem a(z) %1$s a rendszer mozdulatvezérlője.</string>
     <string name="translucent_background">Átlátszó háttér</string>

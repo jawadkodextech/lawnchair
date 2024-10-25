@@ -1,4 +1,4 @@
-# Lawnchair Prebuilt JARs
+# StartSafe Prebuilt JARs
 
 Launcher3 has some dependencies on internal AOSP modules. 
 To build Lawnchair, you have to build AOSP and obtain these JARs.

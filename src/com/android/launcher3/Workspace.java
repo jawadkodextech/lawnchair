@@ -121,6 +121,7 @@ import com.android.launcher3.util.PackageUserKey;
 import com.android.launcher3.util.RunnableList;
 import com.android.launcher3.util.Thunk;
 import com.android.launcher3.util.WallpaperOffsetInterpolator;
+import com.android.launcher3.views.ActivityContext;
 import com.android.launcher3.widget.LauncherAppWidgetHostView;
 import com.android.launcher3.widget.LauncherWidgetHolder;
 import com.android.launcher3.widget.LauncherWidgetHolder.ProviderChangedListener;
@@ -158,15 +159,42 @@ import app.lawnchair.util.LawnchairUtilsKt;
  * @param <T> Class that extends View and PageIndicator
  */
 public class Workspace<T extends View & PageIndicator> extends PagedView<T>
-        implements DropTarget, DragSource, View.OnTouchListener,
-        DragController.DragListener, Insettable, StateHandler<LauncherState>,
-        WorkspaceLayoutManager, LauncherBindableItemsContainer, LauncherOverlayCallbacks {
+    implements DropTarget, DragSource, View.OnTouchListener,
+    DragController.DragListener, Insettable, StateHandler<LauncherState>,
+    WorkspaceLayoutManager, LauncherBindableItemsContainer, LauncherOverlayCallbacks {
 
     /**
      * The value that {@link #mTransitionProgress} must be greater than for
      * {@link #transitionStateShouldAllowDrop()} to return true.
      */
     private static final float ALLOW_DROP_TRANSITION_PROGRESS = 0.25f;
+
+    public void createCustomFolder(ArrayList<WorkspaceItemInfo> appsToInclude, int x, int y) {
+        if (appsToInclude == null || appsToInclude.size() == 0) {
+            return;
+        }
+
+        // Create a new FolderInfo object
+        FolderInfo folderInfo = new FolderInfo();
+        folderInfo.title = "My Custom Folder"; // Set the folder's name
+
+        // Add the selected apps to the folder
+        for (WorkspaceItemInfo appInfo : appsToInclude) {
+            folderInfo.add(appInfo, true);
+        }
+
+        // Create the Folder icon and view
+        FolderIcon folderIcon = FolderIcon.inflateIcon(R.layout.folder_icon, (ActivityContext) getContext(), this, folderInfo); //fromXml(R.layout.folder_icon, this, folderInfo);
+
+        // Position the folder icon at the specified location
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        layoutParams.x = x;
+//        layoutParams.y = y;
+        folderIcon.setLayoutParams(layoutParams);
+
+        // Add the folder to the workspace
+        this.addView(folderIcon);
+    }
 
     /**
      * The value that {@link #mTransitionProgress} must be greater than for
@@ -354,7 +382,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             var blurThreshold = mPreferenceManger.getWallpaperBlurFactorThreshold().get();
             var wallpaperBitmap = mWallpaperManager.getDrawable();
             try {
-                mWallpaperManager.setBitmap(LawnchairUtilsKt.blurBitmap(toBitmap(wallpaperBitmap),blurWallpaper, blurThreshold), null, true, WallpaperManager.FLAG_SYSTEM);
+                mWallpaperManager.setBitmap(LawnchairUtilsKt.blurBitmap(toBitmap(wallpaperBitmap), blurWallpaper, blurThreshold), null, true, WallpaperManager.FLAG_SYSTEM);
                 mWallpaperManager.forgetLoadedWallpaper();
             } catch (Exception ex) {
                 Log.e(TAG, "error failed bluring wallpaper");
@@ -415,7 +443,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             }
             // SparseArrayMap doesn't keep the order
             mWorkspaceScreens.get(mScreenOrder.get(i))
-                    .setPadding(paddingLeft, 0, paddingRight, paddingBottom);
+                .setPadding(paddingLeft, 0, paddingRight, paddingBottom);
         }
     }
 
@@ -441,22 +469,22 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     private void updateCellLayoutPadding() {
         Rect padding = mLauncher.getDeviceProfile().cellLayoutPaddingPx;
         mWorkspaceScreens.forEach(
-                s -> s.setPadding(padding.left, padding.top, padding.right, padding.bottom));
+            s -> s.setPadding(padding.left, padding.top, padding.right, padding.bottom));
     }
 
     private void updateWorkspaceWidgetsSizes() {
         int numberOfScreens = mScreenOrder.size();
         for (int i = 0; i < numberOfScreens; i++) {
             ShortcutAndWidgetContainer shortcutAndWidgetContainer = mWorkspaceScreens.get(mScreenOrder.get(i))
-                    .getShortcutsAndWidgets();
+                .getShortcutsAndWidgets();
             int shortcutsAndWidgetCount = shortcutAndWidgetContainer.getChildCount();
             for (int j = 0; j < shortcutsAndWidgetCount; j++) {
                 View view = shortcutAndWidgetContainer.getChildAt(j);
                 if (view instanceof LauncherAppWidgetHostView
-                        && view.getTag() instanceof LauncherAppWidgetInfo) {
+                    && view.getTag() instanceof LauncherAppWidgetInfo) {
                     LauncherAppWidgetInfo launcherAppWidgetInfo = (LauncherAppWidgetInfo) view.getTag();
                     WidgetSizes.updateWidgetSizeRanges((LauncherAppWidgetHostView) view,
-                            mLauncher, launcherAppWidgetInfo.spanX, launcherAppWidgetInfo.spanY);
+                        mLauncher, launcherAppWidgetInfo.spanX, launcherAppWidgetInfo.spanY);
                 }
             }
         }
@@ -528,10 +556,10 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
         if (mDragInfo != null && mDragInfo.cell != null) {
             CellLayout layout = (CellLayout) (mDragInfo.cell instanceof LauncherAppWidgetHostView
-                    // https://github.com/LawnchairLauncher/lawnchair/issues/3143
-                    && dragObject.dragView.getContentViewParent() != null
-                            ? dragObject.dragView.getContentViewParent().getParent()
-                            : mDragInfo.cell.getParent().getParent());
+                // https://github.com/LawnchairLauncher/lawnchair/issues/3143
+                && dragObject.dragView.getContentViewParent() != null
+                ? dragObject.dragView.getContentViewParent().getParent()
+                : mDragInfo.cell.getParent().getParent());
             layout.markCellsAsUnoccupiedForView(mDragInfo.cell);
         }
 
@@ -551,7 +579,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             addExtraEmptyScreenOnDrag(dragObject);
 
             if (dragObject.dragInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET
-                    && dragObject.dragSource != this) {
+                && dragObject.dragSource != this) {
                 // When dragging a widget from different source, move to a page which has
                 // enough space to place this widget (after rearranging/resizing). We special
                 // case
@@ -574,8 +602,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             mLauncher.getStateManager().goToState(SPRING_LOADED);
         }
         mStatsLogManager.logger().withItemInfo(dragObject.dragInfo)
-                .withInstanceId(dragObject.logInstanceId)
-                .log(LauncherEvent.LAUNCHER_ITEM_DRAG_STARTED);
+            .withInstanceId(dragObject.logInstanceId)
+            .log(LauncherEvent.LAUNCHER_ITEM_DRAG_STARTED);
     }
 
     private boolean isTwoPanelEnabled() {
@@ -638,9 +666,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         // animation.
         // This prevents empty adjacent pages to overlay during animation
         mLayoutTransition.setInterpolator(LayoutTransition.DISAPPEARING,
-                Interpolators.clampToProgress(Interpolators.ACCELERATE_DECELERATE, 0, 0.5f));
+            Interpolators.clampToProgress(Interpolators.ACCELERATE_DECELERATE, 0, 0.5f));
         mLayoutTransition.setInterpolator(LayoutTransition.CHANGE_DISAPPEARING,
-                Interpolators.clampToProgress(Interpolators.ACCELERATE_DECELERATE, 0.5f, 1));
+            Interpolators.clampToProgress(Interpolators.ACCELERATE_DECELERATE, 0.5f, 1));
 
         mLayoutTransition.disableTransitionType(LayoutTransition.APPEARING);
         mLayoutTransition.disableTransitionType(LayoutTransition.CHANGE_APPEARING);
@@ -679,7 +707,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         // Always add a QSB on the first screen.
         if (mFirstPagePinnedItem == null) {
             SmartspaceMode smartspaceMode = PreferenceExtensionsKt
-                    .firstBlocking(mPreferenceManager2.getSmartspaceMode());
+                .firstBlocking(mPreferenceManager2.getSmartspaceMode());
             if (!smartspaceMode.isAvailable(this.mLauncher)) {
                 // The current smartspace mode is not available,
                 // setting the smartspace mode to one that is always available
@@ -690,14 +718,14 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // the
             // edges, we do not need a full width QSB.
             mFirstPagePinnedItem = LayoutInflater.from(getContext())
-                    .inflate(smartspaceMode.getLayoutResourceId(), firstPage, false);
+                .inflate(smartspaceMode.getLayoutResourceId(), firstPage, false);
         }
 
         int cellHSpan = mLauncher.getDeviceProfile().inv.numColumns;
         CellLayoutLayoutParams lp = new CellLayoutLayoutParams(0, 0, cellHSpan, 1);
         lp.canReorder = false;
         if (!firstPage.addViewToCellLayout(
-                mFirstPagePinnedItem, 0, R.id.search_container_workspace, lp, true)) {
+            mFirstPagePinnedItem, 0, R.id.search_container_workspace, lp, true)) {
             Log.e(TAG, "Failed to add to item at (0, 0) to CellLayout");
         }
     }
@@ -758,17 +786,17 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         CellLayout newScreen;
         if (FOLDABLE_SINGLE_PAGE.get() && dp.isTwoPanels) {
             newScreen = (CellLayout) LayoutInflater.from(getContext()).inflate(
-                    R.layout.workspace_screen_foldable, this, false /* attachToRoot */);
+                R.layout.workspace_screen_foldable, this, false /* attachToRoot */);
         } else {
             newScreen = (CellLayout) LayoutInflater.from(getContext()).inflate(
-                    R.layout.workspace_screen, this, false /* attachToRoot */);
+                R.layout.workspace_screen, this, false /* attachToRoot */);
         }
 
         mWorkspaceScreens.put(screenId, newScreen);
         mScreenOrder.add(insertIndex, screenId);
         addView(newScreen, insertIndex);
         mStateTransitionAnimation.applyChildState(
-                mLauncher.getStateManager().getState(), newScreen, insertIndex);
+            mLauncher.getStateManager().getState(), newScreen, insertIndex);
 
         updatePageScrollValues();
         updateCellLayoutPadding();
@@ -785,7 +813,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // If the icon was dragged from Hotseat, there is no page pair
             if (isTwoPanelEnabled() && !(mDragSourceInternal.getParent() instanceof Hotseat)) {
                 int pagePairScreenId = getScreenPair(getCellPosMapper().mapModelToPresenter(
-                        dragObject.dragInfo).screenId);
+                    dragObject.dragInfo).screenId);
                 CellLayout pagePair = mWorkspaceScreens.get(pagePairScreenId);
                 dragSourceChildCount += pagePair.getShortcutsAndWidgets().getChildCount();
             }
@@ -804,7 +832,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             }
             CellLayout cl = (CellLayout) mDragSourceInternal.getParent();
             if (!FOLDABLE_SINGLE_PAGE.get() && getLeftmostVisiblePageForIndex(
-                    indexOfChild(cl)) == getLeftmostVisiblePageForIndex(getPageCount() - 1)) {
+                indexOfChild(cl)) == getLeftmostVisiblePageForIndex(getPageCount() - 1)) {
                 childOnFinalScreen = true;
             }
         }
@@ -880,7 +908,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             int screenId = mScreenOrder.get(pageIndex);
             CellLayout screen = mWorkspaceScreens.get(screenId);
             if (screen == null || screen.getShortcutsAndWidgets().getChildCount() != 0
-                    || screen.isDropPending()) {
+                || screen.isDropPending()) {
                 // Final screen doesn't exist or it isn't empty or there's a pending drop
                 return;
             }
@@ -898,8 +926,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             mScreenOrder.removeValue(screenId);
 
             int newScreenId = mWorkspaceScreens.containsKey(EXTRA_EMPTY_SCREEN_ID)
-                    ? EXTRA_EMPTY_SCREEN_SECOND_ID
-                    : EXTRA_EMPTY_SCREEN_ID;
+                ? EXTRA_EMPTY_SCREEN_SECOND_ID
+                : EXTRA_EMPTY_SCREEN_ID;
             mWorkspaceScreens.put(newScreenId, screen);
             mScreenOrder.add(newScreenId);
         }
@@ -932,7 +960,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      * extra empty page(s) alone]
      */
     public void removeExtraEmptyScreenDelayed(
-            int delay, boolean stripEmptyScreens, Runnable onComplete) {
+        int delay, boolean stripEmptyScreens, Runnable onComplete) {
         if (mLauncher.isWorkspaceLoading()) {
             // Don't strip empty screens if the workspace is still loading
             return;
@@ -940,7 +968,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
         if (delay > 0) {
             postDelayed(
-                    () -> removeExtraEmptyScreenDelayed(0, stripEmptyScreens, onComplete), delay);
+                () -> removeExtraEmptyScreenDelayed(0, stripEmptyScreens, onComplete), delay);
             return;
         }
 
@@ -976,9 +1004,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     public boolean hasExtraEmptyScreens() {
         return mWorkspaceScreens.containsKey(EXTRA_EMPTY_SCREEN_ID)
-                && getChildCount() > getPanelCount()
-                && (!isTwoPanelEnabled()
-                        || mWorkspaceScreens.containsKey(EXTRA_EMPTY_SCREEN_SECOND_ID));
+            && getChildCount() > getPanelCount()
+            && (!isTwoPanelEnabled()
+            || mWorkspaceScreens.containsKey(EXTRA_EMPTY_SCREEN_SECOND_ID));
     }
 
     /**
@@ -1008,7 +1036,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         mScreenOrder.removeValue(emptyScreenId);
 
         int newScreenId = LauncherAppState.getInstance(getContext())
-                .getModel().getModelDbController().getNewScreenId();
+            .getModel().getModelDbController().getNewScreenId();
         // Launcher database isn't aware of empty pages that are already bound, so we
         // need to
         // skip those IDs manually.
@@ -1117,7 +1145,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             CellLayout cl = mWorkspaceScreens.valueAt(i);
             // FIRST_SCREEN_ID can never be removed.
             if ((!FeatureFlags.topQsbOnFirstScreenEnabled(mLauncher) || id > FIRST_SCREEN_ID)
-                    && cl.getShortcutsAndWidgets().getChildCount() == 0) {
+                && cl.getShortcutsAndWidgets().getChildCount() == 0) {
                 removeScreens.add(id);
             }
         }
@@ -1163,11 +1191,11 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             } else {
                 // The last page(s) should be converted into extra empty page(s)
                 int extraScreenId = isTwoPanelEnabled() && id % 2 == 1
-                        // This is the right panel in a two panel scenario
-                        ? EXTRA_EMPTY_SCREEN_SECOND_ID
-                        // This is either the last screen in a one panel scenario, or the left panel
-                        // in a two panel scenario when there are only two empty pages left
-                        : EXTRA_EMPTY_SCREEN_ID;
+                    // This is the right panel in a two panel scenario
+                    ? EXTRA_EMPTY_SCREEN_SECOND_ID
+                    // This is either the last screen in a one panel scenario, or the left panel
+                    // in a two panel scenario when there are only two empty pages left
+                    : EXTRA_EMPTY_SCREEN_ID;
                 mWorkspaceScreens.put(extraScreenId, cl);
                 mScreenOrder.add(extraScreenId);
             }
@@ -1219,7 +1247,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     private boolean shouldConsumeTouch(View v) {
         return !workspaceIconsCanBeDragged()
-                || (!workspaceInModalState() && !isVisible(v));
+            || (!workspaceInModalState() && !isVisible(v));
     }
 
     public boolean isSwitchingState() {
@@ -1233,7 +1261,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      */
     public boolean isFinishedSwitchingState() {
         return !mIsSwitchingState
-                || (mTransitionProgress > FINISHED_SWITCHING_STATE_TRANSITION_PROGRESS);
+            || (mTransitionProgress > FINISHED_SWITCHING_STATE_TRANSITION_PROGRESS);
     }
 
     @Override
@@ -1257,9 +1285,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             tempFXY[1] = mYDown;
             Utilities.mapCoordInSelfToDescendant(mFirstPagePinnedItem, this, tempFXY);
             mIsEventOverFirstPagePinnedItem = mFirstPagePinnedItem.getLeft() <= tempFXY[0]
-                    && mFirstPagePinnedItem.getRight() >= tempFXY[0]
-                    && mFirstPagePinnedItem.getTop() <= tempFXY[1]
-                    && mFirstPagePinnedItem.getBottom() >= tempFXY[1];
+                && mFirstPagePinnedItem.getRight() >= tempFXY[0]
+                && mFirstPagePinnedItem.getTop() <= tempFXY[1]
+                && mFirstPagePinnedItem.getBottom() >= tempFXY[1];
         } else {
             mIsEventOverFirstPagePinnedItem = false;
         }
@@ -1285,7 +1313,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 continue;
 
             boolean isOverQsb = child.getLeft() <= mTempFXY[0] && child.getRight() >= mTempFXY[0]
-                    && child.getTop() <= mTempFXY[1] && child.getBottom() >= mTempFXY[1];
+                && child.getTop() <= mTempFXY[1] && child.getBottom() >= mTempFXY[1];
             if (isOverQsb)
                 return true;
         }
@@ -1398,9 +1426,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         // Unlike from other states, we show the page indicator when transitioning from
         // HINT_STATE.
         boolean isSwitchingState = mIsSwitchingState
-                && mLauncher.getStateManager().getCurrentStableState() != HINT_STATE;
+            && mLauncher.getStateManager().getCurrentStableState() != HINT_STATE;
         boolean isTransitioning = isSwitchingState
-                || (getLayoutTransition() != null && getLayoutTransition().isRunning());
+            || (getLayoutTransition() != null && getLayoutTransition().isRunning());
         if (!isTransitioning) {
             showPageIndicatorAtCurrentScroll();
         }
@@ -1423,7 +1451,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         // When the overlay is moving, the fling or settle transition is controlled by
         // the overlay.
         return Float.compare(Math.abs(mOverlayProgress), 0) == 0
-                && super.shouldFlingForVelocity(velocityX);
+            && super.shouldFlingForVelocity(velocityX);
     }
 
     /**
@@ -1470,17 +1498,17 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         super.notifyPageSwitchListener(prevPage);
         if (prevPage != mCurrentPage) {
             StatsLogManager.EventEnum event = (prevPage < mCurrentPage)
-                    ? LAUNCHER_SWIPERIGHT
-                    : LAUNCHER_SWIPELEFT;
+                ? LAUNCHER_SWIPERIGHT
+                : LAUNCHER_SWIPELEFT;
             mLauncher.getStatsLogManager().logger()
-                    .withSrcState(LAUNCHER_STATE_HOME)
-                    .withDstState(LAUNCHER_STATE_HOME)
-                    .withContainerInfo(LauncherAtom.ContainerInfo.newBuilder()
-                            .setWorkspace(
-                                    LauncherAtom.WorkspaceContainer.newBuilder()
-                                            .setPageIndex(prevPage))
-                            .build())
-                    .log(event);
+                .withSrcState(LAUNCHER_STATE_HOME)
+                .withDstState(LAUNCHER_STATE_HOME)
+                .withContainerInfo(LauncherAtom.ContainerInfo.newBuilder()
+                    .setWorkspace(
+                        LauncherAtom.WorkspaceContainer.newBuilder()
+                            .setPageIndex(prevPage))
+                    .build())
+                .log(event);
         }
     }
 
@@ -1492,7 +1520,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 if (!mWallpaperManager.isWallpaperSupported()) {
                     mWallpaperManager.suggestDesiredDimensions(0, 0);
                 } else if (size.x != mWallpaperManager.getDesiredMinimumWidth()
-                        || size.y != mWallpaperManager.getDesiredMinimumHeight()) {
+                    || size.y != mWallpaperManager.getDesiredMinimumHeight()) {
                     mWallpaperManager.suggestDesiredDimensions(size.x, size.y);
                 }
             }
@@ -1540,8 +1568,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     } else {
                         // Pages that are off-screen aren't important for accessibility.
                         child.getShortcutsAndWidgets().setImportantForAccessibility(
-                                alpha > 0 ? IMPORTANT_FOR_ACCESSIBILITY_AUTO
-                                        : IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+                            alpha > 0 ? IMPORTANT_FOR_ACCESSIBILITY_AUTO
+                                : IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
                     }
                 }
             }
@@ -1598,7 +1626,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     private boolean workspaceInScrollableState() {
         return mLauncher.isInState(SPRING_LOADED) || mLauncher.isInState(EDIT_MODE)
-                || !workspaceInModalState();
+            || !workspaceInModalState();
     }
 
     /**
@@ -1636,7 +1664,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 // In overview mode, make sure that the two side pages are visible.
                 leftScreen = Utilities.boundToRange(getCurrentPage() - 1, 0, rightScreen);
                 rightScreen = Utilities.boundToRange(getCurrentPage() + 1,
-                        leftScreen, getPageCount() - 1);
+                    leftScreen, getPageCount() - 1);
             }
 
             if (leftScreen == rightScreen) {
@@ -1666,10 +1694,10 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         position[1] += (int) ev.getY(pointerIndex);
 
         mWallpaperManager.sendWallpaperCommand(getWindowToken(),
-                ev.getAction() == MotionEvent.ACTION_UP
-                        ? WallpaperManager.COMMAND_TAP
-                        : WallpaperManager.COMMAND_SECONDARY_TAP,
-                position[0], position[1], 0, null);
+            ev.getAction() == MotionEvent.ACTION_UP
+                ? WallpaperManager.COMMAND_TAP
+                : WallpaperManager.COMMAND_SECONDARY_TAP,
+            position[0], position[1], 0, null);
     }
 
     private void onStartStateTransition() {
@@ -1705,7 +1733,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      */
     @Override
     public void setStateWithAnimation(
-            LauncherState toState, StateAnimationConfig config, PendingAnimation animation) {
+        LauncherState toState, StateAnimationConfig config, PendingAnimation animation) {
         StateTransitionListener listener = new StateTransitionListener();
         mLauncher.getStateManager().getState().onLeavingState(mLauncher, toState);
         mStateTransitionAnimation.setStateWithAnimation(toState, config, animation);
@@ -1730,8 +1758,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     public void updateAccessibilityFlags() {
         // TODO: Update the accessibility flags appropriately when dragging.
         int accessibilityFlag = mLauncher.getStateManager().getState().hasFlag(FLAG_WORKSPACE_INACCESSIBLE)
-                ? IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
-                : IMPORTANT_FOR_ACCESSIBILITY_AUTO;
+            ? IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+            : IMPORTANT_FOR_ACCESSIBILITY_AUTO;
         if (!mLauncher.getAccessibilityDelegate().isInAccessibleDrag()) {
             int total = getPageCount();
             for (int i = 0; i < total; i++) {
@@ -1770,13 +1798,13 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
         if (options.isAccessibleDrag) {
             mDragController.addDragListener(
-                    new AccessibleDragListenerAdapter(this, WorkspaceAccessibilityHelper::new) {
-                        @Override
-                        protected void enableAccessibleDrag(boolean enable) {
-                            super.enableAccessibleDrag(enable);
-                            setEnableForLayout(mLauncher.getHotseat(), enable);
-                        }
-                    });
+                new AccessibleDragListenerAdapter(this, WorkspaceAccessibilityHelper::new) {
+                    @Override
+                    protected void enableAccessibleDrag(boolean enable) {
+                        super.enableAccessibleDrag(enable);
+                        setEnableForLayout(mLauncher.getHotseat(), enable);
+                    }
+                });
         }
 
         beginDragShared(child, this, options);
@@ -1786,12 +1814,12 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         Object dragObject = child.getTag();
         if (!(dragObject instanceof ItemInfo)) {
             String msg = "Drag started with a view that has no tag set. This "
-                    + "will cause a crash (issue 11627249) down the line. "
-                    + "View: " + child + "  tag: " + child.getTag();
+                + "will cause a crash (issue 11627249) down the line. "
+                + "View: " + child + "  tag: " + child.getTag();
             throw new IllegalStateException(msg);
         }
         beginDragShared(child, null, source, (ItemInfo) dragObject,
-                new DragPreviewProvider(child), options);
+            new DragPreviewProvider(child), options);
     }
 
     /**
@@ -1800,7 +1828,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      * the workspace
      */
     public DragView beginDragShared(View child, DraggableView draggableView, DragSource source,
-            ItemInfo dragObject, DragPreviewProvider previewProvider, DragOptions dragOptions) {
+                                    ItemInfo dragObject, DragPreviewProvider previewProvider, DragOptions dragOptions) {
 
         float iconScale = 1f;
         if (child instanceof BubbleTextView) {
@@ -1882,35 +1910,35 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 mDragController.addDragListener(new AppWidgetHostViewDragListener(mLauncher));
             }
             dv = mDragController.startDrag(
-                    contentView,
-                    draggableView,
-                    dragLayerX,
-                    dragLayerY,
-                    source,
-                    dragObject,
-                    dragRect,
-                    scale * iconScale,
-                    scale,
-                    dragOptions);
+                contentView,
+                draggableView,
+                dragLayerX,
+                dragLayerY,
+                source,
+                dragObject,
+                dragRect,
+                scale * iconScale,
+                scale,
+                dragOptions);
         } else {
             dv = mDragController.startDrag(
-                    drawable,
-                    draggableView,
-                    dragLayerX,
-                    dragLayerY,
-                    source,
-                    dragObject,
-                    dragRect,
-                    scale * iconScale,
-                    scale,
-                    dragOptions);
+                drawable,
+                draggableView,
+                dragLayerX,
+                dragLayerY,
+                source,
+                dragObject,
+                dragRect,
+                scale * iconScale,
+                scale,
+                dragOptions);
         }
         return dv;
     }
 
     private boolean transitionStateShouldAllowDrop() {
         return (!isSwitchingState() || mTransitionProgress > ALLOW_DROP_TRANSITION_PROGRESS) &&
-                workspaceIconsCanBeDragged();
+            workspaceIconsCanBeDragged();
     }
 
     /**
@@ -1952,24 +1980,24 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             }
 
             mTargetCell = findNearestArea((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, dropTargetLayout,
-                    mTargetCell);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, dropTargetLayout,
+                mTargetCell);
             float distance = dropTargetLayout.getDistanceFromWorkspaceCellVisualCenter(
-                    mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
+                mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
             if (mCreateUserFolderOnDrop && willCreateUserFolder(d.dragInfo,
-                    dropTargetLayout, mTargetCell, distance, true)) {
+                dropTargetLayout, mTargetCell, distance, true)) {
                 return true;
             }
 
             if (mAddToExistingFolderOnDrop && willAddToExistingUserFolder(d.dragInfo,
-                    dropTargetLayout, mTargetCell, distance)) {
+                dropTargetLayout, mTargetCell, distance)) {
                 return true;
             }
 
             int[] resultSpan = new int[2];
             mTargetCell = dropTargetLayout.performReorder((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
-                    null, mTargetCell, resultSpan, CellLayout.MODE_ACCEPT_DROP);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
+                null, mTargetCell, resultSpan, CellLayout.MODE_ACCEPT_DROP);
             boolean foundCell = mTargetCell[0] >= 0 && mTargetCell[1] >= 0;
 
             // Don't accept the drop if there's no room for the item
@@ -1988,7 +2016,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     boolean willCreateUserFolder(ItemInfo info, CellLayout target, int[] targetCell,
-            float distance, boolean considerTimeout) {
+                                 float distance, boolean considerTimeout) {
         if (distance > target.getFolderCreationRadius(targetCell))
             return false;
         View dropOverView = target.getChildAt(targetCell[0], targetCell[1]);
@@ -1999,7 +2027,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         if (dropOverView != null) {
             CellLayoutLayoutParams lp = (CellLayoutLayoutParams) dropOverView.getLayoutParams();
             if (lp.useTmpCoords && (lp.getTmpCellX() != lp.getCellX()
-                    || lp.getTmpCellY() != lp.getCellY())) {
+                || lp.getTmpCellY() != lp.getCellY())) {
                 return false;
             }
         }
@@ -2014,16 +2042,16 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         }
 
         boolean aboveShortcut = (dropOverView.getTag() instanceof WorkspaceItemInfo
-                && ((WorkspaceItemInfo) dropOverView
-                        .getTag()).container != LauncherSettings.Favorites.CONTAINER_HOTSEAT_PREDICTION);
+            && ((WorkspaceItemInfo) dropOverView
+            .getTag()).container != LauncherSettings.Favorites.CONTAINER_HOTSEAT_PREDICTION);
         boolean willBecomeShortcut = (info.itemType == ITEM_TYPE_APPLICATION ||
-                info.itemType == LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT);
+            info.itemType == LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT);
 
         return (aboveShortcut && willBecomeShortcut);
     }
 
     boolean willAddToExistingUserFolder(ItemInfo dragInfo, CellLayout target, int[] targetCell,
-            float distance) {
+                                        float distance) {
         if (distance > target.getFolderCreationRadius(targetCell))
             return false;
         View dropOverView = target.getChildAt(targetCell[0], targetCell[1]);
@@ -2035,7 +2063,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         if (dropOverView != null) {
             CellLayoutLayoutParams lp = (CellLayoutLayoutParams) dropOverView.getLayoutParams();
             if (lp.useTmpCoords && (lp.getTmpCellX() != lp.getCellX()
-                    || lp.getTmpCellY() != lp.getCellY())) {
+                || lp.getTmpCellY() != lp.getCellY())) {
                 return false;
             }
         }
@@ -2050,7 +2078,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     boolean createUserFolderIfNecessary(View newView, int container, CellLayout target,
-            int[] targetCell, float distance, boolean external, DragObject d) {
+                                        int[] targetCell, float distance, boolean external, DragObject d) {
         if (distance > target.getFolderCreationRadius(targetCell))
             return false;
         View v = target.getChildAt(targetCell[0], targetCell[1]);
@@ -2059,7 +2087,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         if (mDragInfo != null) {
             CellLayout cellParent = getParentCellLayoutForView(mDragInfo.cell);
             hasntMoved = (mDragInfo.cellX == targetCell[0] &&
-                    mDragInfo.cellY == targetCell[1]) && (cellParent == target);
+                mDragInfo.cellY == targetCell[1]) && (cellParent == target);
         }
 
         if (v == null || hasntMoved || !mCreateUserFolderOnDrop)
@@ -2082,9 +2110,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             float scale = mLauncher.getDragLayer().getDescendantRectRelativeToSelf(v, folderLocation);
             target.removeView(v);
             mStatsLogManager.logger().withItemInfo(destInfo).withInstanceId(d.logInstanceId)
-                    .log(LauncherEvent.LAUNCHER_ITEM_DROP_FOLDER_CREATED);
+                .log(LauncherEvent.LAUNCHER_ITEM_DROP_FOLDER_CREATED);
             FolderIcon fi = mLauncher.addFolder(target, container, screenId, targetCell[0],
-                    targetCell[1]);
+                targetCell[1]);
             destInfo.cellX = -1;
             destInfo.cellY = -1;
             sourceInfo.cellX = -1;
@@ -2109,7 +2137,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     boolean addToExistingFolderIfNecessary(View newView, CellLayout target, int[] targetCell,
-            float distance, DragObject d, boolean external) {
+                                           float distance, DragObject d, boolean external) {
         if (distance > target.getFolderCreationRadius(targetCell))
             return false;
 
@@ -2122,7 +2150,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             FolderIcon fi = (FolderIcon) dropOverView;
             if (fi.acceptDrop(d.dragInfo)) {
                 mStatsLogManager.logger().withItemInfo(fi.mInfo).withInstanceId(d.logInstanceId)
-                        .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED_ON_FOLDER_ICON);
+                    .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED_ON_FOLDER_ICON);
                 fi.onDrop(d, false /* itemReturnedOnFailedDrop */);
                 // if the drag started here, we need to remove it from the workspace
                 if (!external) {
@@ -2155,8 +2183,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         Runnable onCompleteRunnable = null;
         boolean forceWidgetResize = PreferenceExtensionsKt.firstBlocking(mPreferenceManager2.getForceWidgetResize());
         if (d.dragSource != this || mDragInfo == null) {
-            final int[] touchXY = new int[] { (int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1] };
+            final int[] touchXY = new int[]{(int) mDragViewVisualCenter[0],
+                (int) mDragViewVisualCenter[1]};
             onDropExternal(touchXY, dropTargetLayout, d);
         } else {
             final View cell = mDragInfo.cell;
@@ -2167,7 +2195,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 boolean hasMovedLayouts = (getParentCellLayoutForView(cell) != dropTargetLayout);
                 boolean hasMovedIntoHotseat = mLauncher.isHotseatLayout(dropTargetLayout);
                 int container = hasMovedIntoHotseat ? LauncherSettings.Favorites.CONTAINER_HOTSEAT
-                        : LauncherSettings.Favorites.CONTAINER_DESKTOP;
+                    : LauncherSettings.Favorites.CONTAINER_DESKTOP;
                 int screenId = (mTargetCell[0] < 0) ? mDragInfo.screenId : getIdForScreen(dropTargetLayout);
                 int spanX = mDragInfo != null ? mDragInfo.spanX : 1;
                 int spanY = mDragInfo != null ? mDragInfo.spanY : 1;
@@ -2175,16 +2203,16 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 // dropped, without any consideration to whether there is an item there.
 
                 mTargetCell = findNearestArea((int) mDragViewVisualCenter[0], (int) mDragViewVisualCenter[1], spanX,
-                        spanY, dropTargetLayout, mTargetCell);
+                    spanY, dropTargetLayout, mTargetCell);
                 float distance = dropTargetLayout.getDistanceFromWorkspaceCellVisualCenter(
-                        mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
+                    mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
 
                 // If the item being dropped is a shortcut and the nearest drop
                 // cell also contains a shortcut, then create a folder with the two shortcuts.
                 if (createUserFolderIfNecessary(cell, container, dropTargetLayout, mTargetCell,
-                        distance, false, d)
-                        || addToExistingFolderIfNecessary(cell, dropTargetLayout, mTargetCell,
-                                distance, d, false)) {
+                    distance, false, d)
+                    || addToExistingFolderIfNecessary(cell, dropTargetLayout, mTargetCell,
+                    distance, d, false)) {
                     if (!mLauncher.isInState(EDIT_MODE)) {
                         mLauncher.getStateManager().goToState(NORMAL, SPRING_LOADED_EXIT_DELAY);
                     }
@@ -2203,36 +2231,36 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
                 CellPos originalPresenterPos = getCellPosMapper().mapModelToPresenter(item);
                 droppedOnOriginalCell = originalPresenterPos.screenId == screenId
-                        && item.container == container
-                        && originalPresenterPos.cellX == mTargetCell[0]
-                        && originalPresenterPos.cellY == mTargetCell[1];
+                    && item.container == container
+                    && originalPresenterPos.cellX == mTargetCell[0]
+                    && originalPresenterPos.cellY == mTargetCell[1];
                 droppedOnOriginalCellDuringTransition = droppedOnOriginalCell && mIsSwitchingState;
 
                 // When quickly moving an item, a user may accidentally rearrange their
                 // workspace. So instead we move the icon back safely to its original position.
                 boolean returnToOriginalCellToPreventShuffling = !isFinishedSwitchingState()
-                        && !droppedOnOriginalCellDuringTransition && !dropTargetLayout
-                                .isRegionVacant(mTargetCell[0], mTargetCell[1], spanX, spanY);
+                    && !droppedOnOriginalCellDuringTransition && !dropTargetLayout
+                    .isRegionVacant(mTargetCell[0], mTargetCell[1], spanX, spanY);
                 int[] resultSpan = new int[2];
                 if (returnToOriginalCellToPreventShuffling) {
                     mTargetCell[0] = mTargetCell[1] = -1;
                 } else {
                     mTargetCell = dropTargetLayout.performReorder((int) mDragViewVisualCenter[0],
-                            (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
-                            cell, mTargetCell, resultSpan, CellLayout.MODE_ON_DROP);
+                        (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
+                        cell, mTargetCell, resultSpan, CellLayout.MODE_ON_DROP);
                 }
 
                 boolean foundCell = mTargetCell[0] >= 0 && mTargetCell[1] >= 0;
 
                 // if the widget resizes on drop
                 if (foundCell && (cell instanceof AppWidgetHostView) &&
-                        (resultSpan[0] != item.spanX || resultSpan[1] != item.spanY)) {
+                    (resultSpan[0] != item.spanX || resultSpan[1] != item.spanY)) {
                     resizeOnDrop = true;
                     item.spanX = resultSpan[0];
                     item.spanY = resultSpan[1];
                     AppWidgetHostView awhv = (AppWidgetHostView) cell;
                     WidgetSizes.updateWidgetSizeRanges(awhv, mLauncher, resultSpan[0],
-                            resultSpan[1]);
+                        resultSpan[1]);
                 }
 
                 if (foundCell) {
@@ -2256,7 +2284,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                             throw new NullPointerException("mDragInfo.cell has null parent");
                         }
                         addInScreen(cell, container, screenId, mTargetCell[0], mTargetCell[1],
-                                info.spanX, info.spanY);
+                            info.spanX, info.spanY);
                     }
 
                     // update the item's position after drop
@@ -2270,15 +2298,15 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     lp.isLockedToGrid = true;
 
                     if (container != LauncherSettings.Favorites.CONTAINER_HOTSEAT &&
-                            cell instanceof LauncherAppWidgetHostView) {
+                        cell instanceof LauncherAppWidgetHostView) {
 
                         // We post this call so that the widget has a chance to be placed
                         // in its final location
                         onCompleteRunnable = getWidgetResizeFrameRunnable(options,
-                                (LauncherAppWidgetHostView) cell, dropTargetLayout, forceWidgetResize);
+                            (LauncherAppWidgetHostView) cell, dropTargetLayout, forceWidgetResize);
                     }
                     mLauncher.getModelWriter().modifyItemInDatabase(info, container, screenId,
-                            lp.getCellX(), lp.getCellY(), item.spanX, item.spanY);
+                        lp.getCellX(), lp.getCellY(), item.spanX, item.spanY);
                 } else {
                     if (!returnToOriginalCellToPreventShuffling) {
                         onNoCellFound(dropTargetLayout, d.dragInfo, d.logInstanceId);
@@ -2304,7 +2332,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
                     if (pageIsVisible) {
                         onCompleteRunnable = getWidgetResizeFrameRunnable(options,
-                                (LauncherAppWidgetHostView) cell, cellLayout, forceWidgetResize);
+                            (LauncherAppWidgetHostView) cell, cellLayout, forceWidgetResize);
                     }
                 }
             }
@@ -2318,14 +2346,14 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     final Runnable onCompleteCallback = onCompleteRunnable;
                     LauncherState currentState = mLauncher.getStateManager().getState();
                     mLauncher.getDragController().animateDragViewToOriginalPosition(
-                            /* onComplete= */ callbackList::executeAllAndDestroy, cell,
-                            currentState.getTransitionDuration(mLauncher, true /* isToState */));
+                        /* onComplete= */ callbackList::executeAllAndDestroy, cell,
+                        currentState.getTransitionDuration(mLauncher, true /* isToState */));
                     if (!mLauncher.isInState(EDIT_MODE)) {
                         mLauncher.getStateManager().goToState(NORMAL, /* delay= */ 0,
-                                onCompleteCallback == null
-                                        ? null
-                                        : forSuccessCallback(
-                                                () -> callbackList.add(onCompleteCallback)));
+                            onCompleteCallback == null
+                                ? null
+                                : forSuccessCallback(
+                                () -> callbackList.add(onCompleteCallback)));
                     } else if (onCompleteCallback != null) {
                         forSuccessCallback(() -> callbackList.add(onCompleteCallback));
                     }
@@ -2335,16 +2363,16 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 }
                 final ItemInfo info = (ItemInfo) cell.getTag();
                 boolean isWidget = info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET
-                        || info.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
+                    || info.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
                 if (isWidget && dropTargetLayout != null) {
                     // animate widget to a valid place
                     int animationType = resizeOnDrop ? ANIMATE_INTO_POSITION_AND_RESIZE
-                            : ANIMATE_INTO_POSITION_AND_DISAPPEAR;
+                        : ANIMATE_INTO_POSITION_AND_DISAPPEAR;
                     animateWidgetDrop(info, parent, d.dragView, null, animationType, cell, false);
                 } else {
                     int duration = snappedToNewPage ? ADJACENT_SCREEN_DROP_DURATION : -1;
                     mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, cell, duration,
-                            this);
+                        this);
                 }
             } else {
                 d.deferDragViewCleanupPostAnimation = false;
@@ -2354,12 +2382,12 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
             if (!mLauncher.isInState(EDIT_MODE)) {
                 mLauncher.getStateManager().goToState(NORMAL, SPRING_LOADED_EXIT_DELAY,
-                        onCompleteRunnable == null ? null : forSuccessCallback(onCompleteRunnable));
+                    onCompleteRunnable == null ? null : forSuccessCallback(onCompleteRunnable));
             } else if (onCompleteRunnable != null) {
                 forSuccessCallback(onCompleteRunnable);
             }
             mStatsLogManager.logger().withItemInfo(d.dragInfo).withInstanceId(d.logInstanceId)
-                    .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
+                .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
         }
 
         if (d.stateAnnouncer != null && !droppedOnOriginalCell) {
@@ -2369,7 +2397,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     @Nullable
     private Runnable getWidgetResizeFrameRunnable(DragOptions options,
-            LauncherAppWidgetHostView hostView, CellLayout cellLayout, boolean force) {
+                                                  LauncherAppWidgetHostView hostView, CellLayout cellLayout, boolean force) {
         AppWidgetProviderInfo pInfo = hostView.getAppWidgetInfo();
         boolean shouldResize = (pInfo.resizeMode != AppWidgetProviderInfo.RESIZE_NONE) || force;
         if (pInfo != null && shouldResize && !options.isAccessibleDrag) {
@@ -2383,10 +2411,10 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     public void onNoCellFound(
-            View dropTargetLayout, ItemInfo itemInfo, @Nullable InstanceId logInstanceId) {
+        View dropTargetLayout, ItemInfo itemInfo, @Nullable InstanceId logInstanceId) {
         int strId = mLauncher.isHotseatLayout(dropTargetLayout)
-                ? R.string.hotseat_out_of_space
-                : R.string.out_of_space;
+            ? R.string.hotseat_out_of_space
+            : R.string.out_of_space;
         Toast.makeText(mLauncher, mLauncher.getString(strId), Toast.LENGTH_SHORT).show();
         StatsLogManager.StatsLogger logger = mStatsLogManager.logger().withItemInfo(itemInfo);
         if (logInstanceId != null) {
@@ -2584,7 +2612,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     private boolean isDragWidget(DragObject d) {
         return (d.dragInfo instanceof LauncherAppWidgetInfo ||
-                d.dragInfo instanceof PendingAddWidgetInfo);
+            d.dragInfo instanceof PendingAddWidgetInfo);
     }
 
     public void onDragOver(DragObject d) {
@@ -2627,27 +2655,27 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             }
 
             mTargetCell = findNearestArea((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], item.spanX, item.spanY,
-                    mDragTargetLayout, mTargetCell);
+                (int) mDragViewVisualCenter[1], item.spanX, item.spanY,
+                mDragTargetLayout, mTargetCell);
             int reorderX = mTargetCell[0];
             int reorderY = mTargetCell[1];
 
             setCurrentDropOverCell(mTargetCell[0], mTargetCell[1]);
 
             float targetCellDistance = mDragTargetLayout.getDistanceFromWorkspaceCellVisualCenter(
-                    mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
+                mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
 
             manageFolderFeedback(targetCellDistance, d);
 
             boolean nearestDropOccupied = mDragTargetLayout.isNearestDropLocationOccupied(
-                    (int) mDragViewVisualCenter[0], (int) mDragViewVisualCenter[1], item.spanX,
-                    item.spanY, child, mTargetCell);
+                (int) mDragViewVisualCenter[0], (int) mDragViewVisualCenter[1], item.spanX,
+                item.spanY, child, mTargetCell);
 
             manageReorderOnDragOver(d, targetCellDistance, nearestDropOccupied, minSpanX, minSpanY,
-                    reorderX, reorderY);
+                reorderX, reorderY);
 
             if (mDragMode == DRAG_MODE_CREATE_FOLDER || mDragMode == DRAG_MODE_ADD_TO_FOLDER ||
-                    !nearestDropOccupied) {
+                !nearestDropOccupied) {
                 if (mDragTargetLayout != null) {
                     mDragTargetLayout.revertTempState();
                 }
@@ -2656,34 +2684,34 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     protected void manageReorderOnDragOver(DragObject d, float targetCellDistance,
-            boolean nearestDropOccupied, int minSpanX, int minSpanY, int reorderX, int reorderY) {
+                                           boolean nearestDropOccupied, int minSpanX, int minSpanY, int reorderX, int reorderY) {
 
         ItemInfo item = d.dragInfo;
         final View child = (mDragInfo == null) ? null : mDragInfo.cell;
         if (!nearestDropOccupied) {
             int[] span = new int[2];
             mDragTargetLayout.performReorder((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, item.spanX, item.spanY,
-                    child, mTargetCell, span, CellLayout.MODE_SHOW_REORDER_HINT);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, item.spanX, item.spanY,
+                child, mTargetCell, span, CellLayout.MODE_SHOW_REORDER_HINT);
             mDragTargetLayout.visualizeDropLocation(mTargetCell[0], mTargetCell[1], span[0],
-                    span[1], d);
+                span[1], d);
             nearestDropOccupied = mDragTargetLayout.isNearestDropLocationOccupied((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], item.spanX,
-                    item.spanY, child, mTargetCell);
+                (int) mDragViewVisualCenter[1], item.spanX,
+                item.spanY, child, mTargetCell);
         } else if ((mDragMode == DRAG_MODE_NONE || mDragMode == DRAG_MODE_REORDER)
-                && (mLastReorderX != reorderX || mLastReorderY != reorderY)
-                && targetCellDistance < mDragTargetLayout.getReorderRadius(mTargetCell, item.spanX,
-                        item.spanY)) {
+            && (mLastReorderX != reorderX || mLastReorderY != reorderY)
+            && targetCellDistance < mDragTargetLayout.getReorderRadius(mTargetCell, item.spanX,
+            item.spanY)) {
             mReorderAlarm.cancelAlarm();
             mLastReorderX = reorderX;
             mLastReorderY = reorderY;
             mDragTargetLayout.performReorder((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, item.spanX, item.spanY,
-                    child, mTargetCell, new int[2], CellLayout.MODE_SHOW_REORDER_HINT);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, item.spanX, item.spanY,
+                child, mTargetCell, new int[2], CellLayout.MODE_SHOW_REORDER_HINT);
             // Otherwise, if we aren't adding to or creating a folder and there's no pending
             // reorder, then we schedule a reorder
             ReorderAlarmListener listener = new ReorderAlarmListener(mDragViewVisualCenter,
-                    minSpanX, minSpanY, item.spanX, item.spanY, d, child);
+                minSpanX, minSpanY, item.spanX, item.spanY, d, child);
             mReorderAlarm.setOnAlarmListener(listener);
             mReorderAlarm.setAlarm(REORDER_TIMEOUT);
         }
@@ -2692,14 +2720,14 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     /**
      * Updates {@link #mDragTargetLayout} and {@link #mDragOverlappingLayout}
      * based on the DragObject's position.
-     *
+     * <p>
      * The layout will be:
      * - The Hotseat if the drag object is over it
      * - A side page if we are in spring-loaded mode and the drag object is over it
      * - The current page otherwise
      *
      * @return whether the layout is different from the current
-     *         {@link #mDragTargetLayout}.
+     * {@link #mDragTargetLayout}.
      */
     private boolean setDropLayoutForDragObject(DragObject d, float centerX, float centerY) {
         CellLayout layout = null;
@@ -2733,7 +2761,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     private boolean shouldUseHotseatAsDropLayout(DragObject dragObject) {
         if (mLauncher.getHotseat() == null
-                || mLauncher.getHotseat().getShortcutsAndWidgets() == null) {
+            || mLauncher.getHotseat().getShortcutsAndWidgets() == null) {
             return false;
         }
         View hotseatShortcuts = mLauncher.getHotseat().getShortcutsAndWidgets();
@@ -2767,7 +2795,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         // is responsible for determining whether we need to snap to a different screen.
         int nextPage = getNextPage();
         IntSet pageIndexesToVerify = IntSet.wrap(nextPage - 1,
-                nextPage + (isTwoPanelEnabled() ? 2 : 1));
+            nextPage + (isTwoPanelEnabled() ? 2 : 1));
 
         for (int pageIndex : pageIndexesToVerify) {
             // When deciding whether to perform a page switch, we need to consider the most
@@ -2776,8 +2804,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // whether
             // dragging to the left / right, respectively.
             touchX = (((pageIndex < nextPage) && !mIsRtl) || (pageIndex > nextPage && mIsRtl))
-                    ? Math.min(d.x, centerX)
-                    : Math.max(d.x, centerX);
+                ? Math.min(d.x, centerX)
+                : Math.max(d.x, centerX);
             CellLayout layout = verifyInsidePage(pageIndex, touchX, touchY);
             if (layout != null) {
                 return layout;
@@ -2791,7 +2819,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      */
     private void getViewBoundsRelativeToWorkspace(View view, Rect outRect) {
         mLauncher.getDragLayer()
-                .getDescendantRectRelativeToSelf(view, mTempRect);
+            .getDescendantRectRelativeToSelf(view, mTempRect);
         // map draglayer relative bounds to workspace
         mLauncher.getDragLayer().mapRectInSelfToDescendant(this, mTempRect);
         outRect.set(mTempRect);
@@ -2805,7 +2833,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         if (pageNo >= 0 && pageNo < getPageCount()) {
             CellLayout cl = (CellLayout) getChildAt(pageNo);
             if (x >= cl.getLeft() && x <= cl.getRight()
-                    && y >= cl.getTop() && y <= cl.getBottom()) {
+                && y >= cl.getTop() && y <= cl.getBottom()) {
                 // This point is inside the cell layout
                 return cl;
             }
@@ -2816,7 +2844,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     private void manageFolderFeedback(float distance, DragObject dragObject) {
         if (distance > mDragTargetLayout.getFolderCreationRadius(mTargetCell)) {
             if ((mDragMode == DRAG_MODE_ADD_TO_FOLDER
-                    || mDragMode == DRAG_MODE_CREATE_FOLDER)) {
+                || mDragMode == DRAG_MODE_CREATE_FOLDER)) {
                 setDragMode(DRAG_MODE_NONE);
             }
             return;
@@ -2829,7 +2857,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
             mFolderCreateBg = new PreviewBackground();
             mFolderCreateBg.setup(mLauncher, mLauncher, null,
-                    dragOverView.getMeasuredWidth(), dragOverView.getPaddingTop());
+                dragOverView.getMeasuredWidth(), dragOverView.getPaddingTop());
 
             // The full preview background should appear behind the icon
             mFolderCreateBg.isClipping = false;
@@ -2840,7 +2868,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
             if (dragObject.stateAnnouncer != null) {
                 dragObject.stateAnnouncer.announce(WorkspaceAccessibilityHelper
-                        .getDescriptionForDropOver(dragOverView, getContext()));
+                    .getDescriptionForDropOver(dragOverView, getContext()));
             }
             return;
         }
@@ -2856,7 +2884,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
             if (dragObject.stateAnnouncer != null) {
                 dragObject.stateAnnouncer.announce(WorkspaceAccessibilityHelper
-                        .getDescriptionForDropOver(dragOverView, getContext()));
+                    .getDescriptionForDropOver(dragOverView, getContext()));
             }
             return;
         }
@@ -2876,7 +2904,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         final View child;
 
         public ReorderAlarmListener(float[] dragViewCenter, int minSpanX, int minSpanY, int spanX,
-                int spanY, DragObject dragObject, View child) {
+                                    int spanY, DragObject dragObject, View child) {
             this.dragViewCenter = dragViewCenter;
             this.minSpanX = minSpanX;
             this.minSpanY = minSpanY;
@@ -2889,12 +2917,12 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         public void onAlarm(Alarm alarm) {
             int[] resultSpan = new int[2];
             mTargetCell = findNearestArea((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, mDragTargetLayout,
-                    mTargetCell);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, mDragTargetLayout,
+                mTargetCell);
 
             mTargetCell = mDragTargetLayout.performReorder((int) mDragViewVisualCenter[0],
-                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
-                    child, mTargetCell, resultSpan, CellLayout.MODE_DRAG_OVER);
+                (int) mDragViewVisualCenter[1], minSpanX, minSpanY, spanX, spanY,
+                child, mTargetCell, resultSpan, CellLayout.MODE_DRAG_OVER);
 
             if (mTargetCell[0] < 0 || mTargetCell[1] < 0) {
                 mDragTargetLayout.revertTempState();
@@ -2903,7 +2931,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             }
 
             mDragTargetLayout.visualizeDropLocation(mTargetCell[0], mTargetCell[1],
-                    resultSpan[0], resultSpan[1], dragObject);
+                resultSpan[0], resultSpan[1], dragObject);
         }
     }
 
@@ -2928,7 +2956,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     private void onDropExternal(final int[] touchXY, final CellLayout cellLayout, DragObject d) {
         if (d.dragInfo instanceof PendingAddShortcutInfo) {
             WorkspaceItemInfo si = ((PendingAddShortcutInfo) d.dragInfo)
-                    .getActivityInfo(mLauncher).createWorkspaceItemInfo();
+                .getActivityInfo(mLauncher).createWorkspaceItemInfo();
             if (si != null) {
                 d.dragInfo = si;
             }
@@ -2943,13 +2971,13 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         }
 
         final int container = mLauncher.isHotseatLayout(cellLayout)
-                ? LauncherSettings.Favorites.CONTAINER_HOTSEAT
-                : LauncherSettings.Favorites.CONTAINER_DESKTOP;
+            ? LauncherSettings.Favorites.CONTAINER_HOTSEAT
+            : LauncherSettings.Favorites.CONTAINER_DESKTOP;
         final int screenId = getIdForScreen(cellLayout);
         if (!mLauncher.isHotseatLayout(cellLayout)
-                && screenId != getScreenIdForPageIndex(mCurrentPage)
-                && !mLauncher.isInState(SPRING_LOADED)
-                && !mLauncher.isInState(EDIT_MODE)) {
+            && screenId != getScreenIdForPageIndex(mCurrentPage)
+            && !mLauncher.isInState(SPRING_LOADED)
+            && !mLauncher.isInState(EDIT_MODE)) {
             snapToPage(getPageIndexForScreenId(screenId));
         }
 
@@ -2959,12 +2987,12 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             boolean findNearestVacantCell = true;
             if (pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT) {
                 mTargetCell = findNearestArea(touchXY[0], touchXY[1], spanX, spanY,
-                        cellLayout, mTargetCell);
+                    cellLayout, mTargetCell);
                 float distance = cellLayout.getDistanceFromWorkspaceCellVisualCenter(
-                        mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
+                    mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
                 if (willCreateUserFolder(d.dragInfo, cellLayout, mTargetCell, distance, true)
-                        || willAddToExistingUserFolder(
-                                d.dragInfo, cellLayout, mTargetCell, distance)) {
+                    || willAddToExistingUserFolder(
+                    d.dragInfo, cellLayout, mTargetCell, distance)) {
                     findNearestVacantCell = false;
                 }
             }
@@ -2980,8 +3008,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 }
                 int[] resultSpan = new int[2];
                 mTargetCell = cellLayout.performReorder((int) mDragViewVisualCenter[0],
-                        (int) mDragViewVisualCenter[1], minSpanX, minSpanY, info.spanX, info.spanY,
-                        null, mTargetCell, resultSpan, CellLayout.MODE_ON_DROP_EXTERNAL);
+                    (int) mDragViewVisualCenter[1], minSpanX, minSpanY, info.spanX, info.spanY,
+                    null, mTargetCell, resultSpan, CellLayout.MODE_ON_DROP_EXTERNAL);
 
                 if (resultSpan[0] != item.spanX || resultSpan[1] != item.spanY) {
                     updateWidgetSize = true;
@@ -3001,14 +3029,14 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     // When dragging and dropping from customization tray, we deal with creating
                     // widgets/shortcuts/folders in a slightly different way
                     mLauncher.addPendingItem(pendingInfo, container, screenId, mTargetCell,
-                            item.spanX, item.spanY);
+                        item.spanX, item.spanY);
                     mStatsLogManager.logger().withItemInfo(d.dragInfo)
-                            .withInstanceId(d.logInstanceId)
-                            .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
+                        .withInstanceId(d.logInstanceId)
+                        .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
                 }
             };
             boolean isWidget = pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET
-                    || pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
+                || pendingInfo.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
 
             AppWidgetHostView finalView = isWidget ? ((PendingAddWidgetInfo) pendingInfo).boundWidget : null;
 
@@ -3018,11 +3046,11 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
             int animationStyle = ANIMATE_INTO_POSITION_AND_DISAPPEAR;
             if (isWidget && ((PendingAddWidgetInfo) pendingInfo).info != null &&
-                    ((PendingAddWidgetInfo) pendingInfo).getHandler().needsConfigure()) {
+                ((PendingAddWidgetInfo) pendingInfo).getHandler().needsConfigure()) {
                 animationStyle = ANIMATE_INTO_POSITION_AND_REMAIN;
             }
             animateWidgetDrop(info, cellLayout, d.dragView, onAnimationCompleteRunnable,
-                    animationStyle, finalView, true);
+                animationStyle, finalView, true);
         } else {
             // This is for other drag/drop cases, like dragging from All Apps
             mLauncher.getStateManager().goToState(NORMAL, SPRING_LOADED_EXIT_DELAY);
@@ -3038,7 +3066,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                         d.dragInfo = info;
                     }
                     if (info instanceof WorkspaceItemInfo
-                            && info.container == LauncherSettings.Favorites.CONTAINER_PREDICTION) {
+                        && info.container == LauncherSettings.Favorites.CONTAINER_PREDICTION) {
                         // Came from all apps prediction row -- make a copy
                         info = new WorkspaceItemInfo((WorkspaceItemInfo) info);
                         d.dragInfo = info;
@@ -3047,7 +3075,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     break;
                 case LauncherSettings.Favorites.ITEM_TYPE_FOLDER:
                     view = FolderIcon.inflateFolderAndIcon(R.layout.folder_icon, mLauncher, cellLayout,
-                            (FolderInfo) info);
+                        (FolderInfo) info);
                     break;
                 default:
                     throw new IllegalStateException("Unknown item type: " + info.itemType);
@@ -3057,15 +3085,15 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // dropped, without any consideration to whether there is an item there.
             if (touchXY != null) {
                 mTargetCell = findNearestArea(touchXY[0], touchXY[1], spanX, spanY,
-                        cellLayout, mTargetCell);
+                    cellLayout, mTargetCell);
                 float distance = cellLayout.getDistanceFromWorkspaceCellVisualCenter(
-                        mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
+                    mDragViewVisualCenter[0], mDragViewVisualCenter[1], mTargetCell);
                 if (createUserFolderIfNecessary(view, container, cellLayout, mTargetCell, distance,
-                        true, d)) {
+                    true, d)) {
                     return;
                 }
                 if (addToExistingFolderIfNecessary(view, cellLayout, mTargetCell, distance, d,
-                        true)) {
+                    true)) {
                     return;
                 }
             }
@@ -3073,8 +3101,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             if (touchXY != null) {
                 // when dragging and dropping, just find the closest free spot
                 mTargetCell = cellLayout.performReorder((int) mDragViewVisualCenter[0],
-                        (int) mDragViewVisualCenter[1], 1, 1, 1, 1,
-                        null, mTargetCell, null, CellLayout.MODE_ON_DROP_EXTERNAL);
+                    (int) mDragViewVisualCenter[1], 1, 1, 1, 1,
+                    null, mTargetCell, null, CellLayout.MODE_ON_DROP_EXTERNAL);
             } else {
                 cellLayout.findCellForSpan(mTargetCell, 1, 1);
             }
@@ -3082,10 +3110,10 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // other
             // values of the info is properly updated.
             mLauncher.getModelWriter().addOrMoveItemInDatabase(info, container, screenId,
-                    mTargetCell[0], mTargetCell[1]);
+                mTargetCell[0], mTargetCell[1]);
 
             addInScreen(view, container, screenId, mTargetCell[0], mTargetCell[1],
-                    info.spanX, info.spanY);
+                info.spanX, info.spanY);
             cellLayout.onDropChild(view);
             cellLayout.getShortcutsAndWidgets().measureChild(view);
 
@@ -3098,7 +3126,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 resetTransitionTransform();
             }
             mStatsLogManager.logger().withItemInfo(d.dragInfo).withInstanceId(d.logInstanceId)
-                    .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
+                .log(LauncherEvent.LAUNCHER_ITEM_DROP_COMPLETED);
         }
 
     }
@@ -3113,14 +3141,14 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         layout.measure(width, height);
         layout.layout(0, 0, unScaledSize[0], unScaledSize[1]);
         Bitmap b = BitmapRenderer.createHardwareBitmap(
-                unScaledSize[0], unScaledSize[1], layout::draw);
+            unScaledSize[0], unScaledSize[1], layout::draw);
         layout.setVisibility(visibility);
         return new FastBitmapDrawable(b);
     }
 
     private void getFinalPositionForDropAnimation(int[] loc, float[] scaleXY,
-            DragView dragView, CellLayout layout, ItemInfo info, int[] targetCell, boolean scale,
-            final View finalView) {
+                                                  DragView dragView, CellLayout layout, ItemInfo info, int[] targetCell, boolean scale,
+                                                  final View finalView) {
         // Now we animate the dragView, (ie. the widget or shortcut preview) into its
         // final
         // location and size on the home screen.
@@ -3156,7 +3184,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // about
             // the final location.
             loc[0] -= (dragView.getMeasuredWidth() - cellLayoutScale * r.width()) / 2
-                    - Math.ceil(layout.getUnusedHorizontalSpace() / 2f);
+                - Math.ceil(layout.getUnusedHorizontalSpace() / 2f);
             loc[1] -= (dragView.getMeasuredHeight() - cellLayoutScale * r.height()) / 2;
             scaleXY[0] = dragViewScaleX * cellLayoutScale;
             scaleXY[1] = dragViewScaleY * cellLayoutScale;
@@ -3178,22 +3206,22 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     public void animateWidgetDrop(ItemInfo info, CellLayout cellLayout, final DragView dragView,
-            final Runnable onCompleteRunnable, int animationType, final View finalView,
-            boolean external) {
+                                  final Runnable onCompleteRunnable, int animationType, final View finalView,
+                                  boolean external) {
         int[] finalPos = new int[2];
         float scaleXY[] = new float[2];
         boolean scalePreview = !(info instanceof PendingAddShortcutInfo);
         getFinalPositionForDropAnimation(finalPos, scaleXY, dragView, cellLayout, info, mTargetCell,
-                scalePreview, finalView);
+            scalePreview, finalView);
 
         Resources res = mLauncher.getResources();
         final int duration = res.getInteger(R.integer.config_dropAnimMaxDuration) - 200;
 
         boolean isWidget = info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPWIDGET ||
-                info.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
+            info.itemType == LauncherSettings.Favorites.ITEM_TYPE_CUSTOM_APPWIDGET;
         if ((animationType == ANIMATE_INTO_POSITION_AND_RESIZE || external)
-                && finalView != null
-                && dragView.getContentView() != finalView) {
+            && finalView != null
+            && dragView.getContentView() != finalView) {
             Drawable crossFadeDrawable = createWidgetDrawable(info, finalView);
             dragView.crossFadeContent(crossFadeDrawable, (int) (duration * 0.8f));
         } else if (isWidget && external) {
@@ -3203,7 +3231,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         DragLayer dragLayer = mLauncher.getDragLayer();
         if (animationType == CANCEL_TWO_STAGE_WIDGET_DROP_ANIMATION) {
             mLauncher.getDragLayer().animateViewIntoPosition(dragView, finalPos, 0f, 0.1f, 0.1f,
-                    DragLayer.ANIMATION_END_DISAPPEAR, onCompleteRunnable, duration);
+                DragLayer.ANIMATION_END_DISAPPEAR, onCompleteRunnable, duration);
         } else {
             int endStyle;
             if (animationType == ANIMATE_INTO_POSITION_AND_REMAIN) {
@@ -3224,8 +3252,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 }
             };
             dragLayer.animateViewIntoPosition(dragView, finalPos[0],
-                    finalPos[1], 1, scaleXY[0], scaleXY[1], onComplete, endStyle,
-                    duration, this);
+                finalPos[1], 1, scaleXY[0], scaleXY[1], onComplete, endStyle,
+                duration, this);
         }
     }
 
@@ -3261,9 +3289,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      */
     @Thunk
     int[] findNearestArea(int pixelX, int pixelY,
-            int spanX, int spanY, CellLayout layout, int[] recycle) {
+                          int spanX, int spanY, CellLayout layout, int[] recycle) {
         return layout.findNearestAreaIgnoreOccupied(
-                pixelX, pixelY, spanX, spanY, recycle);
+            pixelX, pixelY, spanX, spanY, recycle);
     }
 
     void setup(DragController dragController) {
@@ -3280,7 +3308,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      * Called at the end of a drag which originated on the workspace.
      */
     public void onDropCompleted(final View target, final DragObject d,
-            final boolean success) {
+                                final boolean success) {
         if (success) {
             if (target != this && mDragInfo != null) {
                 removeWorkspaceItem(mDragInfo.cell);
@@ -3291,12 +3319,12 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 d.dragView.detachContentView(/* reattachToPreviousParent= */ true);
             }
             final CellLayout cellLayout = mLauncher.getCellLayout(
-                    mDragInfo.container, mDragInfo.screenId);
+                mDragInfo.container, mDragInfo.screenId);
             if (cellLayout != null) {
                 cellLayout.onDropChild(mDragInfo.cell);
             } else if (FeatureFlags.IS_STUDIO_BUILD) {
                 throw new RuntimeException("Invalid state: cellLayout == null in "
-                        + "Workspace#onDropCompleted. Please file a bug. ");
+                    + "Workspace#onDropCompleted. Please file a bug. ");
             }
         }
         View cell = getHomescreenIconByItemId(d.originalDragInfo.id);
@@ -3338,7 +3366,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 LauncherAppWidgetInfo appWidgetInfo = (LauncherAppWidgetInfo) info;
                 if (appWidgetInfo.appWidgetId == appWidgetId) {
                     mLauncher.removeItem(view, appWidgetInfo, true,
-                            "widget is removed in response to widget remove broadcast");
+                        "widget is removed in response to widget remove broadcast");
                     return true;
                 }
             }
@@ -3457,7 +3485,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
 
     public LauncherAppWidgetHostView getWidgetForAppWidgetId(final int appWidgetId) {
         return (LauncherAppWidgetHostView) getFirstMatch((info, v) -> (info instanceof LauncherAppWidgetInfo) &&
-                ((LauncherAppWidgetInfo) info).appWidgetId == appWidgetId);
+            ((LauncherAppWidgetInfo) info).appWidgetId == appWidgetId);
     }
 
     public View getFirstMatch(final ItemOperator operator) {
@@ -3510,8 +3538,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 } else if (child instanceof FolderIcon) {
                     FolderInfo folderInfo = (FolderInfo) info;
                     List<WorkspaceItemInfo> matches = folderInfo.contents.stream()
-                            .filter(matcher)
-                            .collect(Collectors.toList());
+                        .filter(matcher)
+                        .collect(Collectors.toList());
                     if (!matches.isEmpty()) {
                         folderInfo.removeAll(matches, false);
                         if (((FolderIcon) child).getFolder().isOpen()) {
@@ -3560,7 +3588,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     public void updateNotificationDots(Predicate<PackageUserKey> updatedDots) {
         final PackageUserKey packageUserKey = new PackageUserKey(null, null);
         Predicate<ItemInfo> matcher = info -> !packageUserKey.updateFromItemInfo(info)
-                || updatedDots.test(packageUserKey);
+            || updatedDots.test(packageUserKey);
 
         ItemOperator op = (info, v) -> {
             if (info instanceof WorkspaceItemInfo && v instanceof BubbleTextView) {
@@ -3595,7 +3623,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      * @param matcher the matcher generated by the caller.
      */
     public void persistRemoveItemsByMatcher(Predicate<ItemInfo> matcher,
-            @Nullable final String reason) {
+                                            @Nullable final String reason) {
         mLauncher.getModelWriter().deleteItemsFromDatabase(matcher, reason);
         removeItemsByMatcher(matcher);
     }
@@ -3603,7 +3631,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     public void widgetsRestored(final ArrayList<LauncherAppWidgetInfo> changedInfo) {
         if (!changedInfo.isEmpty()) {
             DeferredWidgetRefresh widgetRefresh = new DeferredWidgetRefresh(changedInfo,
-                    mLauncher.getAppWidgetHolder());
+                mLauncher.getAppWidgetHolder());
 
             LauncherAppWidgetInfo item = changedInfo.get(0);
             final AppWidgetProviderInfo widgetInfo;
@@ -3624,7 +3652,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                     @Override
                     public boolean evaluate(ItemInfo info, View view) {
                         if (view instanceof PendingAppWidgetHostView
-                                && changedInfo.contains(info)) {
+                            && changedInfo.contains(info)) {
                             ((LauncherAppWidgetInfo) info).installProgress = 100;
                             ((PendingAppWidgetHostView) view).applyState();
                         }
@@ -3664,23 +3692,23 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
      */
     public void setPivotToScaleWithSelf(View sibling) {
         sibling.setPivotY(getPivotY() + getTop()
-                - sibling.getTop() - sibling.getTranslationY());
+            - sibling.getTop() - sibling.getTranslationY());
         sibling.setPivotX(getPivotX() + getLeft()
-                - sibling.getLeft() - sibling.getTranslationX());
+            - sibling.getLeft() - sibling.getTranslationX());
     }
 
     @Override
     public int getExpectedHeight() {
         return getMeasuredHeight() <= 0 || !mIsLayoutValid
-                ? mLauncher.getDeviceProfile().heightPx
-                : getMeasuredHeight();
+            ? mLauncher.getDeviceProfile().heightPx
+            : getMeasuredHeight();
     }
 
     @Override
     public int getExpectedWidth() {
         return getMeasuredWidth() <= 0 || !mIsLayoutValid
-                ? mLauncher.getDeviceProfile().widthPx
-                : getMeasuredWidth();
+            ? mLauncher.getDeviceProfile().widthPx
+            : getMeasuredWidth();
     }
 
     @Override
@@ -3748,7 +3776,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         private boolean mRefreshPending;
 
         DeferredWidgetRefresh(ArrayList<LauncherAppWidgetInfo> infos,
-                LauncherWidgetHolder holder) {
+                              LauncherWidgetHolder holder) {
             mInfos = infos;
             mWidgetHolder = holder;
             mHandler = mLauncher.mHandler;
@@ -3793,7 +3821,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     }
 
     private class StateTransitionListener extends AnimatorListenerAdapter
-            implements AnimatorUpdateListener {
+        implements AnimatorUpdateListener {
 
         @Override
         public void onAnimationUpdate(ValueAnimator anim) {

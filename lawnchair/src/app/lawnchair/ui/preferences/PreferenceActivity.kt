@@ -32,6 +32,7 @@ class PreferenceActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isUserOnThis = true
         enableEdgeToEdge()
         setContent {
             val windowSizeClass = calculateWindowSizeClass(this)
@@ -44,8 +45,28 @@ class PreferenceActivity : ComponentActivity() {
         }
     }
 
-    companion object {
+    override fun onStart() {
+        super.onStart()
+        isUserOnThis = true
+    }
 
+    override fun onResume() {
+        super.onResume()
+        isUserOnThis = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isUserOnThis = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isUserOnThis = false
+    }
+
+    companion object {
+        var isUserOnThis: Boolean = false
         fun createIntent(context: Context, destination: String): Intent {
             val uri = "android-app://androidx.navigation/$destination".toUri()
             return Intent(Intent.ACTION_VIEW, uri, context, PreferenceActivity::class.java)

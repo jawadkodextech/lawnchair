@@ -44,7 +44,6 @@ import app.lawnchair.ui.preferences.components.layout.ClickableIcon
 import app.lawnchair.ui.preferences.components.layout.PreferenceDivider
 import app.lawnchair.ui.preferences.components.layout.PreferenceLayout
 import app.lawnchair.ui.preferences.components.layout.PreferenceTemplate
-import app.lawnchair.ui.preferences.data.liveinfo.SyncLiveInformation
 import app.lawnchair.ui.preferences.navigation.Routes
 import app.lawnchair.ui.util.addIf
 import app.lawnchair.util.isDefaultLauncher
@@ -59,7 +58,7 @@ fun PreferencesDashboard(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    SyncLiveInformation()
+//    SyncLiveInformation()
 
     PreferenceLayout(
         label = stringResource(id = R.string.settings),
@@ -71,8 +70,8 @@ fun PreferencesDashboard(
         AnnouncementPreference()
 
         if (BuildConfig.DEBUG) {
-            PreferencesDebugWarning()
-            Spacer(modifier = Modifier.height(16.dp))
+//            PreferencesDebugWarning()
+//            Spacer(modifier = Modifier.height(16.dp))
         }
 
         if (!context.isDefaultLauncher()) {

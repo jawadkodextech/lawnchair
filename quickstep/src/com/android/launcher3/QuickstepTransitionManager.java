@@ -340,7 +340,7 @@ public class QuickstepTransitionManager implements OnDeviceProfileChangeListener
                 new RemoteAnimationAdapter(runner, duration, statusBarTransitionDelay),
                 LawnchairQuickstepCompat.getRemoteTransitionCompat().getRemoteTransition(runner.toRemoteTransition(),
                         mLauncher.getIApplicationThread(), "QuickstepLaunch"),
-                "Lawnchair");
+                "StartSafe");
 
         return new ActivityOptionsWrapper(options, onEndCallback);
     }

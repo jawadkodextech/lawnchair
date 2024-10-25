@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Qué mostrar</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Para bloquear el teléfono al realizar un gesto, y para abrir Recientes mediante un gesto, Lawnchair requiere permiso de accesibilidad. \n\nLawnchair no observa ninguna acción del usuario, aunque el privilegio de hacerlo es necesario para todos los servicios de accesibilidad. Lawnchair descarta cualquier evento enviado por el sistema. \n\nPara bloquear el teléfono, o para abrir recientes, Lawnchair utiliza el servicio de accesibilidad performGlobalAction.</string>
+    <string name="accessibility_service_description">Para bloquear el teléfono al realizar un gesto, y para abrir Recientes mediante un gesto, StartSafe requiere permiso de accesibilidad. \n\nLawnchair no observa ninguna acción del usuario, aunque el privilegio de hacerlo es necesario para todos los servicios de accesibilidad. StartSafe descarta cualquier evento enviado por el sistema. \n\nPara bloquear el teléfono, o para abrir recientes, StartSafe utiliza el servicio de accesibilidad performGlobalAction.</string>
     <string name="x_by_y"></string>
     <string name="x_and_y">%1$s y %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Para acceder a atajos y más cosas pon a Lawnchair como tu lanzador de aplicaciones predeterminado</string>
+    <string name="set_default_launcher_tip">Para acceder a atajos y más cosas pon a StartSafe como tu lanzador de aplicaciones predeterminado</string>
     <string name="notification_dots">Burbujas de notificación</string>
     <string name="show_notification_count">Mostrar el contador de notificaciones</string>
     <string name="notification_dots_color">Color del contador de notificaciones</string>
@@ -349,12 +349,12 @@
     <string name="gesture_handler_open_search">Abrir búsqueda</string>
     <string name="pick_app_for_gesture">Elegir aplicación</string>
     <string name="dt2s_admin_hint_title">Se necesitan permisos de administrador</string>
-    <string name="dt2s_admin_hint">Para usar el doble toque para apagar la pantalla, establece Lawnchair como una app de administrador de dispositivos. Pulsa en \"Abrir Configuración\", luego en \"Activar esta aplicación de administrador de dispositivos.\"</string>
+    <string name="dt2s_admin_hint">Para usar el doble toque para apagar la pantalla, establece StartSafe como una app de administrador de dispositivos. Pulsa en \"Abrir Configuración\", luego en \"Activar esta aplicación de administrador de dispositivos.\"</string>
     <string name="dt2s_admin_warning">Se desactivará el doble toque para apagar la pantalla.</string>
     <string name="d2ts_recents_a11y_hint_title">Activar el servicio de accesibilidad</string>
-    <string name="dt2s_a11y_hint">Para utilizar el doble toque para apagar pantalla, Active el servicio de accesibilidad para Lawnchair. Presione \"abrir ajustes\", Seleccione \"Lawnchair\" y active \"Usar Lawnchair\". \n\nLawnchair utiliza el método de Accesibilidad para realizar esta acción. Este es un permiso sensible que permite supervisar otras apps. Sin embargo, Lawnchair no está configurada para esa funcionalidad y no recibe eventos.</string>
+    <string name="dt2s_a11y_hint">Para utilizar el doble toque para apagar pantalla, Active el servicio de accesibilidad para Lawnchair. Presione \"abrir ajustes\", Seleccione \"Lawnchair\" y active \"Usar Lawnchair\". \n\nLawnchair utiliza el método de Accesibilidad para realizar esta acción. Este es un permiso sensible que permite supervisar otras apps. Sin embargo, StartSafe no está configurada para esa funcionalidad y no recibe eventos.</string>
     <string name="dt2s_recents_warning_open_settings">Abrir ajustes</string>
-    <string name="recents_a11y_hint">Para utilizar el doble toque para apagar pantalla, Active el servicio de accesibilidad para Lawnchair. Presione \"abrir ajustes\", Seleccione \"Lawnchair\" y active \"Usar Lawnchair\". \n\nLawnchair utiliza el método de Accesibilidad para realizar esta acción. Este es un permiso sensible que permite supervisar otras apps. Sin embargo, Lawnchair no está configurada para esa funcionalidad y no recibe eventos.</string>
+    <string name="recents_a11y_hint">Para utilizar el doble toque para apagar pantalla, Active el servicio de accesibilidad para Lawnchair. Presione \"abrir ajustes\", Seleccione \"Lawnchair\" y active \"Usar Lawnchair\". \n\nLawnchair utiliza el método de Accesibilidad para realizar esta acción. Este es un permiso sensible que permite supervisar otras apps. Sin embargo, StartSafe no está configurada para esa funcionalidad y no recibe eventos.</string>
     <!--
 
     Bug reporting
@@ -430,7 +430,7 @@
     <string name="hotseat_bottom_space_label">Relleno inferior</string>
     <!-- Search providers -->
     <string name="search_provider_app_search">Búsqueda de aplicaciones</string>
-    <string name="search_provider_sponsored_description">%1$s y Lawnchair tienen un acuerdo de reparto de ingresos.\n\nPor lo que al buscar con %1$s nos ayudas económicamente.</string>
+    <string name="search_provider_sponsored_description">%1$s y StartSafe tienen un acuerdo de reparto de ingresos.\n\nPor lo que al buscar con %1$s nos ayudas económicamente.</string>
     <string name="app_label">Aplicación</string>
     <string name="website_label">Página web</string>
     <string name="qsb_search_provider_app_required">Aplicación necesaria</string>
@@ -462,7 +462,7 @@
     <string name="max_folder_columns">Columnas en carpeta</string>
     <string name="max_folder_rows">Filas en carpeta</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Estos ajustes se ignorarán porque Lawnchair no está configurado como el proveedor de aplicaciones recientes</string>
+    <string name="quickswitch_ignored_warning">Estos ajustes se ignorarán porque StartSafe no está configurado como el proveedor de aplicaciones recientes</string>
     <string name="quickstep_incompatible">La integración del sistema es incompatible</string>
     <string name="quickstep_incompatible_description">Tu dispositivo está configurado para tener gestos del sistema (conocidos como Quickstep) proporcionados por %1$s, pero esta versión de %1$s no es compatible con tu versión de Android. Para poder seguir usándolo desinstala las actualizaciones de %1$s o inhabilita a %1$s como proveedor de gestos del sistema.</string>
     <string name="translucent_background">Fondo translúcido</string>
@@ -535,8 +535,8 @@
     <string name="max_suggestion_result_count_title">Cantidad de sugerencias</string>
     <string name="max_web_suggestion_delay">Tiempo de espera de resultados</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Para buscar contactos tienes que otorgar a Lawnchair los permisos de ver contactos y teléfono</string>
-    <string name="warn_files_permission_content">Para buscar en tus archivos tienes que otorgar a Lawnchair el permiso para leer el almacenamiento</string>
+    <string name="warn_contact_permission_content">Para buscar contactos tienes que otorgar a StartSafe los permisos de ver contactos y teléfono</string>
+    <string name="warn_files_permission_content">Para buscar en tus archivos tienes que otorgar a StartSafe el permiso para leer el almacenamiento</string>
     <string name="grant_requested_permissions">Conceder permisos</string>
     <string name="allapps_web_suggestion_provider_label">Proveedor de sugerencias web</string>
     <string name="allapps_use_web_suggestion_icon_label">Mostrar icono del proveedor de sugerencias en la barra de búsqueda</string>

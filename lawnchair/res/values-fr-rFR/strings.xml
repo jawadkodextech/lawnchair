@@ -71,7 +71,7 @@
     <!-- Miscellaneous -->
     <string name="what_to_show">Informations à afficher</string>
     <!-- A11y description -->
-    <string name="accessibility_service_description">Pour pouvoir verrouiller votre téléphone et ouvrir Récents en un seul geste, Lawnchair a besoin des droits d\'accessibilité.\n\nLawnchair n\'observe aucune action utilisateur, mais ce privilège est accordé à tous les services d\'accessibilité. Lawnchair rejette tout événement envoyé par le système.\n\nAfin de verrouiller votre téléphone ou ouvrir Récents, Lawnchair utilise le service d\'accessibilité performGlobalAction.</string>
+    <string name="accessibility_service_description">Pour pouvoir verrouiller votre téléphone et ouvrir Récents en un seul geste, StartSafe a besoin des droits d\'accessibilité.\n\nLawnchair n\'observe aucune action utilisateur, mais ce privilège est accordé à tous les services d\'accessibilité. StartSafe rejette tout événement envoyé par le système.\n\nAfin de verrouiller votre téléphone ou ouvrir Récents, StartSafe utilise le service d\'accessibilité performGlobalAction.</string>
     <string name="x_by_y">%1$d x %2$d</string>
     <string name="x_and_y">%1$s et %2$s</string>
     <!--
@@ -116,7 +116,7 @@
     Notifications
 
     -->
-    <string name="set_default_launcher_tip">Pour pouvoir accéder aux raccourcis et à des fonctionnalités supplémentaires, définissez Lawnchair en tant que lanceur d\'applications par défaut.</string>
+    <string name="set_default_launcher_tip">Pour pouvoir accéder aux raccourcis et à des fonctionnalités supplémentaires, définissez StartSafe en tant que lanceur d\'applications par défaut.</string>
     <string name="notification_dots">Pastilles de notification</string>
     <string name="show_notification_count">Afficher le compteur de notifications</string>
     <string name="notification_dots_color">Couleur des pastilles de notification</string>
@@ -348,12 +348,12 @@
     <string name="gesture_handler_open_search">Ouvrir la recherche</string>
     <string name="pick_app_for_gesture">Sélectionnez une application</string>
     <string name="dt2s_admin_hint_title">Autorisations d\'administration requises</string>
-    <string name="dt2s_admin_hint">Pour mettre en veille votre appareil à l\'aide d\'un double appui, définissez Lawnchair comme application d\'administration de l\'appareil. Appuyez sur « Ouvrir les paramètres » puis appuyez sur « Activer l\'appli d\'administration de cet appareil. »</string>
+    <string name="dt2s_admin_hint">Pour mettre en veille votre appareil à l\'aide d\'un double appui, définissez StartSafe comme application d\'administration de l\'appareil. Appuyez sur « Ouvrir les paramètres » puis appuyez sur « Activer l\'appli d\'administration de cet appareil. »</string>
     <string name="dt2s_admin_warning">Vous ne pourrez plus mettre en veille votre appareil à l\'aide d\'un double appui.</string>
     <string name="d2ts_recents_a11y_hint_title">Activez le service d\'accessibilité</string>
-    <string name="dt2s_a11y_hint">Pour mettre en veille votre appareil avec un double appui, activez le service d\'accessibilité Lawnchair. Appuyez sur « Ouvrir les paramètres », sélectionnez « Lawnchair » et activez « Utiliser Lawnchair ».\n\nLawnchair utilise la méthode d\'Accessibility `performGlobalAction`. Il s\'agit d\'une autorisation sensible qui permet de suivre le comportement des autres applications, mais Lawnchair n\'est pas configuré pour utiliser ces fonctionnalités et ne reçoit aucun événement.</string>
+    <string name="dt2s_a11y_hint">Pour mettre en veille votre appareil avec un double appui, activez le service d\'accessibilité Lawnchair. Appuyez sur « Ouvrir les paramètres », sélectionnez « Lawnchair » et activez « Utiliser Lawnchair ».\n\nLawnchair utilise la méthode d\'Accessibility `performGlobalAction`. Il s\'agit d\'une autorisation sensible qui permet de suivre le comportement des autres applications, mais StartSafe n\'est pas configuré pour utiliser ces fonctionnalités et ne reçoit aucun événement.</string>
     <string name="dt2s_recents_warning_open_settings">Ouvrir les paramètres</string>
-    <string name="recents_a11y_hint">Pour utiliser Ouvrir Récents, activez le service d\'accessibilité Lawnchair. Appuyez sur « Ouvrir les paramètres », sélectionnez « Lawnchair » et activez « Utiliser Lawnchair ».\n\nLawnchair utilise la méthode d\'Accessibility `performGlobalAction`. Il s\'agit d\'une autorisation sensible qui permet de suivre le comportement des autres applications, mais Lawnchair n\'est pas configuré pour utiliser ces fonctionnalités et ne reçoit aucun événement.</string>
+    <string name="recents_a11y_hint">Pour utiliser Ouvrir Récents, activez le service d\'accessibilité Lawnchair. Appuyez sur « Ouvrir les paramètres », sélectionnez « Lawnchair » et activez « Utiliser Lawnchair ».\n\nLawnchair utilise la méthode d\'Accessibility `performGlobalAction`. Il s\'agit d\'une autorisation sensible qui permet de suivre le comportement des autres applications, mais StartSafe n\'est pas configuré pour utiliser ces fonctionnalités et ne reçoit aucun événement.</string>
     <!--
 
     Bug reporting
@@ -461,7 +461,7 @@
     <string name="max_folder_columns">Nombre maximal de colonnes dans les dossiers</string>
     <string name="max_folder_rows">Nombre maximal de lignes dans les dossiers</string>
     <!-- Quickstep settings -->
-    <string name="quickswitch_ignored_warning">Ces paramètres seront ignorés car Lawnchair n\'est pas défini comme fournisseur de Récents</string>
+    <string name="quickswitch_ignored_warning">Ces paramètres seront ignorés car StartSafe n\'est pas défini comme fournisseur de Récents</string>
     <string name="quickstep_incompatible">Intégration système incompatible</string>
     <string name="quickstep_incompatible_description">Votre appareil est configuré pour que la navigation par gestes (appelée Quickstep) soit fournie par %1$s, mais la version installée n\'est pas compatible avec votre version d\'Android. Pour continuer à utiliser votre appareil, désinstallez les mises à jour de %1$s ou désactivez-le en tant que fournisseur système de navigation par gestes.</string>
     <string name="translucent_background">Arrière-plan translucide</string>
@@ -534,8 +534,8 @@
     <string name="max_suggestion_result_count_title">Nombre maximal de suggestions</string>
     <string name="max_web_suggestion_delay">Délai maximal des suggestions Web</string>
     <!-- Permission warnings -->
-    <string name="warn_contact_permission_content">Pour rechercher des contacts, accordez à Lawnchair les autorisations Contacts et Téléphone.</string>
-    <string name="warn_files_permission_content">Pour rechercher des fichiers, autorisez Lawnchair à accéder au stockage.</string>
+    <string name="warn_contact_permission_content">Pour rechercher des contacts, accordez à StartSafe les autorisations Contacts et Téléphone.</string>
+    <string name="warn_files_permission_content">Pour rechercher des fichiers, autorisez StartSafe à accéder au stockage.</string>
     <string name="grant_requested_permissions">Accorder les autorisations</string>
     <string name="allapps_web_suggestion_provider_label">Fournisseur de suggestions Web</string>
     <string name="allapps_use_web_suggestion_icon_label">Afficher l\'icône du fournisseur de suggestions Web dans la barre de recherche</string>
