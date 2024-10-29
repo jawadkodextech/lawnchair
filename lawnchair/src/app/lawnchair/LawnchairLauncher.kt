@@ -26,6 +26,7 @@ import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.net.Uri
@@ -44,6 +45,8 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
@@ -215,6 +218,14 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
     val gestureController by unsafeLazy { GestureController(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (!Utilities.ATLEAST_Q) {
+            enableEdgeToEdge(
+                navigationBarStyle = SystemBarStyle.auto(
+                    Color.TRANSPARENT,
+                    Color.TRANSPARENT,
+                ),
+            )
+        }
         layoutInflater.factory2 = LawnchairLayoutFactory(this)
         super.onCreate(savedInstanceState)
 

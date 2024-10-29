@@ -429,6 +429,7 @@ dependencies {
     implementation 'sh.calvin.reorderable:reorderable:2.3.3'
     implementation("com.android.installreferrer:installreferrer:2.2")
     implementation 'com.mixpanel.android:mixpanel-android:7.+'
+    implementation 'sh.calvin.reorderable:reorderable:2.4.0'
     // Smartspacer
     implementation('com.kieronquinn.smartspacer:sdk-client:1.0.11') {
         exclude group: "com.github.skydoves", module: "balloon"
