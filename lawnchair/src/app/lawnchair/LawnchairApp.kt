@@ -62,6 +62,9 @@ import org.json.JSONObject
 
 
 class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerRequestListener {
+
+    private val prefs by unsafeLazy { PreferenceManager.getInstance(this) }
+
     private val compatible =
         Build.VERSION.SDK_INT in BuildConfig.QUICKSTEP_MIN_SDK..BuildConfig.QUICKSTEP_MAX_SDK
     private val isRecentsComponent: Boolean by unsafeLazy { checkRecentsComponent() }
@@ -77,7 +80,8 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         )
     }
     var jSOnEvent = JSONObject()
-//    appname
+
+    //    appname
 //    apppackage
     private lateinit var referrerClient: InstallReferrerClient
 
@@ -85,9 +89,9 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         super.onCreate()
         instance = this
         QuickStepContract.sRecentsDisabled = !recentsEnabled
-        jSOnEvent.put("appname",getString(R.string.derived_app_name))
-        jSOnEvent.put("apppackage",packageName)
-        Log.d(TAG,"Jevent ${jSOnEvent}")
+        jSOnEvent.put("appname", getString(R.string.derived_app_name))
+        jSOnEvent.put("apppackage", packageName)
+        Log.d(TAG, "Jevent ${jSOnEvent}")
 //bf79d626201c31224e3756be218724db mixpanel
         val item = AppsFlyerLib.getInstance()
 //        item.setDebugLog(true)
@@ -101,42 +105,49 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         mp?.identify(androidId, true);
 
         referrerClient = InstallReferrerClient.newBuilder(this).build()
-        referrerClient.startConnection(object : InstallReferrerStateListener {
+        referrerClient.startConnection(
+            object : InstallReferrerStateListener {
 
-            override fun onInstallReferrerSetupFinished(responseCode: Int) {
-                when (responseCode) {
-                    InstallReferrerClient.InstallReferrerResponse.OK -> {
-                        // Connection established.
-                        val response: ReferrerDetails = referrerClient.installReferrer
-                        val referrerUrl: String = response.installReferrer
-                        val referrerClickTime: Long = response.referrerClickTimestampSeconds
-                        val appInstallTime: Long = response.installBeginTimestampSeconds
-                        val instantExperienceLaunched: Boolean = response.googlePlayInstantParam
-                        val props = LawnchairApp.instance.jSOnEvent//JSONObject()
-                        props.put("referrerUrl", referrerUrl)
-                        props.put("referrerClickTime", referrerClickTime)
-                        props.put("appInstallTime", appInstallTime)
-                        props.put("instantExperienceLaunched", instantExperienceLaunched)
-                        Log.d(TAG,"Refre $props")
-                        LawnchairApp.instance?.mp?.track("appInstall", props)
-                        referrerClient.endConnection()
-                    }
-                    InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
-                        // API not available on the current Play Store app.
-                        Log.d(TAG,"Refre Not Supported")
-                    }
-                    InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
-                        // Connection couldn't be established.
-                        Log.d(TAG,"Refre Not SERVICE_UNAVAILABLE")
+                override fun onInstallReferrerSetupFinished(responseCode: Int) {
+                    when (responseCode) {
+                        InstallReferrerClient.InstallReferrerResponse.OK -> {
+                            // Connection established.
+                            val response: ReferrerDetails = referrerClient.installReferrer
+                            val referrerUrl: String = response.installReferrer
+                            val referrerClickTime: Long = response.referrerClickTimestampSeconds
+                            val appInstallTime: Long = response.installBeginTimestampSeconds
+                            val instantExperienceLaunched: Boolean = response.googlePlayInstantParam
+                            val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                            props.put("referrerUrl", referrerUrl)
+                            props.put("referrerClickTime", referrerClickTime)
+                            props.put("appInstallTime", appInstallTime)
+                            props.put("instantExperienceLaunched", instantExperienceLaunched)
+                            Log.d(TAG, "Refre $props")
+                            if (prefs.firstInstall.get() < 1) {
+                                prefs.firstInstall.set(1)
+                                LawnchairApp.instance?.mp?.track("appInstall", props)
+                            }
+                            referrerClient.endConnection()
+                        }
+
+                        InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
+                            // API not available on the current Play Store app.
+                            Log.d(TAG, "Refre Not Supported")
+                        }
+
+                        InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
+                            // Connection couldn't be established.
+                            Log.d(TAG, "Refre Not SERVICE_UNAVAILABLE")
+                        }
                     }
                 }
-            }
 
-            override fun onInstallReferrerServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
-        })
+                override fun onInstallReferrerServiceDisconnected() {
+                    // Try to restart the connection on the next request to
+                    // Google Play by calling the startConnection() method.
+                }
+            },
+        )
 
 
     }

@@ -295,7 +295,7 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
 
 fun openURLInBrowser(context: Context, url: String?, sourceBounds: Rect?, options: Bundle?) {
     val props = LawnchairApp.instance.jSOnEvent//JSONObject()
-    props.put("properties_query_search", url)
+//    props.put("properties_query_search", url)
     props.put("searchsource", "custom_search_screen")
     LawnchairApp.instance?.mp?.track("Search", props)
     LawnchairApp.instance?.mp?.flush()

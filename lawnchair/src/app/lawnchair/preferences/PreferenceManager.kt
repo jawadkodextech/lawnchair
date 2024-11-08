@@ -106,6 +106,7 @@ class PreferenceManager private constructor(private val context: Context) :
     val wallpaperBlur = IntPref("pref_wallpaperBlur", 25, recreate)
     val wallpaperBlurFactorThreshold = IntPref("pref_wallpaperBlurFactor", 25, recreate)
     var counterToDisplayNo = IntPref("counterToDisplayNo", 0, recreate)
+    var firstInstall = IntPref("firstInstall", 0, recreate)
     val recentsActionScreenshot = BoolPref("pref_recentsActionScreenshot", !isOnePlusStock)
     val recentsActionShare = BoolPref("pref_recentsActionShare", isOnePlusStock)
     val recentsActionLens = BoolPref("pref_recentsActionLens", true)

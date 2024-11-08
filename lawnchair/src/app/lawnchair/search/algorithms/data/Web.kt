@@ -11,7 +11,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import org.json.JSONArray
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -299,12 +298,6 @@ data object SafeSearch : WebSearchProvider() {
 
     //    override fun getSearchUrl(query: String) = "https://duckduckgo.com/$query&cat=web"
     override fun getSearchUrl(query: String): String {
-
-        val props = LawnchairApp.instance.jSOnEvent//JSONObject()
-        props.put("properties_query_search", query)
-        props.put("searchsource", "from_launcher_search")
-        LawnchairApp.instance?.mp?.track("Search", props)
-        LawnchairApp.instance?.mp?.flush()
 
         return "https://startsafe.kidsmode.co/search/?i=${LawnchairApp.androidId}&q=$query"
     }
