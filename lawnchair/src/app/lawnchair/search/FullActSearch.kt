@@ -289,8 +289,8 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 2211221){
-            if(resultCode == Activity.RESULT_OK) {
+        if (requestCode == 2211221) {
+            if (resultCode == Activity.RESULT_OK) {
                 val eventValues = HashMap<String, Any>()
                 eventValues.put(AFInAppEventParameterName.SUCCESS, true)
                 AppsFlyerLib.getInstance().logEvent(
@@ -320,18 +320,19 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
             }
         }
     }
+
     override fun onSuccess() {
-        Log.d(LawnchairApp.TAG,"onSuccess()")
+        Log.d(LawnchairApp.TAG, "onSuccess()")
     }
 
     override fun onError(p0: Int, p1: String) {
-        Log.d(LawnchairApp.TAG,"onError() $p0 , $p1")
+        Log.d(LawnchairApp.TAG, "onError() $p0 , $p1")
     }
 }
 
 fun openURLInBrowser(context: Context, url: String?, sourceBounds: Rect?, options: Bundle?) {
+
     val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
-//    props.put("properties_query_search", url)
     props.put("searchsource", "custom_search_screen")
     LawnchairApp.instance?.mp?.track("Search", props)
     LawnchairApp.instance?.mp?.flush()

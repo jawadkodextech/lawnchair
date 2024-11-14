@@ -62,9 +62,6 @@ import org.json.JSONObject
 
 
 class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerRequestListener {
-
-    private val prefs by unsafeLazy { PreferenceManager.getInstance(this) }
-
     private val compatible =
         Build.VERSION.SDK_INT in BuildConfig.QUICKSTEP_MIN_SDK..BuildConfig.QUICKSTEP_MAX_SDK
     private val isRecentsComponent: Boolean by unsafeLazy { checkRecentsComponent() }
@@ -89,6 +86,7 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         super.onCreate()
         instance = this
         QuickStepContract.sRecentsDisabled = !recentsEnabled
+
         jSOnEvent.put("appname", getString(R.string.derived_app_name))
         jSOnEvent.put("apppackage", packageName)
         jSOnEvent.put("deviceid", androidId)
@@ -124,10 +122,10 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
                             props.put("appInstallTime", appInstallTime)
                             props.put("instantExperienceLaunched", instantExperienceLaunched)
                             Log.d(TAG, "Refre $props")
-                            if (prefs.firstInstall.get() < 1) {
-                                prefs.firstInstall.set(2)
-                                LawnchairApp.instance?.mp?.track("appInstall", props)
-                            }
+//                            if (prefs.firstInstall.get() < 1) {
+//                                prefs.firstInstall.set(2)
+//                                LawnchairApp.instance?.mp?.track("appInstall", props)
+//                            }
                             referrerClient.endConnection()
                         }
 
@@ -142,6 +140,7 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
                         }
                     }
                 }
+
 
                 override fun onInstallReferrerServiceDisconnected() {
                     // Try to restart the connection on the next request to
