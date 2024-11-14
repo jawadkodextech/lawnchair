@@ -36,8 +36,6 @@ import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewTreeObserver
-import androidx.activity.SystemBarStyle
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -609,7 +607,7 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
         if (isDefaultLauncher() || Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             resetLauncherViaFakeActivity()
         } else {
-            showLauncherSelector(resultLauncher)
+            showLauncherSelector()//(resultLauncher)
         }
     }
 

@@ -62,6 +62,7 @@ import org.json.JSONObject
 
 
 class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerRequestListener {
+
     private val compatible =
         Build.VERSION.SDK_INT in BuildConfig.QUICKSTEP_MIN_SDK..BuildConfig.QUICKSTEP_MAX_SDK
     private val isRecentsComponent: Boolean by unsafeLazy { checkRecentsComponent() }
@@ -122,10 +123,11 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
                             props.put("appInstallTime", appInstallTime)
                             props.put("instantExperienceLaunched", instantExperienceLaunched)
                             Log.d(TAG, "Refre $props")
-//                            if (prefs.firstInstall.get() < 1) {
-//                                prefs.firstInstall.set(2)
-//                                LawnchairApp.instance?.mp?.track("appInstall", props)
-//                            }
+                            checkFirstInstall{ isDoEvent ->
+                                if(isDoEvent){
+                                    LawnchairApp.instance?.mp?.track("appInstall", props)
+                                }
+                            }
                             referrerClient.endConnection()
                         }
 
@@ -283,7 +285,23 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         }
     }
 
+    private fun checkFirstInstall(callBack:((Boolean) -> Unit)) {
+        val sharedPref = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val isFirstInstall = sharedPref.getBoolean(FIRST_INSTALL_KEY, true)
+        if (isFirstInstall) {
+            sharedPref.edit().putBoolean(FIRST_INSTALL_KEY, false).apply()
+            callBack.invoke(true)
+            // This is the first time the app is installed
+            // Do any first-install related tasks here (e.g., show a tutorial)
+            // Now mark that it is no longer the first install
+        }else{
+            callBack.invoke(false)
+        }
+    }
+
     companion object {
+        private const val PREF_NAME = "check_app_prefs"
+        private const val FIRST_INSTALL_KEY = "check_is_first_install"
         const val TAG = "StartSafeApp"
         val androidId: String?
             @SuppressLint("HardwareIds")

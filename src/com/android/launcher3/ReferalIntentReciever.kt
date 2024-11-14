@@ -34,8 +34,8 @@ class ReferalIntentReciever : BroadcastReceiver() {
                     splitQuery(referrerString).get("utm_campaign"),
                 )
             }
-            LawnchairApp.instance?.mp?.track("Referral Campaign", props)
-            LawnchairApp.instance?.mp?.flush()
+//            LawnchairApp.instance?.mp?.track("Referral Campaign", props)
+//            LawnchairApp.instance?.mp?.flush()
         } catch (e: Exception) {
             e.printStackTrace()
             Log.d(LawnchairApp.TAG,"Error ${e.localizedMessage} , ${e.printStackTrace()}")
