@@ -426,10 +426,16 @@ dependencies {
     implementation(libs.af.android.sdk)
     implementation(libs.installreferrer)
     // Compose drag and drop library
-    implementation 'sh.calvin.reorderable:reorderable:2.4.0'
-    implementation(libs.installreferrer)
-    implementation 'com.mixpanel.android:mixpanel-android:8.0.1'
-    implementation 'sh.calvin.reorderable:reorderable:2.4.0'
+//<<<<<<< HEAD
+//    implementation 'sh.calvin.reorderable:reorderable:2.4.0'
+//    implementation(libs.installreferrer)
+//    implementation 'com.mixpanel.android:mixpanel-android:8.0.1'
+//    implementation 'sh.calvin.reorderable:reorderable:2.4.0'
+//=======
+    implementation 'sh.calvin.reorderable:reorderable:2.3.3'
+    implementation("com.android.installreferrer:installreferrer:2.2")
+    implementation 'com.mixpanel.android:mixpanel-android:7.+'
+//>>>>>>> parent of 93151bf623 (Merge branch '14-dev' of https://github.com/jawadkodextech/lawnchair into 14-dev)
     // Smartspacer
     implementation('com.kieronquinn.smartspacer:sdk-client:1.0.11') {
         exclude group: "com.github.skydoves", module: "balloon"
@@ -455,9 +461,9 @@ spotless {
         ktlint().customRuleSets([
             "io.nlopez.compose.rules:ktlint:0.4.16",
         ]).editorConfigOverride([
-            "ktlint_compose_compositionlocal-allowlist": "disabled",
+            "ktlint_compose_compositionlocal-allowlist" : "disabled",
             "ktlint_compose_lambda-param-event-trailing": "disabled",
-            "ktlint_compose_content-slot-reused": "disabled",
+            "ktlint_compose_content-slot-reused"        : "disabled",
         ])
     }
 }
