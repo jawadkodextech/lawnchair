@@ -43,8 +43,8 @@
         android:restoreAnyVersion="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:fullBackupContent"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:fullBackupContent">
         <activity
             android:name="app.lawnchair.FakeHomeActivity"
             android:enabled="false"
@@ -59,12 +59,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <meta-data-->
-<!--            android:name="com.mixpanel.android.MPConfig.EnableDebugLogging"-->
-<!--            android:value="true" />-->
+        <meta-data
+            android:name="com.mixpanel.android.MPConfig.EnableDebugLogging"
+            android:value="true" />
         <receiver
             android:name=".ReferalIntentReciever"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>

@@ -91,6 +91,7 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
         QuickStepContract.sRecentsDisabled = !recentsEnabled
         jSOnEvent.put("appname", getString(R.string.derived_app_name))
         jSOnEvent.put("apppackage", packageName)
+        jSOnEvent.put("deviceid", androidId)
         Log.d(TAG, "Jevent ${jSOnEvent}")
 //bf79d626201c31224e3756be218724db mixpanel
         val item = AppsFlyerLib.getInstance()
@@ -117,14 +118,14 @@ class LawnchairApp : Application(), AppsFlyerConversionListener, AppsFlyerReques
                             val referrerClickTime: Long = response.referrerClickTimestampSeconds
                             val appInstallTime: Long = response.installBeginTimestampSeconds
                             val instantExperienceLaunched: Boolean = response.googlePlayInstantParam
-                            val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                            val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
                             props.put("referrerUrl", referrerUrl)
                             props.put("referrerClickTime", referrerClickTime)
                             props.put("appInstallTime", appInstallTime)
                             props.put("instantExperienceLaunched", instantExperienceLaunched)
                             Log.d(TAG, "Refre $props")
                             if (prefs.firstInstall.get() < 1) {
-                                prefs.firstInstall.set(1)
+                                prefs.firstInstall.set(2)
                                 LawnchairApp.instance?.mp?.track("appInstall", props)
                             }
                             referrerClient.endConnection()

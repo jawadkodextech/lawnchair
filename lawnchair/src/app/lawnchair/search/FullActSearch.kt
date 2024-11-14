@@ -1,5 +1,6 @@
 package app.lawnchair.search
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -52,6 +53,7 @@ import okhttp3.CacheControl
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 
 class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
     private lateinit var binding: ActivityFullScreenBinding
@@ -132,7 +134,7 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
                     this@FullScreenActivity,
                     "safestartdefault_on", eventValues, this,
                 )
-                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
                 props.put("Set Default", true)
                 LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
                 LawnchairApp.instance?.mp?.flush()
@@ -144,7 +146,7 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
                     "safestartdefault_off", eventValues, this,
                 )
 //                LawnchairApp.instance?.mp?.flush()
-                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
                 props.put("Set Default", false)
                 LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
                 LawnchairApp.instance?.mp?.flush()
@@ -254,7 +256,7 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
             finish()
         }
         if (IS_FROM_PUSH) {
-            val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+            val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
             props.put("FromPush", true)
             LawnchairApp.instance?.mp?.track("ClickSearchBar", props)
             LawnchairApp.instance?.mp?.flush()
@@ -284,6 +286,40 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
         }
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 2211221){
+            if(resultCode == Activity.RESULT_OK) {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@FullScreenActivity,
+                    "safestartdefault_on", eventValues, this,
+                )
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
+                props.put("Set Default", true)
+                LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
+                LawnchairApp.instance?.mp?.flush()
+            } else {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@FullScreenActivity,
+                    "safestartdefault_off", eventValues, this,
+                )
+//                LawnchairApp.instance?.mp?.flush()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
+                props.put("Set Default", false)
+                LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
+                LawnchairApp.instance?.mp?.flush()
+                if (checkNotificationPermission(this)) {
+                    showNotification(this)
+                }
+//                showAlert("Set as Default to continue")
+            }
+        }
+    }
     override fun onSuccess() {
         Log.d(LawnchairApp.TAG,"onSuccess()")
     }
@@ -294,7 +330,7 @@ class FullScreenActivity : ComponentActivity(), AppsFlyerRequestListener {
 }
 
 fun openURLInBrowser(context: Context, url: String?, sourceBounds: Rect?, options: Bundle?) {
-    val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+    val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
 //    props.put("properties_query_search", url)
     props.put("searchsource", "custom_search_screen")
     LawnchairApp.instance?.mp?.track("Search", props)

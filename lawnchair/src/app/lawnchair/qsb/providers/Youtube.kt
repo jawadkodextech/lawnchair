@@ -6,6 +6,7 @@ import app.lawnchair.qsb.ThemingMethod
 import app.lawnchair.search.FullScreenActivity
 import com.android.launcher3.Launcher
 import com.android.launcher3.R
+import org.json.JSONObject
 
 data object Youtube : QsbSearchProvider(
     id = "youtube",
@@ -32,7 +33,7 @@ data object Yahoo : QsbSearchProvider(
 ) {
     override suspend fun launch(launcher: Launcher, forceWebsite: Boolean) {
 
-        val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+        val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
         props.put("UserClicked", true)
         LawnchairApp.instance?.mp?.track("ClickSearchBar", props)
         LawnchairApp.instance?.mp?.flush()

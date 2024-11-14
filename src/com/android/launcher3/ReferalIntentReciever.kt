@@ -7,6 +7,7 @@ import android.util.Log
 import app.lawnchair.LawnchairApp
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
+import org.json.JSONObject
 
 
 class ReferalIntentReciever : BroadcastReceiver() {
@@ -16,7 +17,7 @@ class ReferalIntentReciever : BroadcastReceiver() {
 
         //sending to mixpanel
         try {
-            val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+            val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
             props.put(
                 "utm_source",
                 splitQuery(referrerString)

@@ -37,6 +37,8 @@ import android.util.Log
 import android.view.Display
 import android.view.View
 import android.view.ViewTreeObserver
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -45,8 +47,6 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.activity.SystemBarStyle
-import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
@@ -107,8 +107,6 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 
-
-
 class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
 
 
@@ -155,17 +153,18 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
 //    val mIntentSender = IntentSender()
 //                shortcutManager.requestPinShortcut(pinShortcutInfo, mIntentSender)
 
-                val shortcut = ShortcutInfoCompat.Builder(activity, "browser-shortcut-" + url.hashCode())
-                    .setIntent(shortcutIntent)
-                    .setIcon(favicon?.let { IconCompat.createWithBitmap(it) })
-                    .setShortLabel(title)
+                val shortcut =
+                    ShortcutInfoCompat.Builder(activity, "browser-shortcut-" + url.hashCode())
+                        .setIntent(shortcutIntent)
+                        .setIcon(favicon?.let { IconCompat.createWithBitmap(it) })
+                        .setShortLabel(title)
 //                    .setShortLabel("Website")
 //                    .setLongLabel("Open the website")
 //                    .setIntent(shortcutIntent)
 //                    .setIcon(IconCompat.createWithResource(context, R.drawable.icon_website))
 //                    .setIntent(Intent(Intent.ACTION_VIEW,
 //                        Uri.parse("https://www.mysite.example.com/")))
-                    .build()
+                        .build()
 
                 ShortcutManagerCompat.pushDynamicShortcut(activity, shortcut)
 
@@ -173,6 +172,42 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
 //                ActivityExtensions.snackbar(activity, R.string.message_added_to_homescreen)
             } else {
 //                ActivityExtensions.snackbar(activity, R.string.shortcut_message_failed_to_add)
+            }
+        }
+    }
+
+
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2211221) {
+            if (resultCode == Activity.RESULT_OK) {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@LawnchairLauncher,
+                    "safestartdefault_on", eventValues, this,
+                )
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
+                props.put("Set Default", true)
+                LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
+                LawnchairApp.instance?.mp?.flush()
+            } else {
+                val eventValues = HashMap<String, Any>()
+                eventValues.put(AFInAppEventParameterName.SUCCESS, true)
+                AppsFlyerLib.getInstance().logEvent(
+                    this@LawnchairLauncher,
+                    "safestartdefault_off", eventValues, this,
+                )
+//                LawnchairApp.instance?.mp?.flush()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
+                props.put("Set Default", false)
+                LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
+                LawnchairApp.instance?.mp?.flush()
+                if (checkNotificationPermission(this)) {
+                    showNotification(this)
+                }
+//                showAlert("Set as Default to continue")
             }
         }
     }
@@ -314,7 +349,7 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
                     this@LawnchairLauncher,
                     "safestartdefault_on", eventValues, this,
                 )
-                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
                 props.put("Set Default", true)
                 LawnchairApp.instance?.mp?.track("safestartdefault_on", props)
                 LawnchairApp.instance?.mp?.flush()
@@ -326,7 +361,7 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
                     "safestartdefault_off", eventValues, this,
                 )
 //                LawnchairApp.instance?.mp?.flush()
-                val props = LawnchairApp.instance.jSOnEvent//JSONObject()
+                val props = JSONObject(LawnchairApp.instance.jSOnEvent.toString())//()
                 props.put("Set Default", false)
                 LawnchairApp.instance?.mp?.track("safestartdefault_off", props)
                 LawnchairApp.instance?.mp?.flush()
@@ -364,7 +399,6 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
                 showNotification(this)
             }
         }
-
 
 
     }
@@ -575,7 +609,7 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
     override fun onStart() {
         super.onStart()
 //        counterToDisplayNo = prefs.counterToDisplayNo.get()
-        if(PreferenceActivity.isUserOnThis == false) {
+        if (PreferenceActivity.isUserOnThis == false) {
             showSetDefaultLauncher()
         }
     }
@@ -604,11 +638,11 @@ class LawnchairLauncher : QuickstepLauncher(), AppsFlyerRequestListener {
     }
 
     override fun onSuccess() {
-        Log.d(TAG,"onSuccess()")
+        Log.d(TAG, "onSuccess()")
     }
 
     override fun onError(p0: Int, p1: String) {
-        Log.d(TAG,"onError() $p0 , $p1")
+        Log.d(TAG, "onError() $p0 , $p1")
     }
 }
 
